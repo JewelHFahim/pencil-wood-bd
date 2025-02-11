@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+@theme {
+  /* Colors */
+  --color-primary: #4f46e5;
+  --color-secondary: #10b981;
+  --color-danger: #ef4444;
+
+  /* Font Families */
+  --font-font-sans: "Inter", sans-serif;
+  --font-family-mono: "Fira Code", monospace;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+}
