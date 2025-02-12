@@ -10,7 +10,7 @@ const FilterSort = () => {
         </select>
       </div>
 
-      <p className="text-sm italic"> 0 products</p>
+      <p className="text-sm italic"> 299 products</p>
     </div>
   );
 };

@@ -13,10 +13,10 @@ const Navbar = () => {
   };
 
   const navigation = [
-    { title: "Home", path: "javascript:void(0)" },
-    { title: "About", path: "javascript:void(0)" },
-    { title: "Contact", path: "javascript:void(0)" },
-    { title: "Porducts", path: "javascript:void(0)" },
+    { title: "Home", path: "" },
+    { title: "About", path: "" },
+    { title: "Contact", path: "" },
+    { title: "Porducts", path: "" },
   ];
 
   return (
@@ -37,7 +37,7 @@ const Navbar = () => {
             {navigation.map((item, idx) => {
               return (
                 <li key={idx} className="text-gray-600 hover:text-indigo-600">
-                  <a href={item.path}>{item.title}</a>
+                  <Link to="/">{item.title}</Link>
                 </li>
               );
             })}
@@ -53,13 +53,13 @@ const Navbar = () => {
             </div>
 
             <div className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out">
-              <Link to="/account" className="text-[22px] md:text-xl">
+              <Link to="" className="text-[22px] md:text-xl">
                 <FaRegUser />
               </Link>
             </div>
 
             <div className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out relative cursor-pointer">
-              <Link to="/cart" className="text-2xl md:text-xl">
+              <Link to="" className="text-2xl md:text-xl">
                 <RiShoppingBagLine />
               </Link>
 

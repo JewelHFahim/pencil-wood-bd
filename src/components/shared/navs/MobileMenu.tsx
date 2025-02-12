@@ -12,14 +12,13 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
-
   const navigation = [
-    { title: "Home", path: "javascript:void(0)" },
-    { title: "About", path: "javascript:void(0)" },
-    { title: "Contact", path: "javascript:void(0)" },
-    { title: "Porducts", path: "javascript:void(0)" },
+    { title: "Home", path: "" },
+    { title: "About", path: "" },
+    { title: "Contact", path: "" },
+    { title: "Porducts", path: "" },
   ];
-  
+
   //   const filteredNavigation =
   //   user?.user_info?.type === 1 ? navigation : navigation.filter((item) => item.type !== 1);
   //   const handleLogout = async () => {
@@ -75,7 +74,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
                 </div>
                 <div>
                   <span className="block text-gray-400 text-sm font-semibold">
-                    Jewel
+                    Jhon Snow
                   </span>
                   <span className="block mt-px text-gray-500 text-xs">
                     Financial Assitant
