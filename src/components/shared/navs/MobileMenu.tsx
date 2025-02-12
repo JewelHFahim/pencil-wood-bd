@@ -3,10 +3,15 @@ import { VscLayoutSidebarRight } from "react-icons/vsc";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import { BiLogOutCircle } from "react-icons/bi";
-import { Link, useLocation } from "react-router";
+import { Link } from "react-router";
+import { FC } from "react";
 
-const MobileMenu = ({ isOpen, toggleDrawer }) => {
-  const { pathname } = useLocation();
+interface MobileMenuProps {
+  isOpen: boolean;
+  toggleDrawer: () => void;
+}
+
+const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
 
   const navigation = [
     { title: "Home", path: "javascript:void(0)" },
@@ -14,6 +19,7 @@ const MobileMenu = ({ isOpen, toggleDrawer }) => {
     { title: "Contact", path: "javascript:void(0)" },
     { title: "Porducts", path: "javascript:void(0)" },
   ];
+  
   //   const filteredNavigation =
   //   user?.user_info?.type === 1 ? navigation : navigation.filter((item) => item.type !== 1);
   //   const handleLogout = async () => {

@@ -6,7 +6,9 @@ const App = () => {
   return (
     <div>
       <NavContainer />
-      <Outlet />
+      <div className="sm:w-full md:w-[85vw] lg:w-[80vw] xl:w-[70vw] mx-auto px-4 md:px-0">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

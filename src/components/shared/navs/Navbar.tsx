@@ -44,7 +44,7 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* <div className="w-max">
+        <div className="w-max">
           <div className="flex justify-end items-center gap-5 text-gray-600">
             <div className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out">
               <button className="text-2xl md:text-xl">
@@ -68,7 +68,7 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
 
         <div className="block md:hidden">
           <MobileMenu toggleDrawer={toggleDrawer} isOpen={isOpen} />
