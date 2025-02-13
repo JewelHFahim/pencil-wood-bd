@@ -6,7 +6,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 export default function MainSlider() {
   return (
-    <div className="my-4 overflow-hidden">
+    <div className="my-4  overflow-hidden">
       <Swiper
         spaceBetween={30}
         loop={true}
@@ -20,7 +20,7 @@ export default function MainSlider() {
         }}
         navigation={true}
         modules={[Autoplay, Navigation, Pagination]}
-        className="relative my-auto h-[250px]"
+        className="relative my-auto h-[150px] md:h-[250px]"
       >
         <SwiperSlide>
           <img

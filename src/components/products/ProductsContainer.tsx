@@ -1,26 +1,93 @@
+import { BiSearch } from "react-icons/bi";
 import Loader from "../../utils/loader/Loader";
 import FilterSort from "./FilterSort";
 import ProductCard from "./ProductCard";
+import { IoIosArrowDown } from "react-icons/io";
+import { useState } from "react";
 
 const ProductsContainer = () => {
+  const [isOpenType, setIsOpenType] = useState(false);
+  const [isOpenPrice, setIsOpenPrice] = useState(false);
   const isLoading = false;
 
   return (
-    <div className="w-full">
-      <FilterSort />
+    <div className="w-full flex gap-5">
+      <div className="hidden md:block w-[260px] mt-1">
+        <div className="text-gray-700 flex flex-col gap-4">
+          {/* Type */}
+          <div className="border-b border-gray-300 pb-3 cursor-pointer h-max">
+            <button
+              onClick={() => setIsOpenType(!isOpenType)}
+              className="w-full flex items-center gap-1 uppercase text-sm font-semibold pt-1 cursor-pointer"
+            >
+              <IoIosArrowDown /> Product Type
+            </button>
 
-      {isLoading ? (
-        <div className="w-full flex justify-center items-center h-[50vh]">
-          <Loader />
-        </div>
-      ) : (
-        <div className="mt-5 w-full grid grid-cols-2 md:grid-cols-3 justify-between items-center gap-x-5 gap-y-8">
-          {[...Array(9)].map((_, idx) => (
-            <ProductCard key={idx} />
-          ))}
-        </div>
-      )}
+            {isOpenType && (
+              <div className="w-full h-[250px] overflow-y-auto flex flex-col gap-1.5 mt-2">
+                {[...Array(15)].map(() => (
+                  <div className="flex items-center gap-1.5 text-gray-800 hover:text-gray-900">
+                    <input type="checkbox" className="w-[14px] h-[14px]" />
+                    <p className="text-[15px]">
+                      Baby Boys Bomber
+                      <span className="text-gray-400">(5)</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
+          {/* Price */}
+          <div className="border-b border-gray-300 pb-3 cursor-pointer h-max-[200px] overflow-y-auto">
+            <button
+              onClick={() => setIsOpenPrice(!isOpenPrice)}
+              className="w-full flex items-center gap-1 uppercase text-sm font-semibold pt-1 cursor-pointer"
+            >
+              <IoIosArrowDown /> Price
+            </button>
+
+            {isOpenPrice && (
+              <div className="w-full flex flex-col gap-1.5 mt-2">
+                {[...Array(10)].map(() => (
+                  <div className="flex items-center gap-1.5 text-gray-800 hover:text-gray-900">
+                    <input type="checkbox" className="w-[14px] h-[14px]" />
+                    <p className="text-[15px]">
+                      Baby Boys Bomber
+                      <span className="text-gray-400">(5)</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div className="flex items-center gap-1 border border-primary px-2">
+          <BiSearch className="h-full w-[24px] mt-1 text-gray-600" />
+          <input
+            type="text"
+            className="w-full h-[40px] px-3 text-primary placeholder:text-primary focus:outline-none"
+            placeholder="Search products"
+          />
+        </div>
+
+        <FilterSort />
+
+        {isLoading ? (
+          <div className="w-full flex justify-center items-center h-[50vh]">
+            <Loader />
+          </div>
+        ) : (
+          <div className="mt-5 w-full grid grid-cols-3 md:grid-cols-4 justify-between items-center gap-2 md:gap-x-5 gap-y-8">
+            {[...Array(10)].map((_, idx) => (
+              <ProductCard key={idx} />
+            ))}
+          </div>
+        )}
+      </div>
       {/* <Pagination page={page} setPage={setPage} allProducts={allProducts} /> */}
     </div>
   );
