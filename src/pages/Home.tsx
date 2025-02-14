@@ -5,7 +5,6 @@ const Home = () => {
   return (
     <div>
       <MainSlider />
-
       <ProductsContainer />
     </div>
   );

@@ -5,6 +5,7 @@ import ProductCard from "./ProductCard";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 import PriceRangeSlider from "../../utils/range-slider/PriceRangeSlider";
+import Pagination from "../../utils/Pagination";
 
 const ProductsContainer = () => {
   const [isOpenType, setIsOpenType] = useState(false);
@@ -80,8 +81,9 @@ const ProductsContainer = () => {
             ))}
           </div>
         )}
+
+        <Pagination />
       </div>
-      {/* <Pagination page={page} setPage={setPage} allProducts={allProducts} /> */}
     </div>
   );
 };

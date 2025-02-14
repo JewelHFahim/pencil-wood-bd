@@ -1,60 +1,74 @@
+import { useState } from "react";
 import Box from "@mui/joy/Box";
-import Slider, { sliderClasses } from "@mui/joy/Slider";
-
-function valueText(value: number) {
-  return `Tk${value}`;
-}
+import Slider from "@mui/joy/Slider";
+import Input from "@mui/joy/Input";
+import { GlobalStyles } from "@mui/system";
 
 export default function PriceRangeSlider() {
+  const [priceRange, setPriceRange] = useState<[number, number]>([1000, 5000]);
+
+  const handleSliderChange = (_: Event, newValue: number | number[]) => {
+    if (Array.isArray(newValue)) {
+      setPriceRange(newValue as [number, number]);
+    }
+  };
+
+  const handleInputChange = (index: number, value: string) => {
+    const newValue = Number(value);
+    if (!isNaN(newValue)) {
+      const updatedRange: [number, number] = [...priceRange];
+      updatedRange[index] = Math.min(Math.max(newValue, 1000), 5000); // Ensure within range
+      setPriceRange(updatedRange);
+    }
+  };
+
   return (
-    <Box >
+    <Box sx={{ width: "100%", padding: 1 }}>
+      {/* Global Styles to Remove Number Input Arrows */}
+      <GlobalStyles
+        styles={{
+          "input[type=number]": {
+            MozAppearance: "textfield",
+            WebkitAppearance: "none",
+            margin: 0,
+          },
+          "input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button":
+            {
+              WebkitAppearance: "none",
+              margin: 0,
+            },
+        }}
+      />
+
+      {/* Price Input Fields */}
+      <Box display="flex" justifyContent="space-left" gap={1} mb={0}>
+        <Input
+          type="number"
+          value={priceRange[0]}
+          onChange={(e) => handleInputChange(0, e.target.value)}
+          sx={{ width: 70, borderRadius: 0, fontSize: 14 }}
+        />
+        <Input
+          type="number"
+          value={priceRange[1]}
+          onChange={(e) => handleInputChange(1, e.target.value)}
+          sx={{ width: 70, borderRadius: 0, fontSize: 14, margin: 0 }}
+        />
+      </Box>
+
+      {/* Price Range Slider */}
       <Slider
-        track={false}
-        defaultValue={[0, 100]}
-        getAriaLabel={() => "Amount"}
-        getAriaValueText={valueText}
-        marks={[
-          {
-            value: 0,
-            label: "0°C",
-          },
-          {
-            value: 100,
-            label: "100°C",
-          },
-        ]}
-        valueLabelDisplay="on"
+        min={1000}
+        max={5000}
+        value={priceRange}
+        onChange={handleSliderChange}
+        // valueLabelDisplay="auto"
+        // sx={{ color: "#06b9c0" }}
         sx={{
-          // Need both of the selectors to make it works on the server-side and client-side
-          [`& [style*="left:0%"], & [style*="left: 0%"]`]: {
-            [`&.${sliderClasses.markLabel}`]: {
-              transform: "none",
-            },
-            [`& .${sliderClasses.valueLabel}`]: {
-              left: "calc(var(--Slider-thumbSize) / 2)",
-              borderBottomLeftRadius: 0,
-              "&::before": {
-                left: 0,
-                transform: "translateY(100%)",
-                borderLeftColor: "currentColor",
-              },
-            },
-          },
-          [`& [style*="left:100%"], & [style*="left: 100%"]`]: {
-            [`&.${sliderClasses.markLabel}`]: {
-              transform: "translateX(-100%)",
-            },
-            [`& .${sliderClasses.valueLabel}`]: {
-              right: "calc(var(--Slider-thumbSize) / 2)",
-              borderBottomRightRadius: 0,
-              "&::before": {
-                left: "initial",
-                right: 0,
-                transform: "translateY(100%)",
-                borderRightColor: "currentColor",
-              },
-            },
-          },
+          color: "#4f46e5", // Slider active color (thumb and track)
+          [`& .MuiSlider-track`]: { backgroundColor: "rgb(117, 117, 117)" },
+          [`& .MuiSlider-thumb`]: { backgroundColor: "#4f46e5" },
+          [`& .MuiSlider-rail`]: { backgroundColor: "#rgb(117, 117, 117)" },
         }}
       />
     </Box>
