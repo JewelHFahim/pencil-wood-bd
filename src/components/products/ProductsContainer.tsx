@@ -4,6 +4,7 @@ import FilterSort from "./FilterSort";
 import ProductCard from "./ProductCard";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
+import PriceRangeSlider from "../../utils/range-slider/PriceRangeSlider";
 
 const ProductsContainer = () => {
   const [isOpenType, setIsOpenType] = useState(false);
@@ -48,16 +49,8 @@ const ProductsContainer = () => {
             </button>
 
             {isOpenPrice && (
-              <div className="w-full flex flex-col gap-1.5 mt-2">
-                {[...Array(10)].map(() => (
-                  <div className="flex items-center gap-1.5 text-gray-800 hover:text-gray-900">
-                    <input type="checkbox" className="w-[14px] h-[14px]" />
-                    <p className="text-[15px]">
-                      Baby Boys Bomber
-                      <span className="text-gray-400">(5)</span>
-                    </p>
-                  </div>
-                ))}
+              <div className="flex flex-col gap-1.5 w-[95%] mt-5">
+                <PriceRangeSlider />
               </div>
             )}
           </div>

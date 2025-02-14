@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 export default function MainSlider() {
+  
   return (
     <div className="my-4  overflow-hidden">
       <Swiper
