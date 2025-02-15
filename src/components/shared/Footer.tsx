@@ -1,26 +1,84 @@
+import { FaInstagram } from "react-icons/fa";
+import { IoLogoFacebook, IoLogoWhatsapp } from "react-icons/io5";
 import { Link } from "react-router";
 
 const Footer = () => {
-  return (
-    <div className="mt-16 bg-primary h-[70px]">
-      <div className="sm:w-full md:w-[85vw] lg:w-[80vw] xl:w-[70vw] mx-auto w-full h-full flex flex-col-reverse md:flex-row justify-center md:justify-between items-center gap-2 text-white text-sm">
-        <p>pencilwoodbd @ all right reserve</p>
+  const footerMenus = [
+    {
+      name: "About Us",
+      path: "",
+    },
+    {
+      name: "Contact Us",
+      path: "",
+    },
+    {
+      name: "Return Policy",
+      path: "",
+    },
+    {
+      name: "Terms & Condition",
+      path: "",
+    },
+    {
+      name: "Privacy Policy",
+      path: "",
+    },
+    {
+      name: "FAQ",
+      path: "",
+    },
+  ];
 
-        <div className="flex items-center gap-5">
-          <Link
-            to=""
-            className="hover:text-teal-100 underline underline-offset-2"
-          >
-            Privacy & Policy
-          </Link>
-          |
-          <Link
-            to=""
-            className="hover:text-teal-100 underline underline-offset-2"
-          >
-            Terms & Condiotion
-          </Link>
+  const social = [
+    {
+      icon: <IoLogoFacebook />,
+      path: "",
+    },
+    {
+      icon: <FaInstagram />,
+      path: "",
+    },
+    {
+      icon: <IoLogoWhatsapp />,
+      path: "",
+    },
+  ];
+
+  return (
+    <div className="py-4 bg-primary mt-10 flex flex-col justify-center items-center">
+
+      <div className="w-[90vw] lg:w-[71vw] mx-auto md:h-1/2">
+        <ul className="flex md:justify-center items-center h-full">
+          <li className="flex flex-col md:flex-row  md:items-center gap-5 text-white text-sm md:text-base">
+            {footerMenus.map((menu, idx) => (
+              <Link
+                to={menu.path}
+                key={idx}
+                className="text-white hover:text-gray-300 transition-all duration-300 ease-in-out"
+              >
+                {menu.name}
+              </Link>
+            ))}
+          </li>
+        </ul>
+      </div>
+
+      <div className="w-full h-[1px] my-4 bg-indigo-500" />
+
+      <div className="w-[95vw] md:w-[90vw] lg:w-[71vw] mx-auto md:h-1/2 flex flex-col justify-center items-center  md:justify-evenly gap-y-4 ">
+        <div className="flex items-center gap-5 text-3xl ">
+          {social.map((item, idx) => (
+            <Link
+              to={item.path}
+              className="text-white hover:text-gray-300 transition-all duration-300 ease-in-out"
+              key={idx}
+            >
+              {item.icon}
+            </Link>
+          ))}
         </div>
+        <p className="text-xs text-white">All rights reserved © Pencilwoodbd</p>
       </div>
     </div>
   );

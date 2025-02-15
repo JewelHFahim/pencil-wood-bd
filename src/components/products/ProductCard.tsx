@@ -4,7 +4,7 @@ import "./ProductCard.css";
 const ProductCard = () => {
   return (
     <div className="ProductCard-Wrapper">
-      <Link to="">
+      <Link to="/products/1">
         <div className="w-full relative img-container overflow-hidden max-h-[350px] rounded-t-sm">
           <img
             src={`/product_2.jpg`}
@@ -16,10 +16,14 @@ const ProductCard = () => {
             alt="Product Img"
             className="w-full h-[150px] md:h-[250px] object-cover second-img transition-opacity duration-500 object-center"
           />
+
+          <div className="absolute left-0 top-0 w-max bg-primary px-4 py-[2px] text-white">Sale</div>
         </div>
 
         <div className="w-full mt-1 md:mt-0 h-max md:h-[38px] cart-btn-cont">
-          <button className="cart-btn w-full h-full py-1.5 bg-gray-900 font-medium text-xs md:text-base text-gray-200 uppercase">Add To Cart</button>
+          <button className="cart-btn w-full h-full py-1.5 bg-gray-900 font-medium text-xs md:text-base text-gray-200 uppercase">
+            Add To Cart
+          </button>
         </div>
 
         <div className="mt-1">
@@ -27,7 +31,9 @@ const ProductCard = () => {
 
           <div className="flex justify-between md:flex-start items-center sm:gap-2 md:gap-x-4">
             <div className="flex flex-col md:flex-row items-center gap-x-4">
-              <p className="md:font-medium line-through text-gray-500 text-sm">Tk350.00</p>
+              <p className="md:font-medium line-through text-gray-500 text-sm">
+                Tk350.00
+              </p>
               <p className="md: font-medium text-sm text-primary">Tk250.00</p>
             </div>
 
@@ -35,7 +41,6 @@ const ProductCard = () => {
           </div>
         </div>
       </Link>
-
     </div>
   );
 };

@@ -68,7 +68,11 @@ const ProductsContainer = () => {
           />
         </div>
 
-        <FilterSort />
+        <div className="flex items-center justify-between my-4">
+          <p className="text-sm italic"> 299 products</p>
+
+          <FilterSort />
+        </div>
 
         {isLoading ? (
           <div className="w-full flex justify-center items-center h-[50vh]">
