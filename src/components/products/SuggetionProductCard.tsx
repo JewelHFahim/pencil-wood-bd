@@ -1,9 +1,10 @@
 import { Link } from "react-router";
 import "./ProductCard.css";
+import React from "react";
 
-const SuggetionProductCard = ({idx}) => {
+const SuggetionProductCard: React.FC<{ idx: number }> = ({ idx }) => {
   return (
-    <Link to={`/products/${idx+1}`}>
+    <Link to={`/products/${idx + 1}`}>
       <div className="relative img-container overflow-hidden">
         <img
           src="/product_1.png"

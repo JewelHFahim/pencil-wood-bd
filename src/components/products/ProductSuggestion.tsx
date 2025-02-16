@@ -8,7 +8,7 @@ const ProductSuggestion = () => {
         </div>
 
         <div className="mt-10 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-between items-center gap-x-2 md:gap-x-5 gap-y-8">
-          {[...Array(5)].map((product, idx) => (
+          {[...Array(5)].map((_, idx:number) => (
             <ProductCard key={idx} />
           ))}
         </div>

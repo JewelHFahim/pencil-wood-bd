@@ -15,7 +15,7 @@ const FilterSort = () => {
 
       {isOpen && (
         <div className="absolute right-0 z-20 w-48 p-2 mt-2 origin-top-right bg-white shadow-xl border border-gray-300">
-          {[...Array(7)].map((item, idx) => (
+          {[...Array(7)].map((_, idx) => (
             <Link
               key={idx}
               to="#"
