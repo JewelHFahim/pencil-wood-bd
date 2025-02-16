@@ -30,7 +30,7 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ src, zoomScale }) => {
       className="imgContainer relative overflow-hidden w-w-[30vw h-[55vh] sm:h-[30vw]"
     >
       <div className={`mainImg  ${isZoomed ? "zoomed" : ""}`}>
-        <img src={src} alt="img" className="w-full h-full" />
+        <img src={src} alt="img" className="w-full h-full object-cover object-center" />
       </div>
 
       {isZoomed && (

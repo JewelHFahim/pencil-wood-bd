@@ -1,4 +1,4 @@
-import SuggetionProductCard from "./SuggetionProductCard"
+import ProductCard from "./ProductCard"
 
 const ProductSuggestion = () => {
   return (
@@ -7,9 +7,9 @@ const ProductSuggestion = () => {
           <h1 className="text-lg font-medium uppercase">You may also like</h1>
         </div>
 
-        <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-between items-center gap-x-2 md:gap-x-5 gap-y-8">
-          {[...Array(4)].map((product, idx) => (
-            <SuggetionProductCard key={idx} idx={idx}/>
+        <div className="mt-10 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-between items-center gap-x-2 md:gap-x-5 gap-y-8">
+          {[...Array(5)].map((product, idx) => (
+            <ProductCard key={idx} />
           ))}
         </div>
       </div>

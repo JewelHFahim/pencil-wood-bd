@@ -81,7 +81,7 @@ const ProductsContainer = () => {
         ) : (
           <div className="mt-5 w-full grid grid-cols-3 md:grid-cols-4 justify-between items-center gap-2 md:gap-x-5 gap-y-8">
             {[...Array(10)].map((_, idx) => (
-              <ProductCard key={idx} />
+              <ProductCard key={idx}/>
             ))}
           </div>
         )}

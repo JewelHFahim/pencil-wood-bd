@@ -4,7 +4,7 @@ import "./ProductCard.css";
 const ProductCard = () => {
   return (
     <div className="ProductCard-Wrapper">
-      <Link to="/products/1">
+      <Link to={`/products/1`}>
         <div className="w-full relative img-container overflow-hidden max-h-[350px] rounded-t-sm">
           <img
             src={`/product_2.jpg`}
