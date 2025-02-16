@@ -65,7 +65,7 @@ const ProductDetails = () => {
             <IoIosArrowForward className="md:hidden text-xl" />
           </div>
         </div>
-
+{/* hello */}
         {/* Title and Price */}
         <div className="md:w-[50%]">
           <div className="">
