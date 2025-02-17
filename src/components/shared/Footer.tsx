@@ -49,8 +49,8 @@ const Footer = () => {
     <div className="py-4 bg-primary mt-10 flex flex-col justify-center items-center">
 
       <div className="w-[90vw] lg:w-[71vw] mx-auto md:h-1/2">
-        <ul className="flex md:justify-center items-center h-full">
-          <li className="flex flex-col md:flex-row  md:items-center gap-5 text-white text-sm md:text-base">
+        <ul className="flex justify-center items-center h-full">
+          <li className="w-full flex flex-wrap gap-5 justify-center text-white text-sm md:text-base">
             {footerMenus.map((menu, idx) => (
               <Link
                 to={menu.path}

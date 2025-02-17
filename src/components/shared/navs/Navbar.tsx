@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
-import { RiShoppingBagLine } from "react-icons/ri";
 import { Link } from "react-router";
 import MobileMenu from "./MobileMenu";
+import CartSlider from "../../cart/CartSlider";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenCart, setIsOpenCart] = useState(false);
 
   const toggleDrawer = () => {
-    setIsOpen((prevState) => !prevState);
+    setIsOpen(!isOpen);
+  };
+
+  const toggleDrawerCart = () => {
+    setIsOpenCart(!isOpenCart);
+    console.log("hited");
   };
 
   const navigation = [
@@ -58,15 +64,18 @@ const Navbar = () => {
               </Link>
             </div>
 
-            <div className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out relative cursor-pointer">
-              <Link to="" className="text-2xl md:text-xl">
-                <RiShoppingBagLine />
-              </Link>
+            {/* <div onClick={toggleDrawerCart} className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out relative cursor-pointer">
+              <CartSlider isOpen={isOpenCart} toggleDrawer={toggleDrawerCart} />
 
               <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center bg-primary text-white text-xs">
                 0
               </div>
-            </div>
+            </div> */}
+
+            <CartSlider
+              isOpenCart={isOpenCart}
+              toggleDrawerCart={toggleDrawerCart}
+            />
           </div>
         </div>
 

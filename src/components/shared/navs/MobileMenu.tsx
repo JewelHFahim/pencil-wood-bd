@@ -3,8 +3,9 @@ import { VscLayoutSidebarRight } from "react-icons/vsc";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import { BiLogOutCircle } from "react-icons/bi";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { FC } from "react";
+import { IoIosArrowDown } from "react-icons/io";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -12,8 +13,9 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
+  const {pathname} = useLocation();
   const navigation = [
-    { title: "Home", path: "" },
+    { title: "Home", path: "/" },
     { title: "About", path: "" },
     { title: "Contact", path: "" },
     { title: "Porducts", path: "" },
@@ -62,16 +64,14 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
         open={isOpen}
         onClose={toggleDrawer}
         direction="left"
-        size="75%"
-        className=""
+        size="85%"
+        className="w-full"
       >
-        <div className="bg-white flex flex-col justify-between min-h-screen shadow">
-          <div>
+        <div className="w-full bg-white flex flex-col justify-between min-h-screen shadow">
+          <div className="w-full">
             <div className="h-[72px] flex gap-2 items-center px-4 shadow">
               <div className="w-full flex items-center gap-x-2">
-                <div className="w-10 h-10 rounded-full bg-gray-400">
-                  {/* <img src="" /> */}
-                </div>
+                <div className="w-10 h-10 rounded-full bg-gray-400" />
                 <div>
                   <span className="block text-gray-400 text-sm font-semibold">
                     Jhon Snow
@@ -85,20 +85,20 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
               <button
                 onClick={toggleDrawer}
                 type="button"
-                className="w-7 h-7 flex justify-center items-center text-lg"
+                className="w-7 h-7 flex justify-center items-center text-xl hover:text-primary"
               >
                 <VscLayoutSidebarRight />
               </button>
             </div>
 
-            <ul className="mt-10 font-light flex flex-col gap-5 p-4">
-              {navigation.map((item, idx) => (
-                <li key={idx}>
+            <ul className="mt-6 w-full font-light flex flex-col gap-2 p-4">
+              {navigation.map((item, idx: number) => (
+                <li key={idx} className="w-full border-b border-gray-300 py-2">
                   <Link
                     to={item.path}
-                    className={` hover:text-black p-2 rounded-lg hover:bg-[#98e5dd] hover:font-medium duration-150 my-1 font-medium`}
+                    className={`w-full hover:text-white hover:bg-primary duration-150  flex items-center justify-between ${pathname === item.path ? "text-primary font-medium" : ""}`}
                   >
-                    {item.title}
+                    {item.title} <IoIosArrowDown />
                   </Link>
                 </li>
               ))}

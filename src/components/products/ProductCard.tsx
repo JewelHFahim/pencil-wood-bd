@@ -9,25 +9,35 @@ const ProductCard = () => {
           <img
             src={`/product_2.jpg`}
             alt="Product Img"
-            className="w-full h-[150px] md:h-[250px] object-cover main-img transition-opacity duration-500 object-center"
+            className="w-full h-full max-w-[200px] max-h-[200px] object-cover main-img transition-opacity duration-500 object-center"
           />
           <img
             src="/product_3.jpg"
             alt="Product Img"
-            className="w-full h-[150px] md:h-[250px] object-cover second-img transition-opacity duration-500 object-center"
+            className="w-[250px] h-[150px]  md:h-[250px] object-cover second-img transition-opacity duration-500 object-center"
           />
 
-          <div className="absolute left-0 top-0 w-max bg-primary px-4 py-[2px] text-white">Sale</div>
+          <div className="absolute left-0 top-0 w-max bg-primary px-4 py-[2px] text-white text-sm md:text-base">
+            Sale
+          </div>
+
+          {/* <button
+          type="button"
+          className="absolute bottom-0 rounded-b-sm  w-full h-max py-2 bg-gray-900 font-medium text-sm text-gray-100 uppercase"
+        >
+          Add To Cart
+        </button> */}
         </div>
 
-        <div className="w-full mt-1 md:mt-0 h-max md:h-[38px] cart-btn-cont">
-          <button className="cart-btn w-full h-full py-1.5 bg-gray-900 font-medium text-xs md:text-base text-gray-200 uppercase">
-            Add To Cart
-          </button>
-        </div>
+        <button
+          type="button"
+          className="w-full h-full py-2 rounded-b-sm bg-gray-900 font-medium text-sm text-gray-100 uppercase"
+        >
+          Add To Cart
+        </button>
 
         <div className="mt-1">
-          <h2 className="text-sm md:text-lg font-medium">Product Title</h2>
+          <h2 className="text-sm md:text-base font-medium">Product Title</h2>
 
           <div className="flex justify-between md:flex-start items-center sm:gap-2 md:gap-x-4">
             <div className="flex flex-col md:flex-row items-center gap-x-4">
