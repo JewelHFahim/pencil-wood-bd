@@ -23,7 +23,7 @@ export default function PriceRangeSlider() {
   };
 
   return (
-    <Box sx={{ width: "100%", padding: 1 }}>
+    <Box sx={{ width: "100%" }}>
       {/* Global Styles to Remove Number Input Arrows */}
       <GlobalStyles
         styles={{
@@ -46,13 +46,13 @@ export default function PriceRangeSlider() {
           type="number"
           value={priceRange[0]}
           onChange={(e) => handleInputChange(0, e.target.value)}
-          sx={{ width: 70, borderRadius: 0, fontSize: 14 }}
+          sx={{ width: 70, borderRadius: 0, fontSize: 14, fontWeight: "500", color: "#4f46e5" }}
         />
         <Input
           type="number"
           value={priceRange[1]}
           onChange={(e) => handleInputChange(1, e.target.value)}
-          sx={{ width: 70, borderRadius: 0, fontSize: 14, margin: 0 }}
+          sx={{ width: 70, borderRadius: 0, fontSize: 14, margin: 0,  fontWeight: "500", color: "#4f46e5" }}
         />
       </Box>
 
@@ -65,9 +65,11 @@ export default function PriceRangeSlider() {
         // valueLabelDisplay="auto"
         // sx={{ color: "#06b9c0" }}
         sx={{
+          maxWidth: "94%",
+          marginLeft: "10px",
           color: "#4f46e5", // Slider active color (thumb and track)
           [`& .MuiSlider-track`]: { backgroundColor: "rgb(117, 117, 117)" },
-          [`& .MuiSlider-thumb`]: { backgroundColor: "#4f46e5" },
+          [`& .MuiSlider-thumb`]: { backgroundColor: "#rgb(117, 117, 117)" },
           [`& .MuiSlider-rail`]: { backgroundColor: "#rgb(117, 117, 117)" },
         }}
       />

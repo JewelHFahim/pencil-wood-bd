@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 
-const FilterSort = () => {
+const ProductSorting = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -30,4 +30,4 @@ const FilterSort = () => {
   );
 };
 
-export default FilterSort;
+export default ProductSorting;

@@ -1,19 +1,25 @@
 import { BiSearch } from "react-icons/bi";
 import Loader from "../../utils/loader/Loader";
-import FilterSort from "./FilterSort";
 import ProductCard from "./ProductCard";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 import PriceRangeSlider from "../../utils/range-slider/PriceRangeSlider";
 import Pagination from "../../utils/Pagination";
+import ProductSorting from "./ProductSorting";
+import FilterSlider from "./FilterSlider";
 
 const ProductsContainer = () => {
   const [isOpenType, setIsOpenType] = useState(false);
   const [isOpenPrice, setIsOpenPrice] = useState(false);
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
   const isLoading = false;
 
+  const toggleDrawerFilter = () => {
+    setIsOpenFilter(!isOpenFilter);
+  };
+
   return (
-    <div className="w-full flex gap-5">
+    <div className="w-full flex justify-center gap-5">
       <div className="hidden md:block w-[260px] mt-1">
         <div className="text-gray-700 flex flex-col gap-4">
           {/* Type */}
@@ -71,8 +77,14 @@ const ProductsContainer = () => {
         <div className="flex items-center justify-between my-4">
           <p className="text-sm italic"> 299 products</p>
 
-          <FilterSort />
+          <ProductSorting />
         </div>
+        
+        {/* Mobile device, product filter */}
+        <FilterSlider
+          isOpenFilter={isOpenFilter}
+          toggleDrawerFilter={toggleDrawerFilter}
+        />
 
         {isLoading ? (
           <div className="w-full flex justify-center items-center h-[50vh]">
@@ -81,7 +93,7 @@ const ProductsContainer = () => {
         ) : (
           <div className="mt-5 w-full grid grid-cols-3 md:grid-cols-4 justify-between items-center gap-2 md:gap-x-5 gap-y-8">
             {[...Array(10)].map((_, idx) => (
-              <ProductCard key={idx}/>
+              <ProductCard key={idx} />
             ))}
           </div>
         )}

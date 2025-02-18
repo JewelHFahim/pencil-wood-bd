@@ -20,13 +20,6 @@ const ProductCard = () => {
           <div className="absolute left-0 top-0 w-max bg-primary px-4 py-[2px] text-white text-sm md:text-base">
             Sale
           </div>
-
-          {/* <button
-          type="button"
-          className="absolute bottom-0 rounded-b-sm  w-full h-max py-2 bg-gray-900 font-medium text-sm text-gray-100 uppercase"
-        >
-          Add To Cart
-        </button> */}
         </div>
 
         <button
