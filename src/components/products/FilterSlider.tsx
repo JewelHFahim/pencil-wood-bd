@@ -23,7 +23,7 @@ const FilterSlider: FC<FilterMenuProps> = ({
 
       <button
         onClick={toggleDrawerFilter}
-        className="w-full p-2 flex justify-center items-center gap-2 text-sm border border-r-0 border-gray-300"
+        className="w-full p-2 flex justify-cente items-center gap-2 text-sm border border-r-0 border-gray-300"
       >
         <IoFilter /> <span>Filter By</span>
       </button>

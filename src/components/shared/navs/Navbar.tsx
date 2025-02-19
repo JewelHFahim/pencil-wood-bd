@@ -19,10 +19,10 @@ const Navbar = () => {
   };
 
   const navigation = [
-    { title: "Home", path: "" },
-    { title: "About", path: "" },
-    { title: "Contact", path: "" },
-    { title: "Porducts", path: "" },
+    { title: "Home", path: "/" },
+    { title: "About", path: "/" },
+    { title: "Contact", path: "/" },
+    { title: "Porducts", path: "/" },
   ];
 
   return (
@@ -59,7 +59,7 @@ const Navbar = () => {
             </div>
 
             <div className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out">
-              <Link to="" className="text-[22px] md:text-xl">
+              <Link to="/account/login" className="text-[22px] md:text-xl">
                 <FaRegUser />
               </Link>
             </div>

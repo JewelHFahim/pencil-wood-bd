@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { LiaListSolid } from "react-icons/lia";
+import { RiArrowDownSLine } from "react-icons/ri";
 
 const ProductSorting = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,10 +57,13 @@ const ProductSorting = () => {
     <div className="relative w-full md:w-max justify-end">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-center items-center gap-2 relative z-10 px-8 py-2 text-sm border border-gray-300 focus:border-primary focus:ring-opacity-40 focus:ring-primary focus:ring focus:outline-none"
+        className="w-full flex justify-between items-center gap-2 relative z-10 p-2 text-sm border border-gray-300 focus:border-primary focus:ring-opacity-40 focus:ring-primary focus:ring focus:outline-none"
       >
-        <LiaListSolid />
-        Featured
+        <span className="flex justify-start items-center gap-2">
+          <LiaListSolid />
+          Featured
+        </span>
+        <RiArrowDownSLine className={`${isOpen === true ? "rotate-180" : ""}  `}/>
       </button>
 
       {isOpen && (
