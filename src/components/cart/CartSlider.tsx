@@ -16,7 +16,7 @@ const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
       {/*Cart Button */}
       <div
         onClick={toggleDrawerCart}
-        className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out relative cursor-pointer"
+        className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out relative cursor-pointer pb-[env(safe-area-inset-bottom,16px)]"
       >
         <button onClick={toggleDrawerCart} className="text-2xl p-1">
           <RiShoppingBagLine />

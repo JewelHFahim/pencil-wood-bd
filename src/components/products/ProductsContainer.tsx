@@ -75,16 +75,16 @@ const ProductsContainer = () => {
         </div>
 
         <div className="flex items-center justify-between my-4">
-          <p className="text-sm italic"> 299 products</p>
+          <p className="text-sm italic hidden md:block"> 299 products</p>
+
+          {/* Mobile device, product filter */}
+          <FilterSlider
+            isOpenFilter={isOpenFilter}
+            toggleDrawerFilter={toggleDrawerFilter}
+          />
 
           <ProductSorting />
         </div>
-        
-        {/* Mobile device, product filter */}
-        <FilterSlider
-          isOpenFilter={isOpenFilter}
-          toggleDrawerFilter={toggleDrawerFilter}
-        />
 
         {isLoading ? (
           <div className="w-full flex justify-center items-center h-[50vh]">
