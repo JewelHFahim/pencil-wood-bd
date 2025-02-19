@@ -78,7 +78,7 @@ const Footer = () => {
             </Link>
           ))}
         </div>
-        <p className="text-xs text-white">All rights reserved © Pencilwoodbd</p>
+        <p className="text-xs text-white">All rights reserved © Fire Cutter</p>
       </div>
     </div>
   );

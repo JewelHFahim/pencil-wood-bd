@@ -30,7 +30,7 @@ const Navbar = () => {
       <div className="sm:w-full md:w-[85vw] lg:w-[80vw] xl:w-[70vw] mx-auto flex items-center justify-between px-4 md:px-0">
         <div className="w-max flex flex-col justify-center md:items-center">
           <Link to="/" className="text-xl font-bold text-primary w-max">
-            PencilwoodBD
+            Fire Cutterr
           </Link>
           <p className="text-sm font-light text-gray-400 md:tracking-[3px] w-max">
             Trend of Fashion
