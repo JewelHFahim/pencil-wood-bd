@@ -40,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <div className="">
+    <div className="h-full my-5">
       {isLoading ? (
         <div className="flex justify-center items-center min-h-screen">
           Loading...
@@ -48,7 +48,7 @@ const Login = () => {
       ) : (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full flex flex-col justify-center items-center gap-y-5 pb-5"
+          className="w-full h-[calc(100vh-220px)] flex flex-col justify-center items-center gap-y-5 pb-5"
         >
           <h1 className="mt-5 text-2xl font-medium">Login</h1>
 
@@ -58,7 +58,7 @@ const Login = () => {
             <input
               type="text"
               placeholder="Enter your email"
-              className="h-[40px] w-full px-3 border border-gray-500 text-primary font-medium"
+              className="h-[40px] w-full px-3 border border-gray-500 focus:outline-primary text-primary font-medium rounded-md"
               {...register("email", { required: true })}
             />
             {errors.email && (
@@ -73,7 +73,7 @@ const Login = () => {
               <input
                 type={viewPass ? "text" : "password"}
                 placeholder="Enter your password"
-                className="h-[40px] w-full px-3 border border-gray-500 text-primary"
+                className="h-[40px] w-full px-3 border border-gray-500 focus:outline-primary rounded-md text-primary"
                 {...register("password", { required: true })}
               />
               <button

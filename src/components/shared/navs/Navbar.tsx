@@ -59,18 +59,10 @@ const Navbar = () => {
             </div>
 
             <div className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out">
-              <Link to="/account/login" className="text-[22px] md:text-xl">
+              <Link to="/account" className="text-[22px] md:text-xl">
                 <FaRegUser />
               </Link>
             </div>
-
-            {/* <div onClick={toggleDrawerCart} className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out relative cursor-pointer">
-              <CartSlider isOpen={isOpenCart} toggleDrawer={toggleDrawerCart} />
-
-              <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-                0
-              </div>
-            </div> */}
 
             <CartSlider
               isOpenCart={isOpenCart}

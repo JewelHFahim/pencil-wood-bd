@@ -55,7 +55,7 @@ const Register = () => {
             <input
               type="text"
               placeholder="Enter your name"
-              className="h-[40px] w-full px-3 border border-gray-500 text-primary font-medium"
+              className="h-[40px] w-full px-3 border border-gray-500 text-primary font-medium focus:outline-primary rounded-md"
               {...register("fullName", { required: true })}
             />
             {errors.fullName && (
@@ -69,7 +69,7 @@ const Register = () => {
             <input
               type="text"
               placeholder="Enter your phone number"
-              className="h-[40px] w-full px-3 border border-gray-500 text-primary font-medium"
+              className="h-[40px] w-full px-3 border border-gray-500 text-primary font-medium focus:outline-primary rounded-md"
               {...register("phone", { required: true })}
             />
             {errors.phone && (
@@ -83,7 +83,7 @@ const Register = () => {
             <input
               type="text"
               placeholder="Enter your email"
-              className="h-[40px] w-full px-3 border border-gray-500 text-primary font-medium"
+              className="h-[40px] w-full px-3 border border-gray-500 text-primary font-medium focus:outline-primary rounded-md"
               {...register("email", { required: true })}
             />
             {errors.email && (
@@ -97,7 +97,7 @@ const Register = () => {
             <input
               type="text"
               placeholder="Enter your address"
-              className="h-[40px] w-full px-3 border border-gray-500 text-primary font-medium"
+              className="h-[40px] w-full px-3 border border-gray-500 text-primary font-medium focus:outline-primary rounded-md"
               {...register("address", { required: true })}
             />
             {errors.address && (
@@ -112,7 +112,7 @@ const Register = () => {
               <input
                 type={viewPass ? "text" : "password"}
                 placeholder="Enter your password"
-                className="h-[40px] w-full px-3 border border-gray-500 text-primary"
+                className="h-[40px] w-full px-3 border border-gray-500 text-primary focus:outline-primary rounded-md"
                 {...register("password", { required: true })}
               />
               <button

@@ -4,7 +4,7 @@ import ProductCard from "./ProductCard";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState } from "react";
 import PriceRangeSlider from "../../utils/range-slider/PriceRangeSlider";
-import Pagination from "../../utils/Pagination";
+import Pagination from "../../utils/paginations/Pagination";
 import ProductSorting from "./ProductSorting";
 import FilterSlider from "./FilterSlider";
 
