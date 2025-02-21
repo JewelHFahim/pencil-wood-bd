@@ -4,10 +4,12 @@ import { IoSearch } from "react-icons/io5";
 import { Link } from "react-router";
 import MobileMenu from "./MobileMenu";
 import CartSlider from "../../cart/CartSlider";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenCart, setIsOpenCart] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
+  const [isOpenCart, setIsOpenCart] = useState<boolean>(false);
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -15,13 +17,12 @@ const Navbar = () => {
 
   const toggleDrawerCart = () => {
     setIsOpenCart(!isOpenCart);
-    console.log("hited");
   };
 
   const navigation = [
     { title: "Home", path: "/" },
-    { title: "About", path: "/" },
-    { title: "Contact", path: "/" },
+    { title: "About", path: "/about" },
+    { title: "Contact", path: "/contact" },
     { title: "Porducts", path: "/" },
   ];
 
@@ -43,7 +44,7 @@ const Navbar = () => {
             {navigation.map((item, idx) => {
               return (
                 <li key={idx} className="text-gray-600 hover:text-indigo-600">
-                  <Link to="/">{item.title}</Link>
+                  <Link to={item.path}>{item.title}</Link>
                 </li>
               );
             })}
@@ -53,7 +54,10 @@ const Navbar = () => {
         <div className="w-max">
           <div className="flex justify-end items-center gap-5 text-gray-600">
             <div className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out">
-              <button className="text-2xl md:text-xl">
+              <button
+                onClick={() => setIsOpenSearch(!isOpenSearch)}
+                className="text-2xl md:text-xl cursor-pointer"
+              >
                 <IoSearch />
               </button>
             </div>
@@ -76,7 +80,12 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* {isOpen && <Search isOpen={isOpen} setIsOpen={setIsOpen} />} */}
+      {isOpenSearch && (
+        <SearchBar
+          isOpenSearch={isOpenSearch}
+          setIsOpenSearch={setIsOpenSearch}
+        />
+      )}
     </div>
   );
 };

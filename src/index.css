@@ -30,10 +30,9 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-
 /* Swiper Js Button */
-.swiper-horizontal > .swiper-pagination-horizontal{
-  background-color: hsl(0, 0%, 0%, .5);
+.swiper-horizontal > .swiper-pagination-horizontal {
+  background-color: hsl(0, 0%, 0%, 0.5);
   padding: 5px;
   width: 30%;
   left: 50%;
@@ -75,7 +74,7 @@ input[type="number"] {
 }
 
 @media screen and (max-width: 768px) {
-  .swiper-horizontal > .swiper-pagination-horizontal{
+  .swiper-horizontal > .swiper-pagination-horizontal {
     width: 80%;
     left: 50%;
     translate: -50%;

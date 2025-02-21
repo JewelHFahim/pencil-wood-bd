@@ -6,6 +6,7 @@ import ProductDetails from "../pages/ProductDetails";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import UserDashboard from "../pages/client/UserDashboard";
+import Contact from "../pages/Contact";
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
         <Route path="/account/login" element={<Login />} />
         <Route path="/account/register" element={<Register />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Route>
     </Routes>
   );
