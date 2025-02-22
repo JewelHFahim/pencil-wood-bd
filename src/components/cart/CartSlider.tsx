@@ -1,7 +1,8 @@
+import { FC, useEffect } from "react";
+import { Link, useLocation } from "react-router";
 import Drawer from "react-modern-drawer";
-import "react-modern-drawer/dist/index.css";
-import { FC } from "react";
 import { IoMdClose } from "react-icons/io";
+import "react-modern-drawer/dist/index.css";
 import { RiShoppingBagLine } from "react-icons/ri";
 import { LiaLongArrowAltRightSolid } from "react-icons/lia";
 
@@ -11,33 +12,44 @@ interface CartMenuProps {
 }
 
 const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
+  const {pathname} = useLocation();
+
+  useEffect(() => {
+    if (isOpenCart) {
+      toggleDrawerCart();
+    }
+  }, [pathname]);
+
+
   return (
     <>
       {/*Cart Button */}
-      <div
+      <button
         onClick={toggleDrawerCart}
-        className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out relative cursor-pointer pb-[env(safe-area-inset-bottom, 50px)]"
+        className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out relative cursor-pointer pb-[env(safe-area-inset-bottom, 50px)] "
       >
-        <button onClick={toggleDrawerCart} className="text-2xl p-1">
+        <span className="text-2xl p-1">
           <RiShoppingBagLine />
-        </button>
+        </span>
 
         <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center bg-primary text-white text-xs">
           0
         </div>
-      </div>
+      </button>
 
+      {/* Cart Content */}
       <Drawer
         open={isOpenCart}
         onClose={toggleDrawerCart}
         direction="right"
         size=""
         className="w-[340px]"
+        lockBackgroundScroll={true}
       >
-        <div className="w-full bg-white flex flex-col justify-between min-h-screen pb-4">
+        <div className="w-full bg-white flex flex-col justify-betwee gap-10 min-h-screen pb-4 relative">
           <div>
             <div className="h-[72px] flex justify-between gap-2 items-center px-4 shadow">
-              <p className="block text-gray-800 text-lg font-semibold uppercase">
+              <p className="block text-gray-800 text-base font-semibold uppercase">
                 Shopping Cart
               </p>
 
@@ -51,8 +63,8 @@ const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
               </button>
             </div>
 
-            <div className="flex flex-col gap-">
-              {[...Array(3)].map((_, idx: number) => (
+            <div className="flex flex-col overflow-y-auto max-h-[55vh] md:max-h-[60vh]">
+              {[...Array(10)].map((_, idx: number) => (
                 <div
                   key={idx}
                   className="mx-4 py-4 grid grid-cols-12 gap-3 text-black border-b border-gray-300"
@@ -84,30 +96,33 @@ const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
             </div>
           </div>
 
-          <div className="border-t border-gray-300 px-4 pt-2">
+          <div className="border-t bg-white border-gray-300 px-4 pt-2 sticky bottom-0 pb-14 md:pb-5">
             <h3 className="text-lg font-bold uppercase text-gray-800 flex items-center justify-between">
               <span>Subtotal:</span> <span> ৳ 4,995</span>
             </h3>
 
             <div className="mt-5 flex flex-col gap-3">
-              <button
-                type="button"
-                className="bg-primary hover:bg-white w-full border border-white hover:border-primary text-white hover:text-primary rounded-sm text-sm py-2.5 font-medium flex justify-center items-center gap-2 transition-all duration-300"
-              >
-                Checkout
-                <LiaLongArrowAltRightSolid className="text-xl" />
-              </button>
+              <Link to="/checkout">
+                <button
+                  type="button"
+                  className="bg-primary hover:bg-white w-full border border-white hover:border-primary text-white hover:text-primary rounded-sm text-sm py-2.5 font-medium flex justify-center items-center gap-2 transition-all duration-300"
+                >
+                  Checkout
+                  <LiaLongArrowAltRightSolid className="text-xl" />
+                </button>
+              </Link>
 
-              <button
-                type="button"
-                className="border border-primary hover:bg-primary w-full text-primary hover:text-white rounded-sm text-sm py-2.5 font-medium flex justify-center items-center gap-2 transition-all duration-300"
-              >
-                View cart
-                <LiaLongArrowAltRightSolid className="text-xl" />
-              </button>
+              <Link to="/cart">
+                <button
+                  type="button"
+                  className="border border-primary hover:bg-primary w-full text-primary hover:text-white rounded-sm text-sm py-2.5 font-medium flex justify-center items-center gap-2 transition-all duration-300"
+                >
+                  View cart
+                  <LiaLongArrowAltRightSolid className="text-xl" />
+                </button>
+              </Link>
             </div>
           </div>
-          
         </div>
       </Drawer>
     </>

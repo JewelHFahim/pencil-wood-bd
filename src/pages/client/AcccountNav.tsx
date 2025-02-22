@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { BiLogOutCircle } from "react-icons/bi";
 import { CiBoxList } from "react-icons/ci";
 import { LiaUserSolid } from "react-icons/lia";
@@ -12,6 +12,12 @@ interface AccountNavProps {
 
 const AcccountNav: FC<AccountNavProps> = ({ active, setActive }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  useEffect(()=>{
+    if(isOpen){
+      setIsOpen(false)
+    }
+  },[active])
 
   //   const handleLogout = async () => {
   //     try {

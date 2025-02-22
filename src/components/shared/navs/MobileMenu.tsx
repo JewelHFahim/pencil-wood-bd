@@ -4,8 +4,7 @@ import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import { BiLogOutCircle } from "react-icons/bi";
 import { Link, useLocation } from "react-router";
-import { FC } from "react";
-import { IoIosArrowDown } from "react-icons/io";
+import { FC, useEffect } from "react";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -16,10 +15,16 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
   const {pathname} = useLocation();
   const navigation = [
     { title: "Home", path: "/" },
-    { title: "About", path: "" },
-    { title: "Contact", path: "" },
+    { title: "About", path: "/about" },
+    { title: "Contact", path: "/contact" },
     { title: "Porducts", path: "" },
   ];
+
+  useEffect(()=>{
+    if(isOpen){
+      toggleDrawer()
+    }
+  },[pathname])
 
   //   const filteredNavigation =
   //   user?.user_info?.type === 1 ? navigation : navigation.filter((item) => item.type !== 1);
@@ -54,6 +59,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
   //     }
   //   };
 
+
   return (
     <>
       <button onClick={toggleDrawer} className="text-2xl p-1">
@@ -64,7 +70,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
         open={isOpen}
         onClose={toggleDrawer}
         direction="left"
-        size="85%"
+        size="80%"
         className="w-full"
       >
         <div className="w-full bg-white flex flex-col justify-between min-h-screen shadow">
@@ -93,12 +99,12 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
 
             <ul className="mt-6 w-full font-light flex flex-col gap-2 p-4">
               {navigation.map((item, idx: number) => (
-                <li key={idx} className="w-full border-b border-gray-300 py-2">
+                <li key={idx} className="w-full border-b border-gray-300 py-3">
                   <Link
                     to={item.path}
                     className={`w-full hover:text-white hover:bg-primary duration-150  flex items-center justify-between ${pathname === item.path ? "text-primary font-medium" : ""}`}
                   >
-                    {item.title} <IoIosArrowDown />
+                    {item.title}
                   </Link>
                 </li>
               ))}
