@@ -24,7 +24,7 @@ const ProductCard = () => {
 
         <button
           type="button"
-          className="w-full h-full py-2 rounded-b-sm bg-gray-900 font-medium text-xs md:text-sm text-gray-100 uppercase"
+          className="w-full h-full py-2 rounded-b-sm bg-primary font-medium text-xs md:text-sm text-gray-100 uppercase"
         >
           Add To Cart
         </button>

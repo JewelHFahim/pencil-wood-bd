@@ -3,96 +3,95 @@ import { useForm } from "react-hook-form";
 import ShppingCost from "../utils/ShppingCost";
 import PaymentMethodAccrodian from "../utils/PaymentMethodAccrodian";
 import DeliveryChargePaymentProcess from "../utils/DeliveryChargePaymentProcess";
-import MobileOrderSummery from "../utils/MobileOrderSummery";
+// import MobileOrderSummery from "../utils/MobileOrderSummery";
 import SubmitButton from "../utils/buttons/SubmitButton";
 import CheckoutFooter from "../utils/CheckoutFooter";
 import OrderListAndPriceSummery from "../utils/OrderListAndPriceSummery";
 
-
 export default function Checkout() {
-    const isLoading = false;
-    const isMatch = true;
-    const products = [];
+  const isLoading = false;
+  const isMatch = true;
+  // const products = [];
 
-//   const route = useRouter();
-//   const dispatch = useDispatch();
-  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm();
-//   const { products, total } = useSelector((state) => state.cart);
+  //   const route = useRouter();
+  //   const dispatch = useDispatch();
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
+  //   const { products, total } = useSelector((state) => state.cart);
 
-//   const userId = extractUserIdFromToken();
-//   const { data: userDetails } = useUserDetailsQuery(userId);
-//   const [createOrder, { isLoading }] = useCreateOrderMutation();
+  //   const userId = extractUserIdFromToken();
+  //   const { data: userDetails } = useUserDetailsQuery(userId);
+  //   const [createOrder, { isLoading }] = useCreateOrderMutation();
 
-  const [selectedMethod, setSelectedMethod] = useState();
-  const [isOpen, setIsOpen] = useState(false);
+  const [selectedMethod, setSelectedMethod] = useState<string>("");
+  // const [isOpen, setIsOpen] = useState(false);
 
-//   const city = watch("city");
-//   const isMatch = city === "Dhaka";
+  //   const city = watch("city");
+  //   const isMatch = city === "Dhaka";
 
-//   useEffect(() => {
-//     if (isMatch) {
-//       setSelectedMethod("COD");
-//     } else {
-//       setSelectedMethod("bKash");
-//     }
-//   }, [isMatch]);
+  //   useEffect(() => {
+  //     if (isMatch) {
+  //       setSelectedMethod("COD");
+  //     } else {
+  //       setSelectedMethod("bKash");
+  //     }
+  //   }, [isMatch]);
 
-//   useEffect(() => {
-//     if (userDetails?.data) {
-//       setValue("contact", userDetails?.data?.phone);
-//       setValue("fullName", userDetails?.data?.fullName);
-//       setValue("delivery_address", userDetails?.data?.address);
-//       setValue("contact_phone", userDetails?.data?.phone);
-//     }
-//   }, [userDetails, setValue]);
+  //   useEffect(() => {
+  //     if (userDetails?.data) {
+  //       setValue("contact", userDetails?.data?.phone);
+  //       setValue("fullName", userDetails?.data?.fullName);
+  //       setValue("delivery_address", userDetails?.data?.address);
+  //       setValue("contact_phone", userDetails?.data?.phone);
+  //     }
+  //   }, [userDetails, setValue]);
 
-//   const onSubmit = async (data) => {
-//     const orders = products?.map((product) => {
-//       return {
-//         product_id: product?._id,
-//         quantity: product?.quantity,
-//         price: product?.sale_price,
-//         size: product?.sizes,
-//       };
-//     });
+  //   const onSubmit = async (data) => {
+  //     const orders = products?.map((product) => {
+  //       return {
+  //         product_id: product?._id,
+  //         quantity: product?.quantity,
+  //         price: product?.sale_price,
+  //         size: product?.sizes,
+  //       };
+  //     });
 
-//     const payment_details = {
-//       payment_number: data.payment_number,
-//       transaction_id: data.transaction_id,
-//     };
+  //     const payment_details = {
+  //       payment_number: data.payment_number,
+  //       transaction_id: data.transaction_id,
+  //     };
 
-//     const orderDatas = {
-//       user_id: userDetails?.data?._id,
-//       products: orders,
-//       total_price: total,
-//       delivery_charge: isMatch ? 70 : 140,
-//       delivery_address: `${data?.delivery_address}, ${data.city} - ${data.postalCode}`,
-//       contact_phone: data?.contact_phone,
-//       payment_method: selectedMethod,
-//       payment_details,
-//     };
+  //     const orderDatas = {
+  //       user_id: userDetails?.data?._id,
+  //       products: orders,
+  //       total_price: total,
+  //       delivery_charge: isMatch ? 70 : 140,
+  //       delivery_address: `${data?.delivery_address}, ${data.city} - ${data.postalCode}`,
+  //       contact_phone: data?.contact_phone,
+  //       payment_method: selectedMethod,
+  //       payment_details,
+  //     };
 
-//     try {
-//       const response = await createOrder(orderDatas);
+  //     try {
+  //       const response = await createOrder(orderDatas);
 
-//       if (response?.data?.status) {
-//         toast.success(response?.data?.message);
-//         dispatch(clearCart());
-//         route.push(`/invoice/${response?.data?.data?._id}`);
-//       }
-//       if (response?.error?.data) {
-//         toast.error(response?.error?.data?.message);
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+  //       if (response?.data?.status) {
+  //         toast.success(response?.data?.message);
+  //         dispatch(clearCart());
+  //         route.push(`/invoice/${response?.data?.data?._id}`);
+  //       }
+  //       if (response?.error?.data) {
+  //         toast.error(response?.error?.data?.message);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-
-
-  const inputStyle =
-    "w-full h-full focus:outline-teal-600 focus:ring-2 focus:ring-teal-300 transition-all duration-150 px-3 pt-5 rounded-md";
-  const inputCotainer = "relative h-[55px] border w-full mt-1 text-sm rounded-md";
+  const inputStyle = "w-full h-full focus:outline-primary focus:ring-2 focus:ring-primary transition-all duration-150 px-3 pt-5 rounded-md";
+  const inputCotainer = "relative h-[55px] border border-gray-400 w-full mt-1 text-sm rounded-md";
   const labelStyle = "absolute top-1 left-3 text-[11px] text-gray-400";
 
   return (
@@ -159,7 +158,7 @@ export default function Checkout() {
                 <input
                   type="text"
                   placeholder="Address in details"
-                //   defaultValue={userDetails?.data?.address}
+                  //   defaultValue={userDetails?.data?.address}
                   className={inputStyle}
                   {...register("delivery_address", { required: true })}
                 />
@@ -227,7 +226,8 @@ export default function Checkout() {
             </div>
 
             {/* Shipping Methods */}
-            <ShppingCost isMatch={isMatch} />
+            {/* <ShppingCost isMatch={isMatch} /> */}
+            <ShppingCost/>
 
             {/* Payment Methods */}
             <div className="mt-8">
@@ -240,7 +240,7 @@ export default function Checkout() {
                 Outside Dhaka delivery charge 140tk have to by bKash/Nagad.
               </p>
 
-              <div className="border rounded-md mt-3">
+              <div className="border border-gray-400 rounded-md mt-3">
                 <PaymentMethodAccrodian
                   selectedMethod={selectedMethod}
                   setSelectedMethod={setSelectedMethod}
@@ -301,14 +301,14 @@ export default function Checkout() {
             </div>
 
             {/* Mobile Order Summery */}
-            <MobileOrderSummery
+            {/* <MobileOrderSummery
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               isMatch={isMatch}
-            />
+            /> */}
 
             {/* Submit Button */}
-            <SubmitButton products={products} />
+            <SubmitButton />
 
             {/* Footer */}
             <CheckoutFooter />
@@ -316,11 +316,10 @@ export default function Checkout() {
 
           {/* Order List and Price Summery */}
           <div className="hidden lg:block lg:w-1/2 sticky top-0 z-50 bg-[#e8f3f6] md:p-8">
-            {/* <OrderListAndPriceSummery isMatch={isMatch}/> */} OrderListAndPriceSummery
+            <OrderListAndPriceSummery/>
           </div>
         </div>
       )}
-    
     </div>
   );
 }

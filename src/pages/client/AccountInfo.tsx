@@ -80,7 +80,7 @@ const isLoading = false;
                 <button
                   onClick={() => setEdit(!edit)}
                   type="button"
-                  className="mt-10 h-9 m-w-max px-12 bg-gray-800 hover:bg-gray-950 text-white transition-all duration-150"
+                  className="mt-10 h-9 m-w-max px-12 bg-primary hover:bg-orange-600 text-white transition-all duration-150"
                 >
                   Edit
                 </button>
@@ -142,7 +142,7 @@ const isLoading = false;
   
                 <button
                   type="submit"
-                  className="mt-10 h-9 m-w-max px-12 bg-gray-800 hover:bg-gray-950 text-white transition-all duration-150"
+                  className="mt-10 h-9 m-w-max px-12 bg-primary hover:bg-orange-600 text-white transition-all duration-150"
                 >
                   Save
                 </button>

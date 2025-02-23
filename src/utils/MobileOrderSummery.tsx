@@ -1,11 +1,19 @@
 import { IoIosArrowDown } from "react-icons/io";
 import OrderedProductsDropdown from "./OrderedProductsDropdown";
+import { FC } from "react";
 
-const MobileOrderSummery = ({isMatch, isOpen, setIsOpen }) => {
-  const cart = JSON?.parse(localStorage?.getItem("cart"));
-  const products = cart?.products ? cart?.products : [];
-  const totalQuantity = cart?.totalQuantity > 0 ? cart?.totalQuantity : 0;
-  const total = cart?.total > 0 ? cart?.total : 0;
+interface MobileOrderSummery {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+
+const MobileOrderSummery: FC<MobileOrderSummery> = ({isOpen, setIsOpen }) => {
+  
+  // const cart = JSON?.parse(localStorage?.getItem("cart"));
+  // const products = cart?.products ? cart?.products : [];
+  // const totalQuantity = cart?.totalQuantity > 0 ? cart?.totalQuantity : 0;
+  // const total = cart?.total > 0 ? cart?.total : 0;
 
   return (
     <div className="mt-8 lg:hidden">
@@ -25,7 +33,6 @@ const MobileOrderSummery = ({isMatch, isOpen, setIsOpen }) => {
 
         <div className="mt-6 h-max w-full transition transform ease-out duration-100">
           <OrderedProductsDropdown
-            products={products}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
           />
@@ -33,19 +40,26 @@ const MobileOrderSummery = ({isMatch, isOpen, setIsOpen }) => {
 
         <div className="flex flex-col gap-3 mt-4">
           <div className="flex items-center justify-between text-sm">
-            <p>Subtotal • {totalQuantity} items</p>
-            <p>৳ {(total > 0 ? total : "00.0")}</p>
+            <p>Subtotal • 
+              {/* {totalQuantity} */} 2
+               items</p>
+            <p>৳ 
+              {/* {(total > 0 ? total : "00.0")} */} 0.00
+              </p>
           </div>
 
           <div className="flex items-center justify-between text-sm">
             <p>Shipping</p>
-            <p>৳{isMatch && total > 0 ? 70 : 140}.00 </p>
+            <p>৳
+              {/* {isMatch && total > 0 ? 70 : 140}.00  */} 0.00
+              </p>
           </div>
 
           <div className="flex items-center justify-between font-medium text-lg">
             <p className="text-">Total</p>
             <p>
-              <span className="text-xs font-normal"> BDT </span> ৳{total + (total > 0 ? 140 : 0)}
+              <span className="text-xs font-normal"> BDT </span> ৳
+              {/* {total + (total > 0 ? 140 : 0)} */} 0.00
             </p>
           </div>
         </div>

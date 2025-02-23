@@ -23,7 +23,7 @@ const Navbar = () => {
     { title: "Home", path: "/" },
     { title: "About", path: "/about" },
     { title: "Contact", path: "/contact" },
-    { title: "Porducts", path: "/" },
+    { title: "Porducts", path: "/products" },
   ];
 
   return (
@@ -43,7 +43,7 @@ const Navbar = () => {
           <ul className="justify-center font-medium items-center flex space-x-2 md:space-x-6">
             {navigation.map((item, idx) => {
               return (
-                <li key={idx} className="text-gray-600 hover:text-indigo-600">
+                <li key={idx} className="text-gray-600 hover:text-primary">
                   <Link to={item.path}>{item.title}</Link>
                 </li>
               );

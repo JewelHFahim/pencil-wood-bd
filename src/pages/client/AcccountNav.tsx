@@ -13,11 +13,11 @@ interface AccountNavProps {
 const AcccountNav: FC<AccountNavProps> = ({ active, setActive }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  useEffect(()=>{
-    if(isOpen){
-      setIsOpen(false)
+  useEffect(() => {
+    if (isOpen) {
+      setIsOpen(false);
     }
-  },[active])
+  }, [active]);
 
   //   const handleLogout = async () => {
   //     try {
@@ -58,14 +58,14 @@ const AcccountNav: FC<AccountNavProps> = ({ active, setActive }) => {
   ];
 
   return (
-    <div className=" border-gray-200 bg-gray-100 md:bg-gray-50 md:w-[25%] md:p-5 md:py-2 flex md:flex-col flex-row items-center md:items-start justify-between">
+    <div className=" border-gray-200 bg-orange-200 md:w-[25%] md:p-5 md:py-2 flex md:flex-col flex-row items-center md:items-start justify-between">
       <div className="w-full flex flex-col text-sm">
         <div className="w-full flex items-center justify-between border-b border-gray-400 md:border-0 p-2">
           <h3 className="uppercase text-sm font-medium md:mb-5">My Account</h3>
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-lg border border-gray-400 rounded-sm text-gray-600 hover:text-primary p-1.5 block md:hidden"
+            className="text-lg border border-gray-400 rounded-sm text-gray-950 hover:text-primary p-1.5 block md:hidden"
           >
             {isOpen ? <FaArrowDownShortWide /> : <FaArrowUpWideShort />}
           </button>
@@ -82,9 +82,10 @@ const AcccountNav: FC<AccountNavProps> = ({ active, setActive }) => {
                 onClick={() => {
                   setActive(menu.path);
                 }}
-                className={`${
-                  active === menu.path ? "text-primary" : ""
-                } w-full border-b border-gray-200 py-5 cursor-pointer hover:text-primary transition-all duration-150 flex items-center gap-2 pl-2`}
+                className={` 
+                   ${active === menu.path ? "font-medium text-orange-600" : ""} 
+
+                  w-full border-b border-orange-300 py-5 cursor-pointer hover:text-orange-600 text-black transition-all duration-150 flex items-center gap-2 pl-2`}
               >
                 <span className="text-base">{menu.icon}</span>
                 {menu.name}
@@ -97,7 +98,7 @@ const AcccountNav: FC<AccountNavProps> = ({ active, setActive }) => {
       <div>
         <button
           //   onClick={handleLogout}
-          className="hidden w-max font-medium text-primary hover:text-white hover:bg-primary transition-all duration-200 px-4 py-1 text-sm rounded-md md:flex items-center gap-1 border"
+          className="hidden w-max font-medium hover:text-primary text-gray-950 transition-all duration-200 px-4 py-1 text-sm rounded-md md:flex items-center gap-1 border"
         >
           <BiLogOutCircle className="text-base mt-[3px]" />
           Logout

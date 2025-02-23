@@ -103,7 +103,7 @@ const ResetPassword = () => {
 
           <button
             type="submit"
-            className="md:w-max h-9 m-w-max px-12 bg-gray-800 hover:bg-gray-950 mt-5 text-white"
+            className="md:w-max h-9 m-w-max px-12 bg-primary hover:bg-orange-600 mt-5 text-white"
           >
             Save
           </button>

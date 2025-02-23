@@ -9,12 +9,14 @@ import UserDashboard from "../pages/client/UserDashboard";
 import Contact from "../pages/Contact";
 import Checkout from "../pages/Checkout";
 import Cart from "../pages/Cart";
+import Products from "../pages/Products";
 
 const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<App />}>
         <Route index element={<Home />} />
+        <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/account" element={<UserDashboard />} />
         <Route path="/checkout" element={<Checkout />} />

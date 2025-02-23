@@ -64,7 +64,7 @@ const Footer = () => {
         </ul>
       </div>
 
-      <div className="w-full h-[1px] my-4 bg-indigo-500" />
+      <div className="w-full h-[1px] my-4 bg-orange-300" />
 
       <div className="w-[95vw] md:w-[90vw] lg:w-[71vw] mx-auto md:h-1/2 flex flex-col justify-center items-center  md:justify-evenly gap-y-4 ">
         <div className="flex items-center gap-5 text-3xl ">

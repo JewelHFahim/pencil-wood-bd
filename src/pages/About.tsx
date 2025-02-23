@@ -3,13 +3,13 @@ import { GoRocket } from "react-icons/go";
 import { RiCustomerService2Fill } from "react-icons/ri";
 
 const About = () => {
-  // const isLoading = false;
-
   return (
     <div className="min-h-[calc(100vh-200px)] my-5">
+      <div className="h-16 bg-primary w-full flex justify-center items-center">
+        <h1 className="text-3xl text-white text-center font-medium ">About</h1>
+      </div>
 
       <div className="w-full flex flex-col md:flex-row gap-8 md:py-10">
-
         <div className="md:w-[40%]">
           <h1 className="text-5xl md:text-[80px] font-semibold text-primary">
             Fire Cutter
@@ -97,7 +97,6 @@ const About = () => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };

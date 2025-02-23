@@ -8,9 +8,11 @@ import SocialIcons from "../utils/SocialIcons";
 const Contact = () => {
   return (
     <div className="min-h-[calc(100vh-200px)] my-5 px-5 md:px-0">
-      <h1 className="text-3xl text-primary text-center font-medium underline">
-        Contact
-      </h1>
+      <div className="h-16 bg-primary w-full flex justify-center items-center">
+        <h1 className="text-3xl text-white text-center font-medium ">
+          Contact
+        </h1>
+      </div>
 
       <div className="my-8 grid gap-5 grid-cols-1 md:grid-cols-3 text-gray-500">
         <div className="bg-white px-8 py-12 shadow-sm hover:shadow-md">
