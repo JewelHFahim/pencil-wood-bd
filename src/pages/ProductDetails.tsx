@@ -1,7 +1,6 @@
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import BuyNow from "../utils/buttons/BuyNow";
 import SocialIcons from "../utils/SocialIcons";
-import ProductSuggestion from "../components/products/ProductSuggestion";
 import BackToHome from "../utils/buttons/BackButton";
 import { useEffect, useState } from "react";
 import ImageZoom from "../components/zoom/ImageZoom";
@@ -9,6 +8,8 @@ import { useLocation } from "react-router";
 import { HiMinus, HiPlus } from "react-icons/hi";
 import DescriptionAndReview from "../components/products/DescriptionAndReview";
 import CommonBtn from "../utils/buttons/CommonBtn";
+import SimilarProducts from '../components/slider/SimilarProducts';
+import BestSalePeroducts from "../components/slider/BestSaleProducts";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -139,7 +140,9 @@ const ProductDetails = () => {
       <DescriptionAndReview />
 
       {/* Product Suggestions */}
-      <ProductSuggestion />
+      {/* <ProductSuggestion /> */}
+      <SimilarProducts/>
+      <BestSalePeroducts/>
 
       {/* Back Home Button */}
       <BackToHome />

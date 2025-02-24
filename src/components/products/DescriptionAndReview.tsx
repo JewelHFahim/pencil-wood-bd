@@ -5,7 +5,7 @@ const DescriptionAndReview = () => {
   const [active, setActive] = useState("");
 
   return (
-    <div className="my-10 border-b pb-5 border-gray-300">
+    <div className="my-1 border-b pb-5 border-gray-300">
       <div className="flex items-center gap-2 w-max">
         <button
           onClick={() => setActive("description")}

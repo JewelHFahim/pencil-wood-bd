@@ -14,8 +14,8 @@ const FilterSlider: FC<FilterMenuProps> = ({
   isOpenFilter,
   toggleDrawerFilter,
 }) => {
-  const [isOpenType, setIsOpenType] = useState(false);
-  const [isOpenPrice, setIsOpenPrice] = useState(false);
+  const [isOpenType, setIsOpenType] = useState(true);
+  const [isOpenPrice, setIsOpenPrice] = useState(true);
 
   return (
     <div className="block md:hidden w-full ">

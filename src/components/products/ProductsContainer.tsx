@@ -9,8 +9,8 @@ import ProductSorting from "./ProductSorting";
 import FilterSlider from "./FilterSlider";
 
 const ProductsContainer = () => {
-  const [isOpenType, setIsOpenType] = useState(false);
-  const [isOpenPrice, setIsOpenPrice] = useState(false);
+  const [isOpenType, setIsOpenType] = useState(true);
+  const [isOpenPrice, setIsOpenPrice] = useState(true);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const isLoading = false;
 

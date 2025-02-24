@@ -2,7 +2,7 @@ import ProductCard from "./ProductCard"
 
 const ProductSuggestion = () => {
   return (
-    <div className="my-20">
+    <div className="my-4">
         <div className="flex justify-center">
           <h1 className="text-lg font-medium uppercase">You may also like</h1>
         </div>

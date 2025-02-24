@@ -5,11 +5,7 @@ import { RiCustomerService2Fill } from "react-icons/ri";
 const About = () => {
   return (
     <div className="min-h-[calc(100vh-200px)] my-5">
-      <div className="h-16 bg-primary w-full flex justify-center items-center">
-        <h1 className="text-3xl text-white text-center font-medium ">About</h1>
-      </div>
-
-      <div className="w-full flex flex-col md:flex-row gap-8 md:py-10">
+      {/* <div className="w-full flex flex-col md:flex-row gap-8 md:py-10">
         <div className="md:w-[40%]">
           <h1 className="text-5xl md:text-[80px] font-semibold text-primary">
             Fire Cutter
@@ -52,6 +48,26 @@ const About = () => {
             </li>
           </ul>
         </div>
+      </div> */}
+
+      <div
+        className="w-full min-h-[calc(100vh-200px)] p-7 md:p-14 relative flex flex-col items-center justify-center gap-y-10"
+        style={{ backgroundImage: "url(/about.webp)", backgroundSize: "cover" }}
+      >
+        <h1 className=" text-3xl md:text-4xl lg:text-6xl font-bold uppercase text-white md:text-center z-50">
+          TREND AND TRADITION <br /> SEAMLESS FUSION!
+        </h1>
+
+        <p className=" md:text-xl font-medium text-white uppercase z-50 md:text-center md:leading-8">
+          Twelve Clothing seamlessly combines fashion with elegance,
+          prioritizing community engagement and exceptional customer care. Our
+          mission is to nurture a loyal customer base while upholding the
+          sophistication of a global brand. We are dedicated to quality,
+          innovation, and sustainability, harmonizing local values with
+          international ambitions to deliver an outstanding experience for all.
+        </p>
+
+        <div className="absolute top-0 left-0 w-full z-0 h-full bg-black/80"></div>
       </div>
 
       <div className="my-8 py-20 bg-gray-50 md:px-5">
