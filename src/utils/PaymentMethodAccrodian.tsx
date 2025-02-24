@@ -23,7 +23,7 @@ const PaymentMethodAccrodian: FC<PaymentMethodAccrodianProps> = ({selectedMethod
               onClick={() => setSelectedMethod("bKash")}
               className={`${ selectedMethod === "bKash" ? "border-primary" : "border-t-0 rounded-b-md" } border border-gray-400 rounded-b-m px-4 h-[50px] flex items-center gap-5 cursor-pointer`}>
               <div className={`${ selectedMethod === "bKash" ? "border-primary border-[6px]" : "border" } w-5 h-5 rounded-full`}></div>
-              <p className="text-sm">bKash</p>
+              <p className="text-sm">Bkash/Nagad</p>
             </div>
     </div>
   )

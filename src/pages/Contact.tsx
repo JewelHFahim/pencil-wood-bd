@@ -22,7 +22,7 @@ const Contact = () => {
               Hotline
             </h2>
           </div>
-          <p className="mt-4 font-medium  text-center">+88 01911 209322</p>
+          <p className="mt-4 font-medium  text-center">+88 01911 223344</p>
         </div>
 
         <div className="bg-white px-8 py-12 shadow-sm hover:shadow-md">
@@ -32,7 +32,7 @@ const Contact = () => {
               WhatsApp
             </h2>
           </div>
-          <p className="mt-4 font-medium text-center">+88 01911 209322</p>
+          <p className="mt-4 font-medium text-center">+88 01911 223344</p>
         </div>
 
         <div className="bg-white px-8 py-12 shadow-sm hover:shadow-md">
@@ -42,7 +42,7 @@ const Contact = () => {
               Email
             </h2>
           </div>
-          <p className="mt-4 font-medium text-center">support@firecutter.com</p>
+          <p className="mt-4 font-medium text-center">support@pencilwood.com</p>
         </div>
       </div>
 

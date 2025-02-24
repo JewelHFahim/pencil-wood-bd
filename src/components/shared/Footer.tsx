@@ -5,12 +5,12 @@ import { Link } from "react-router";
 const Footer = () => {
   const footerMenus = [
     {
-      name: "About Us",
-      path: "",
+      name: "About",
+      path: "/about",
     },
     {
-      name: "Contact Us",
-      path: "",
+      name: "Contact",
+      path: "/contact",
     },
     {
       name: "Return Policy",
@@ -78,7 +78,7 @@ const Footer = () => {
             </Link>
           ))}
         </div>
-        <p className="text-xs text-white">All rights reserved © Fire Cutter</p>
+        <p className="text-xs text-white">All rights reserved © PencilwoodBD</p>
       </div>
     </div>
   );

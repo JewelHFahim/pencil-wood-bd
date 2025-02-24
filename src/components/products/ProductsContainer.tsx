@@ -56,7 +56,7 @@ const ProductsContainer = () => {
             </button>
 
             {isOpenPrice && (
-              <div className="flex flex-col gap-1.5 w-[95%] mt-5">
+              <div className="flex justify-center gap-1.5 w-[100%] pl-1 pr-2 mt-5">
                 <PriceRangeSlider />
               </div>
             )}

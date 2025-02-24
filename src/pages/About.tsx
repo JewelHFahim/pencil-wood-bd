@@ -59,7 +59,7 @@ const About = () => {
         </h1>
 
         <p className=" md:text-xl font-medium text-white uppercase z-50 md:text-center md:leading-8">
-          Twelve Clothing seamlessly combines fashion with elegance,
+          <span className="text-primary">Pencilwood</span> seamlessly combines fashion with elegance,
           prioritizing community engagement and exceptional customer care. Our
           mission is to nurture a loyal customer base while upholding the
           sophistication of a global brand. We are dedicated to quality,

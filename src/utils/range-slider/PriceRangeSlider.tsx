@@ -2,6 +2,7 @@ import { useState } from "react";
 import Box from "@mui/joy/Box";
 import Slider from "@mui/joy/Slider";
 import Input from "@mui/joy/Input";
+
 import { GlobalStyles } from "@mui/system";
 
 export default function PriceRangeSlider() {
@@ -46,13 +47,34 @@ export default function PriceRangeSlider() {
           type="number"
           value={priceRange[0]}
           onChange={(e) => handleInputChange(0, e.target.value)}
-          sx={{ width: 70, borderRadius: 0, fontSize: 14, fontWeight: "500", color: "#4f46e5" }}
+          sx={{
+            width: 70,
+            borderRadius: 0,
+            fontSize: 14,
+            fontWeight: "500",
+            color: "#fd7e14",
+            borderColor: "#fd7e14",
+            "&:focus": {
+              outline: "2px solid red", 
+            },
+            "&:focus-visible": {
+              outline: "2px solid red",
+            },
+          }}
+          
         />
         <Input
           type="number"
           value={priceRange[1]}
           onChange={(e) => handleInputChange(1, e.target.value)}
-          sx={{ width: 70, borderRadius: 0, fontSize: 14, margin: 0,  fontWeight: "500", color: "#4f46e5" }}
+          sx={{
+            width: 70,
+            borderRadius: 0,
+            fontSize: 14,
+            margin: 0,
+            fontWeight: "500",
+            color: "#fd7e14",
+          }}
         />
       </Box>
 
@@ -69,8 +91,8 @@ export default function PriceRangeSlider() {
           marginLeft: "10px",
           color: "#4f46e5", // Slider active color (thumb and track)
           [`& .MuiSlider-track`]: { backgroundColor: "rgb(117, 117, 117)" },
-          [`& .MuiSlider-thumb`]: { backgroundColor: "#rgb(117, 117, 117)" },
-          [`& .MuiSlider-rail`]: { backgroundColor: "#rgb(117, 117, 117)" },
+          [`& .MuiSlider-thumb`]: { backgroundColor: "#fd7e14" },
+          [`& .MuiSlider-rail`]: { backgroundColor: "#fd7e14" },
         }}
       />
     </Box>
