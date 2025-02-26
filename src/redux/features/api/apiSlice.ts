@@ -1,13 +1,15 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
-import { BASE_URL } from "../../../components/config/config";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiSlice = createApi({
   reducerPath: "pencilwood",
   baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
-    // baseUrl: "https://api.pencilwoodbd.org",
-    prepareHeaders: () => {},
+    // baseUrl: BASE_URL,
+    baseUrl: "https://api.pencilwoodbd.org",
+    prepareHeaders: (headers) => {
+      headers.set("Content-Type", "application/json");
+      return headers;
+    },
   }),
-  endpoints: () => ({}),
   tagTypes: ["users", "products", "orders", "carts"],
+  endpoints: () => ({}),
 });

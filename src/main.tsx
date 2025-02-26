@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router";
 import Router from "./routes/Router";
 import { Provider } from "react-redux";
 import "./index.css";
-import store from "./redux/store";
+import { store } from "./redux/store";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

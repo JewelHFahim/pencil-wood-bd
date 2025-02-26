@@ -4,11 +4,12 @@ import { FC } from "react";
 
 interface MobileOrderSummery {
   isOpen: boolean;
+  isMatch: boolean,
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
-const MobileOrderSummery: FC<MobileOrderSummery> = ({isOpen, setIsOpen }) => {
+const MobileOrderSummery: FC<MobileOrderSummery> = ({isOpen, setIsOpen, isMatch }) => {
   
   // const cart = JSON?.parse(localStorage?.getItem("cart"));
   // const products = cart?.products ? cart?.products : [];
@@ -51,7 +52,7 @@ const MobileOrderSummery: FC<MobileOrderSummery> = ({isOpen, setIsOpen }) => {
           <div className="flex items-center justify-between text-sm">
             <p>Shipping</p>
             <p>৳
-              {/* {isMatch && total > 0 ? 70 : 140}.00  */} 0.00
+              {/* {isMatch && total > 0 ? 70 : 140}.00  */}  {isMatch ? 70 : 140}.00
               </p>
           </div>
 

@@ -1,10 +1,16 @@
 import { Link } from "react-router";
 import "./ProductCard.css";
+import { FC } from "react";
+import { ProductResponse } from "../../types/products_type";
 
-const ProductCard = () => {
+interface ProductCardProps {
+  product: ProductResponse;
+}
+
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="ProductCard-Wrapper">
-      <Link to={`/products/1`}>
+      <Link to={`/products/${product?.id}`}>
         <div className="w-full relative img-container overflow-hidden max-h-[350px] rounded-t-sm">
           <img
             src={`/product_2.jpg`}
@@ -30,17 +36,21 @@ const ProductCard = () => {
         </button>
 
         <div className="mt-1">
-          <h2 className="text-sm md:text-base font-medium">Product Title</h2>
+          <h2 className="text-sm md:text-base font-medium">{product?.name}</h2>
 
           <div className="flex justify-between md:flex-start items-center sm:gap-2 md:gap-x-4">
             <div className="flex flex-col md:flex-row items-center gap-x-4">
-              <p className="md:font-medium line-through text-gray-500 text-sm">
-                Tk350.00
+              {product?.discount_price && (
+                <p className="md:font-medium line-through text-gray-500 text-sm">
+                  Tk{product?.discount_price}
+                </p>
+              )}
+              <p className="md: font-medium text-sm text-primary">
+                Tk{product?.current_price}
               </p>
-              <p className="md: font-medium text-sm text-primary">Tk250.00</p>
             </div>
 
-            <div className={`bg-primar text-white text-xs px-2`}>Stock</div>
+            {/* <div className={`bg-primar text-red-500 text-xs px-2`}>Stock</div> */}
           </div>
         </div>
       </Link>

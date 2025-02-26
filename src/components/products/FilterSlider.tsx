@@ -4,6 +4,8 @@ import { FC, useState } from "react";
 import { IoIosArrowDown, IoMdClose } from "react-icons/io";
 import { IoFilter } from "react-icons/io5";
 import PriceRangeSlider from "../../utils/range-slider/PriceRangeSlider";
+import { CategoryResponse } from "../../types/products_type";
+import { useCategoryQuery } from "../../redux/features/products/productsApi";
 
 interface FilterMenuProps {
   isOpenFilter: boolean;
@@ -16,6 +18,7 @@ const FilterSlider: FC<FilterMenuProps> = ({
 }) => {
   const [isOpenType, setIsOpenType] = useState(true);
   const [isOpenPrice, setIsOpenPrice] = useState(true);
+  const { data: categories } = useCategoryQuery();
 
   return (
     <div className="block md:hidden w-full ">
@@ -63,11 +66,14 @@ const FilterSlider: FC<FilterMenuProps> = ({
 
                 {isOpenType && (
                   <div className="w-full h-[250px] overflow-y-auto flex flex-col gap-1.5 mt-2">
-                    {[...Array(15)].map(() => (
-                      <div className="flex items-center gap-1.5 text-gray-800 hover:text-gray-900">
+                    {categories?.results?.map((category: CategoryResponse) => (
+                      <div
+                        key={category?.id}
+                        className="flex items-center gap-1.5 text-gray-800 hover:text-gray-900"
+                      >
                         <input type="checkbox" className="w-[14px] h-[14px]" />
                         <p className="text-[15px]">
-                          Baby Boys Bomber
+                          {category?.title}
                           <span className="text-gray-400">(5)</span>
                         </p>
                       </div>

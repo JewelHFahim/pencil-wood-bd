@@ -26,7 +26,7 @@ const OrderedProductsDropdown: FC<OrderedProductsDropdownProps> = ({
                   <div className="relative w-[50px] h-[50px]">
                     <div className="w-full h-full relative rounded-md border-2 border-gray-400 overflow-hidden">
                       <img
-                        src="/img1.webp"
+                        src="/product_2.jpg"
                         alt=""
                         className="object-cover w-full h-full "
                       />

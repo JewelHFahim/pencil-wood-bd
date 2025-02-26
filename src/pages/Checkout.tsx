@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import ShppingCost from "../utils/ShppingCost";
 import PaymentMethodAccrodian from "../utils/PaymentMethodAccrodian";
 import DeliveryChargePaymentProcess from "../utils/DeliveryChargePaymentProcess";
-// import MobileOrderSummery from "../utils/MobileOrderSummery";
+import MobileOrderSummery from "../utils/MobileOrderSummery";
 import SubmitButton from "../utils/buttons/SubmitButton";
 import CheckoutFooter from "../utils/CheckoutFooter";
 import OrderListAndPriceSummery from "../utils/OrderListAndPriceSummery";
@@ -26,7 +26,7 @@ export default function Checkout() {
   //   const [createOrder, { isLoading }] = useCreateOrderMutation();
 
   const [selectedMethod, setSelectedMethod] = useState<string>("");
-  // const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   //   const city = watch("city");
   //   const isMatch = city === "Dhaka";
@@ -301,11 +301,11 @@ export default function Checkout() {
             </div>
 
             {/* Mobile Order Summery */}
-            {/* <MobileOrderSummery
+            <MobileOrderSummery
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               isMatch={isMatch}
-            /> */}
+            />
 
             {/* Submit Button */}
             <SubmitButton />
