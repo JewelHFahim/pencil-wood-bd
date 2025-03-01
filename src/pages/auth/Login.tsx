@@ -1,7 +1,11 @@
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useState } from "react";
+import { useLoginMutation } from "../../redux/features/auth/authApis";
+import toast from "react-hot-toast";
+import Cookies from "js-cookie";
+import Loader from "../../utils/loader/Loader";
 
 type Inputs = {
   email: string;
@@ -10,40 +14,42 @@ type Inputs = {
 };
 
 const Login = () => {
-  const isLoading = false;
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/account"; // Redirect to intended page
+
   const [viewPass, setViewPass] = useState(false);
-
-
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+  const [login, { isLoading }] = useLoginMutation();
 
-  const onSubmit:SubmitHandler<Inputs> = async (data) => {
-    console.log(data)
-    // try {
-    //   const response = await login(data);
-    //   console.log(response);
-    //   if (response?.data) {
-    //     toast.success(response.data?.message);
-    //     Cookies.set("fc_token", response.data?.token, { secure: true, sameSite: "strict" });
-    //     Cookies.set("uid", response.data?.id, { secure: true, sameSite: "strict" });
-    //     router.push(nextRoute);
-    //   }
-    //   if (response.error) {
-    //     toast.error(response?.error?.data?.message);
-    //   }
-    //   if (response?.error?.error) {
-    //     toast.error(response?.error?.data?.message);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.error("Try again later");
-    // }
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log(data);
+    try {
+      const response = await login(data);
+      console.log(response);
+      if (response?.data?.access) {
+        const token = response?.data?.access;
+        toast.success("Login successful");
+        Cookies.set("pencil", token, { secure: true, sameSite: "strict" });
+        navigate(from, { replace: true });
+      }
+      if (response.error) {
+        toast.error("Invalid credentials");
+      }
+      // if (response?.error?.error) {
+      //   toast.error(response?.error?.data?.message);
+      // }
+    } catch (error) {
+      console.log(error);
+      toast.error("Try again later");
+    }
   };
 
   return (
     <div className="h-full my-5">
       {isLoading ? (
-        <div className="flex justify-center items-center min-h-screen">
-          Loading...
+        <div className="flex justify-center items-center min-h-[70vh]">
+         <Loader/>
         </div>
       ) : (
         <form

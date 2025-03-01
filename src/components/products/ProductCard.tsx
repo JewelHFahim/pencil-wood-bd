@@ -8,6 +8,20 @@ interface ProductCardProps {
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
+  // const [addToCart] = useAddToCartMutation();
+
+  // const handleCart = async (content: number) => {
+  //   try {
+  //     console.log(content);
+
+  //     const res = await addToCart();
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+
   return (
     <div className="ProductCard-Wrapper">
       <Link to={`/products/${product?.id}`}>
@@ -30,6 +44,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
 
         <button
           type="button"
+          // onClick={() => handleCart(product?.id)}
           className="w-full h-full py-2 rounded-b-sm bg-primary font-medium text-xs md:text-sm text-gray-100 uppercase"
         >
           Add To Cart

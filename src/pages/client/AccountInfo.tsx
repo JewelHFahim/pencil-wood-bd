@@ -26,7 +26,7 @@ const isLoading = false;
       <div className="w-full h-full p-5">
         {isLoading ? (
           <div className="w-full h-full flex justify-center items-center">
-            <p>Loading...</p>
+            <p>Loading...AccountInfo</p>
           </div>
         ) : (
           <div className="w-full h-full text-sm">

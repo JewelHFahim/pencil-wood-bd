@@ -24,7 +24,7 @@ const Orders: FC<OrdersProps> = ({ setOrderId, setActive }) => {
     <div className="mx-auto h-full">
       {isLoading ? (
         <div className="w-full h-full flex justify-center items-center">
-          <p>Loading...</p>
+          <p>Loading...Orders</p>
         </div>
       ) : (
         <div className="overflow-x-auto flex flex-col justify-between h-full pb-5 md:pb-0">

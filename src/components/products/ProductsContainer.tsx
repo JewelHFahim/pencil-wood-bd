@@ -21,12 +21,21 @@ const ProductsContainer = () => {
   const products = allProducts?.results ?? [];
   const { data: categories } = useCategoryQuery();
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading products</p>;
+  if (isLoading)
+    return (
+      <div className="w-full flex justify-center items-center h-[50vh]">
+        <Loader />
+      </div>
+    );
+
+  console.log(error);
 
   const toggleDrawerFilter = () => {
     setIsOpenFilter(!isOpenFilter);
   };
+
+
+
 
   return (
     <div className="w-full flex justify-center gap-5">
@@ -88,7 +97,9 @@ const ProductsContainer = () => {
         </div>
 
         <div className="flex items-center justify-between my-4">
-          <p className="text-sm italic hidden md:block"> {allProducts?.count} products</p>
+          <p className="text-sm italic hidden md:block">
+            {allProducts?.count} products
+          </p>
 
           {/* Mobile device, product filter */}
           <FilterSlider
@@ -99,17 +110,11 @@ const ProductsContainer = () => {
           <ProductSorting />
         </div>
 
-        {isLoading ? (
-          <div className="w-full flex justify-center items-center h-[50vh]">
-            <Loader />
-          </div>
-        ) : (
-          <div className="mt-5 w-full grid grid-cols-3 md:grid-cols-4 justify-between items-center gap-2 md:gap-x-5 gap-y-8">
-            {products?.map((product: ProductResponse) => (
-              <ProductCard product={product} key={product?.id} />
-            ))}
-          </div>
-        )}
+        <div className="mt-5 w-full grid grid-cols-3 md:grid-cols-4 justify-between items-center gap-2 md:gap-x-5 gap-y-8">
+          {products?.map((product: ProductResponse) => (
+            <ProductCard product={product} key={product?.id} />
+          ))}
+        </div>
 
         <Pagination />
       </div>

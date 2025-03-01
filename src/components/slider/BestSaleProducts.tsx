@@ -11,7 +11,7 @@ const BestSalePeroducts = () => {
   const { data: allProducts, error, isLoading } = useProductsQuery();
   const products = allProducts?.results ?? [];
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...BestSalePeroducts</p>;
   if (error) return <p>Error loading products</p>;
 
   return (

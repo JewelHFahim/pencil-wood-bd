@@ -40,7 +40,7 @@ const Register = () => {
     <div>
       {isLoading ? (
         <div className="flex justify-center items-center min-h-screen">
-          Loading...
+          Loading...Register
         </div>
       ) : (
         <form

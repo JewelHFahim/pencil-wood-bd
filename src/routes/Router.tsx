@@ -10,6 +10,7 @@ import Contact from "../pages/Contact";
 import Checkout from "../pages/Checkout";
 import Cart from "../pages/Cart";
 import Products from "../pages/Products";
+import PrivateRoute from "./PrivateROute";
 
 const Router = () => {
   return (
@@ -18,8 +19,13 @@ const Router = () => {
         <Route index element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/account" element={<UserDashboard />} />
-        <Route path="/checkout" element={<Checkout />} />
+
+        {/* Protected Routes */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/account" element={<UserDashboard />} />
+          <Route path="/checkout" element={<Checkout />} />
+        </Route>
+
         <Route path="/cart" element={<Cart />} />
         <Route path="/account/login" element={<Login />} />
         <Route path="/account/register" element={<Register />} />

@@ -6,7 +6,7 @@ const ProductSuggestion = () => {
   const { data: allProducts, error, isLoading } = useProductsQuery();
   const products = allProducts?.results ?? [];
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading... ProductSuggestion</p>;
   if (error) return <p>Error loading products</p>;
 
   return (

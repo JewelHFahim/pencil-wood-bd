@@ -6,12 +6,13 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import ProductCard from "../products/ProductCard";
 import { useProductsQuery } from "../../redux/features/products/productsApi";
 import { ProductResponse } from "../../types/products_type";
+import Loader from "../../utils/loader/Loader";
 
 const SimilarProducts = () => {
   const { data: allProducts, error, isLoading } = useProductsQuery();
   const products = allProducts?.results ?? [];
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader />;
   if (error) return <p>Error loading products</p>;
   return (
     <div className="my-4 overflow-hidden mt-10">

@@ -4,14 +4,16 @@ import SocialIcons from "../utils/SocialIcons";
 import BackToHome from "../utils/buttons/BackButton";
 import { useEffect, useState } from "react";
 import ImageZoom from "../components/zoom/ImageZoom";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { HiMinus, HiPlus } from "react-icons/hi";
 import DescriptionAndReview from "../components/products/DescriptionAndReview";
 import CommonBtn from "../utils/buttons/CommonBtn";
-import SimilarProducts from '../components/slider/SimilarProducts';
+import SimilarProducts from "../components/slider/SimilarProducts";
 import BestSalePeroducts from "../components/slider/BestSaleProducts";
 
 const ProductDetails = () => {
+  const {id} = useParams();
+  const numericId = Number(id); 
   const location = useLocation();
   const [current, setCurrent] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
@@ -35,6 +37,8 @@ const ProductDetails = () => {
   //     dispatch(addToCart(data));
   //     toast.success("Added to cart");
   //   };
+
+
 
   return (
     <div className="min-h-screen mt-4">
@@ -115,7 +119,7 @@ const ProductDetails = () => {
             >
               Add To Cart
             </button> */}
-            <CommonBtn>Add To Cart</CommonBtn>
+            <CommonBtn numericId={numericId}>Add To Cart</CommonBtn>
 
             <BuyNow />
           </div>
@@ -141,8 +145,8 @@ const ProductDetails = () => {
 
       {/* Product Suggestions */}
       {/* <ProductSuggestion /> */}
-      <SimilarProducts/>
-      <BestSalePeroducts/>
+      <SimilarProducts />
+      <BestSalePeroducts />
 
       {/* Back Home Button */}
       <BackToHome />

@@ -98,7 +98,7 @@ export default function Checkout() {
     <div>
       {isLoading ? (
         <div className="flex justify-center items-center h-[60vh]">
-          <p>Loading...</p>
+          <p>Loading...Checkout</p>
         </div>
       ) : (
         <div className="flex flex-col lg:flex-row min-h-screen">
