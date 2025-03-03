@@ -10,7 +10,7 @@ import Contact from "../pages/Contact";
 import Checkout from "../pages/Checkout";
 import Cart from "../pages/Cart";
 import Products from "../pages/Products";
-import PrivateRoute from "./PrivateROute";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {
   return (

@@ -17,18 +17,16 @@ const ProductsContainer = () => {
   const [isOpenType, setIsOpenType] = useState(true);
   const [isOpenPrice, setIsOpenPrice] = useState(true);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
-  const { data: allProducts, error, isLoading } = useProductsQuery();
+  const { data: allProducts, isLoading } = useProductsQuery();
   const products = allProducts?.results ?? [];
   const { data: categories } = useCategoryQuery();
 
   if (isLoading)
     return (
-      <div className="w-full flex justify-center items-center h-[50vh]">
+      <div className="w-full flex justify-center items-center h-[70vh]">
         <Loader />
       </div>
     );
-
-  console.log(error);
 
   const toggleDrawerFilter = () => {
     setIsOpenFilter(!isOpenFilter);

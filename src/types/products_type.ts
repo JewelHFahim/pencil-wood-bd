@@ -10,7 +10,17 @@ export interface ProductResponse {
 
 export interface ProductsApiResponse {
   results: ProductResponse[];
-  count: number
+  count: number;
+}
+
+export interface SingleCartApiResponse {
+  customer: number;
+  discount_price: string;
+  id: number;
+  price: string;
+  product: number;
+  quantity: number;
+  total_price: string;
 }
 
 export interface CategoryResponse {
@@ -19,6 +29,6 @@ export interface CategoryResponse {
   title: string;
 }
 
-export interface CategoryApiResponse{
-  results: CategoryResponse[]
+export interface CategoryApiResponse {
+  results: CategoryResponse[];
 }

@@ -4,6 +4,9 @@ import { CiBoxList } from "react-icons/ci";
 import { LiaUserSolid } from "react-icons/lia";
 import { TbCurrentLocation } from "react-icons/tb";
 import { FaArrowDownShortWide, FaArrowUpWideShort } from "react-icons/fa6";
+import Cookies from "js-cookie";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 interface AccountNavProps {
   active: string;
@@ -11,6 +14,7 @@ interface AccountNavProps {
 }
 
 const AcccountNav: FC<AccountNavProps> = ({ active, setActive }) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -19,22 +23,15 @@ const AcccountNav: FC<AccountNavProps> = ({ active, setActive }) => {
     }
   }, [active]);
 
-  //   const handleLogout = async () => {
-  //     try {
-  //       const res = await logout();
-  //       console.log(res);
-  //       if (res?.data) {
-  //         toast.success("Logout success");
-  //         Cookies.remove("fc_token");
-  //         router.push("/");
-  //       }
-  //       if (res?.error) {
-  //         toast.error("Logout failed");
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  const handleLogout = async () => {
+    try {
+      toast.success("Logout success");
+      Cookies.remove("pencil");
+      navigate("/account/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const menus = [
     {
@@ -97,8 +94,8 @@ const AcccountNav: FC<AccountNavProps> = ({ active, setActive }) => {
 
       <div>
         <button
-          //   onClick={handleLogout}
-          className="hidden w-max font-medium hover:text-primary text-gray-950 transition-all duration-200 px-4 py-1 text-sm rounded-md md:flex items-center gap-1 border"
+          onClick={handleLogout}
+          className="hidden w-max font-medium hover:text-primary text-gray-950 transition-all duration-200 px-4 py-1 text-sm rounded-md md:flex items-center gap-1 border cursor-pointer"
         >
           <BiLogOutCircle className="text-base mt-[3px]" />
           Logout

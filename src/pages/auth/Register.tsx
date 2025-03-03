@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useRegistrationMutation } from "../../redux/features/auth/authApis";
+import Loader from "../../utils/loader/Loader";
+import toast from "react-hot-toast";
 
 type Inputs = {
-  fullName: string;
+  name: string;
   phone: string;
   email: string;
   password:string,
@@ -12,40 +15,40 @@ type Inputs = {
 };
 
 const Register = () => {
-  const isLoading = false;
+  const navigate = useNavigate();
   const [viewPass, setViewPass] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+  const [registration, {isLoading}] = useRegistrationMutation();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
-    // try {
-    //   const response = await signup(data);
-    //   if (response?.data) {
-    //     toast.success(response.data?.message);
-    //     router.push("/login");
-    //   }
-    //   if (response.error) {
-    //     toast.error(response?.error?.data?.message);
-    //   }
-    //   if (response?.error?.error) {
-    //     toast.error(response?.error?.data?.message);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.error("Try again later");
-    // }
+
+    try {
+      const response = await registration(data);
+      console.log(response);
+      if (response?.data) {
+        toast.success(response.data?.message);
+        navigate("/account/login");
+      }
+      if (response?.error && "data" in response.error) {
+        toast.error((response.error.data as { name?: string })?.name || "Something went wrong");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Try again later");
+    }
   };
 
   return (
     <div>
       {isLoading ? (
-        <div className="flex justify-center items-center min-h-screen">
-          Loading...Register
-        </div>
+         <div className="flex justify-center items-center min-h-[calc(100vh-220px)]">
+         <Loader />
+       </div>
       ) : (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full flex flex-col justify-center items-center gap-y-3"
+          className="w-full min-h-[calc(100vh-220px)] flex flex-col justify-center items-center gap-y-3"
         >
           <h1 className="mt-3 text-2xl font-medium">Create Account</h1>
 
@@ -56,9 +59,9 @@ const Register = () => {
               type="text"
               placeholder="Enter your name"
               className="h-[40px] w-full px-3 border border-gray-500 text-primary font-medium focus:outline-primary rounded-md"
-              {...register("fullName", { required: true })}
+              {...register("name", { required: true })}
             />
-            {errors.fullName && (
+            {errors.name && (
               <span className="text-sm- text-red-500">Name is required</span>
             )}
           </div>
@@ -92,7 +95,7 @@ const Register = () => {
           </div>
 
           {/* Address */}
-          <div className="w-full sm:w-[530px] mx-auto flex flex-col">
+          {/* <div className="w-full sm:w-[530px] mx-auto flex flex-col">
             <label>Address</label>
             <input
               type="text"
@@ -103,7 +106,7 @@ const Register = () => {
             {errors.address && (
               <span className="text-sm- text-red-500">Address is required</span>
             )}
-          </div>
+          </div> */}
 
           {/* Password */}
           <div className="w-full sm:w-[530px] mx-auto flex flex-col">

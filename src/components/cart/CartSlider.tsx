@@ -5,20 +5,30 @@ import { IoMdClose } from "react-icons/io";
 import "react-modern-drawer/dist/index.css";
 import { RiShoppingBagLine } from "react-icons/ri";
 import { LiaLongArrowAltRightSolid } from "react-icons/lia";
+import { SingleCartApiResponse } from "../../types/products_type";
 
 interface CartMenuProps {
   isOpenCart: boolean;
   toggleDrawerCart: () => void;
+  cartList: SingleCartApiResponse[] | undefined;
 }
 
-const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
-  const {pathname} = useLocation();
+const CartSlider: FC<CartMenuProps> = ({
+  cartList,
+  isOpenCart,
+  toggleDrawerCart,
+}) => {
+  const { pathname } = useLocation();
+  const cartLength = cartList?.length || 0;
 
   useEffect(() => {
     if (isOpenCart) {
       toggleDrawerCart();
     }
   }, [pathname]);
+
+  const totalSum = cartList?.reduce((acc, item) => acc + parseFloat(item.total_price), 0);
+  
 
 
   return (
@@ -32,9 +42,11 @@ const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
           <RiShoppingBagLine />
         </span>
 
-        <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center bg-primary text-white text-xs">
-          0
-        </div>
+        {cartLength > 0 && (
+          <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+            {cartLength}
+          </div>
+        )}
       </button>
 
       {/* Cart Content */}
@@ -64,9 +76,9 @@ const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
             </div>
 
             <div className="flex flex-col overflow-y-auto max-h-[55vh] md:max-h-[60vh]">
-              {[...Array(10)].map((_, idx: number) => (
+              {cartList?.map((item) => (
                 <div
-                  key={idx}
+                  key={item?.id}
                   className="mx-4 py-4 grid grid-cols-12 gap-3 text-black border-b border-gray-300"
                 >
                   <button
@@ -87,8 +99,8 @@ const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
                   <div className="col-span-8 text-base">
                     <h2 className="font-medium">Product Name</h2>
                     <p className="font-medium flex gap-2">
-                      <span> 1 </span> x
-                      <span className="text-green-600">৳ 4,995</span>
+                      <span> {item?.quantity} </span> x
+                      <span className="text-green-600">৳ {item?.price}</span>
                     </p>
                   </div>
                 </div>
@@ -98,7 +110,7 @@ const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
 
           <div className="border-t bg-white border-gray-300 px-4 pt-2 sticky bottom-0 pb-14 md:pb-5">
             <h3 className="text-lg font-bold uppercase text-gray-800 flex items-center justify-between">
-              <span>Subtotal:</span> <span> ৳ 4,995</span>
+              <span>Subtotal:</span> <span> ৳ {totalSum}</span>
             </h3>
 
             <div className="mt-5 flex flex-col gap-3">

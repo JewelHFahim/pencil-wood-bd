@@ -19,7 +19,11 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/account"; // Redirect to intended page
 
   const [viewPass, setViewPass] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
   const [login, { isLoading }] = useLoginMutation();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -36,9 +40,6 @@ const Login = () => {
       if (response.error) {
         toast.error("Invalid credentials");
       }
-      // if (response?.error?.error) {
-      //   toast.error(response?.error?.data?.message);
-      // }
     } catch (error) {
       console.log(error);
       toast.error("Try again later");
@@ -49,12 +50,12 @@ const Login = () => {
     <div className="h-full my-5">
       {isLoading ? (
         <div className="flex justify-center items-center min-h-[70vh]">
-         <Loader/>
+          <Loader />
         </div>
       ) : (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full h-[calc(100vh-220px)] flex flex-col justify-center items-center gap-y-5 pb-5"
+          className="w-full min-h-[calc(100vh-220px)] flex flex-col justify-center items-center gap-y-5 pb-5"
         >
           <h1 className="mt-5 text-2xl font-medium">Login</h1>
 

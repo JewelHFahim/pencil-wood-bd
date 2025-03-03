@@ -5,11 +5,13 @@ import { Link } from "react-router";
 import MobileMenu from "./MobileMenu";
 import CartSlider from "../../cart/CartSlider";
 import SearchBar from "./SearchBar";
+import { useCartListQuery } from "../../../redux/features/cart/cartApis";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isOpenCart, setIsOpenCart] = useState<boolean>(false);
+  const { data: cartList } = useCartListQuery();
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -69,6 +71,7 @@ const Navbar = () => {
             </div>
 
             <CartSlider
+              cartList={cartList}
               isOpenCart={isOpenCart}
               toggleDrawerCart={toggleDrawerCart}
             />
