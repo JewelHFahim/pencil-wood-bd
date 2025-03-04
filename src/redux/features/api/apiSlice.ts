@@ -9,7 +9,9 @@ export const apiSlice = createApi({
     baseUrl: "https://api.pencilwoodbd.org",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
-      headers.set("AUthorization", `Bearer ${token}`);
+      if (token) {
+        headers.set("AUthorization", `Bearer ${token}`);
+      }
       return headers;
     },
   }),

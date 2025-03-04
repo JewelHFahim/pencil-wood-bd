@@ -3,7 +3,7 @@ import MainSlider from "../components/slider/MainSlider";
 
 const Home = () => {
   return (
-    <div>
+    <div className="min-h-[70vh]">
       <MainSlider />
       <ProductsContainer />
     </div>

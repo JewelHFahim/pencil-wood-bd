@@ -3,8 +3,10 @@ import { VscLayoutSidebarRight } from "react-icons/vsc";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import { BiLogOutCircle } from "react-icons/bi";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { FC, useEffect } from "react";
+import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -12,7 +14,8 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
-  const {pathname} = useLocation();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const navigation = [
     { title: "Home", path: "/" },
     { title: "About", path: "/about" },
@@ -20,11 +23,11 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
     { title: "Porducts", path: "/products" },
   ];
 
-  useEffect(()=>{
-    if(isOpen){
-      toggleDrawer()
+  useEffect(() => {
+    if (isOpen) {
+      toggleDrawer();
     }
-  },[pathname])
+  }, [pathname]);
 
   //   const filteredNavigation =
   //   user?.user_info?.type === 1 ? navigation : navigation.filter((item) => item.type !== 1);
@@ -59,6 +62,15 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
   //     }
   //   };
 
+  const handleLogout = async () => {
+    try {
+      toast.success("Logout success");
+      Cookies.remove("pencil");
+      navigate("/account/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -102,7 +114,9 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
                 <li key={idx} className="w-full border-b border-gray-300 py-3">
                   <Link
                     to={item.path}
-                    className={`w-full hover:text-white hover:bg-primary duration-150  flex items-center justify-between ${pathname === item.path ? "text-primary font-medium" : ""}`}
+                    className={`w-full hover:text-white hover:bg-primary duration-150  flex items-center justify-between ${
+                      pathname === item.path ? "text-primary font-medium" : ""
+                    }`}
                   >
                     {item.title}
                   </Link>
@@ -113,7 +127,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
 
           <div className="w-full flex justify-cente items-center mb-2 px-4">
             <button
-              //   onClick={() => handleLogout()}
+              onClick={handleLogout}
               className="text-sm mr-10 font-medium px-5 py-1 flex items-center gap-1 rounded-md border hover:bg-[#98E5DD] hover:text-black"
             >
               <BiLogOutCircle className="text-base" /> Logout

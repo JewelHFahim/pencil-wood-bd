@@ -21,6 +21,8 @@ const CartSlider: FC<CartMenuProps> = ({
   const { pathname } = useLocation();
   const cartLength = cartList?.length || 0;
 
+  console.log(cartList)
+
   useEffect(() => {
     if (isOpenCart) {
       toggleDrawerCart();
@@ -29,8 +31,6 @@ const CartSlider: FC<CartMenuProps> = ({
 
   const totalSum = cartList?.reduce((acc, item) => acc + parseFloat(item.total_price), 0);
   
-
-
   return (
     <>
       {/*Cart Button */}

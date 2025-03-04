@@ -4,7 +4,7 @@ import NavContainer from "./components/shared/navs/NavContainer";
 
 const App = () => {
   return (
-    <div>
+    <div className="min-h-screen">
       <NavContainer />
       <div className="sm:w-full md:w-[85vw] lg:w-[80vw] xl:w-[70vw] mx-auto px-4 md:px-0">
         <Outlet />

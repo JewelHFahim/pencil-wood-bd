@@ -32,9 +32,6 @@ const ProductsContainer = () => {
     setIsOpenFilter(!isOpenFilter);
   };
 
-
-
-
   return (
     <div className="w-full flex justify-center gap-5">
       <div className="hidden md:block w-[260px] mt-1">
@@ -56,10 +53,7 @@ const ProductsContainer = () => {
                     className="flex items-center gap-1.5 text-gray-800 hover:text-gray-900"
                   >
                     <input type="checkbox" className="w-[14px] h-[14px]" />
-                    <p className="text-[15px]">
-                      {category?.title}
-                      <span className="text-gray-400">(5)</span>
-                    </p>
+                    <p className="text-[15px]">{category?.title}</p>
                   </div>
                 ))}
               </div>
