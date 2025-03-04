@@ -21,7 +21,7 @@ const Router = () => {
         <Route path="/products/:id" element={<ProductDetails />} />
 
         {/* Protected Routes */}
-        <Route element={<PrivateRoute />}>
+        <Route element={<PrivateRoute/>}>
           <Route path="/account" element={<UserDashboard />} />
           <Route path="/checkout" element={<Checkout />} />
         </Route>
