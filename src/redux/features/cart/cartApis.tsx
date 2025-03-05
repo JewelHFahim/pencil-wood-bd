@@ -15,7 +15,7 @@ export const cartApis = apiSlice.injectEndpoints({
 
     removeFromCart: builder.mutation<ProductsApiResponse, { id: number, action: string }>({
       query: ({id, action}) => ({
-        method: "PUT",
+        method: "PATCH",
         url: `/product/cart/${id}/`,
         body: action,
       }),

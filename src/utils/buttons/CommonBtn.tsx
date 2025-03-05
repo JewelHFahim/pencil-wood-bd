@@ -26,7 +26,7 @@ const CommonBtn: React.FC<CommonBtnProps> = ({ children, numericId }) => {
   return (
     <button
       onClick={() => handleCart()}
-      className="w-full uppercase font-semibold border border-primary h-[40px] text-primary hover:bg-primary hover:text-white transition-all duration-200 hover:border-primary"
+      className="w-full uppercase font-semibold border border-primary h-[40px] text-primary hover:bg-primary hover:text-white transition-all duration-200 hover:border-primary cursor-pointer"
     >
       {children}
     </button>

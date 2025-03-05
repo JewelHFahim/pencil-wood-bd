@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 
 const Cart = () => {
   const { data: cartList, isLoading } = useCartListQuery();
+  console.log(cartList)
   const [addToCart] = useAddToCartMutation();
   const [removeFromCart] = useRemoveFromCartMutation();
 
@@ -30,6 +31,9 @@ const Cart = () => {
   };
 
   const HandleRemoveFromCart = async (id: number) => {
+
+    console.log(id)
+
     try {
       // const data = { id, action: "decrease" };
       const res = await removeFromCart( { id, action: "decrease" });
