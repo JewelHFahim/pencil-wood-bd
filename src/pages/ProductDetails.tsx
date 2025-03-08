@@ -50,7 +50,7 @@ const ProductDetails = () => {
         {/* Image Section */}
         {isLoading ? (
           <div>
-            <div className="imgContainer relative overflow-hidden w-[30vw] h-[55vh] sm:h-[30vw] bg-gray-300 animate-pulse" />
+            <div className="imgContainer relative overflow-hidden sm:w-[30vw] h-[55vh] sm:h-[30vw] bg-gray-300 animate-pulse" />
           </div>
         ) : (
           <div className="md:w-[50%]flex flex-col gap-4 overflow-hidden">

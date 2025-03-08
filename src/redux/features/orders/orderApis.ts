@@ -1,10 +1,12 @@
+// import { CreateOrder } from "../../../types/authTypes";
 import { apiSlice } from "../api/apiSlice";
 
 export const orderApis = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+
     createOrder: builder.mutation({
       query: (data) => ({
-        url: `/product/cart/`,
+        url: `/order/order-create/`,
         method: "POST",
         body: data,
       }),

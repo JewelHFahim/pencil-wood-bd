@@ -1,97 +1,98 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import ShppingCost from "../utils/ShppingCost";
-import PaymentMethodAccrodian from "../utils/PaymentMethodAccrodian";
-import DeliveryChargePaymentProcess from "../utils/DeliveryChargePaymentProcess";
 import MobileOrderSummery from "../utils/MobileOrderSummery";
 import SubmitButton from "../utils/buttons/SubmitButton";
 import CheckoutFooter from "../utils/CheckoutFooter";
 import OrderListAndPriceSummery from "../utils/OrderListAndPriceSummery";
 import { useCartListQuery } from "../redux/features/cart/cartApis";
+import { useCurrentUserQuery } from "../redux/features/auth/authApis";
+import { useCreateOrderMutation } from "../redux/features/orders/orderApis";
+import toast from "react-hot-toast";
+
+interface IAddress {
+  fullName: string;
+  phone_number: string;
+  addressData: string;
+  street?: string;
+  upazila?: string;
+  district?: string;
+  existing_address?: string;
+}
+
+interface IOrderInfo {
+  fullName: string;
+  phone_number: string;
+  addressData: string | IAddressDetails;
+}
+
+interface IAddressDetails {
+  street?: string;
+  upazila?: string;
+  district?: string;
+}
 
 export default function Checkout() {
-  const { data: cartList, isLoading } = useCartListQuery();
-  console.log(cartList);
-
   const isMatch = true;
-  // const products = [];
-
-  //   const route = useRouter();
-  //   const dispatch = useDispatch();
+  const [existsAddress, setExistsAddress] = useState<boolean>(false);
   const {
     register,
+    handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
-  //   const { products, total } = useSelector((state) => state.cart);
+  const { data: cartList, isLoading } = useCartListQuery();
+  const { data: currentUser } = useCurrentUserQuery();
+  const [createOrder] = useCreateOrderMutation();
+  console.log(currentUser);
 
-  //   const userId = extractUserIdFromToken();
-  //   const { data: userDetails } = useUserDetailsQuery(userId);
-  //   const [createOrder, { isLoading }] = useCreateOrderMutation();
+  console.log(cartList);
 
-  const [selectedMethod, setSelectedMethod] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  //   const city = watch("city");
-  //   const isMatch = city === "Dhaka";
+  useEffect(() => {
+    if (currentUser?.data) {
+      setValue("fullName", currentUser?.data?.username);
+      // setValue("contact", currentUser?.data?.phone);
+      //       setValue("delivery_address", userDetails?.data?.address);
+      //       setValue("contact_phone", userDetails?.data?.phone);
+    }
+  }, [currentUser, setValue]);
 
-  //   useEffect(() => {
-  //     if (isMatch) {
-  //       setSelectedMethod("COD");
-  //     } else {
-  //       setSelectedMethod("bKash");
-  //     }
-  //   }, [isMatch]);
+  const onSubmit = async (data: IAddress) => {
+    console.log(data);
 
-  //   useEffect(() => {
-  //     if (userDetails?.data) {
-  //       setValue("contact", userDetails?.data?.phone);
-  //       setValue("fullName", userDetails?.data?.fullName);
-  //       setValue("delivery_address", userDetails?.data?.address);
-  //       setValue("contact_phone", userDetails?.data?.phone);
-  //     }
-  //   }, [userDetails, setValue]);
+    const address: IAddressDetails = {
+      street: data.street,
+      upazila: data.upazila,
+      district: data.district,
+    };
 
-  //   const onSubmit = async (data) => {
-  //     const orders = products?.map((product) => {
-  //       return {
-  //         product_id: product?._id,
-  //         quantity: product?.quantity,
-  //         price: product?.sale_price,
-  //         size: product?.sizes,
-  //       };
-  //     });
+    const existing_address = data.existing_address;
 
-  //     const payment_details = {
-  //       payment_number: data.payment_number,
-  //       transaction_id: data.transaction_id,
-  //     };
+    const addressData: string | IAddressDetails = existing_address
+      ? existing_address
+      : address;
 
-  //     const orderDatas = {
-  //       user_id: userDetails?.data?._id,
-  //       products: orders,
-  //       total_price: total,
-  //       delivery_charge: isMatch ? 70 : 140,
-  //       delivery_address: `${data?.delivery_address}, ${data.city} - ${data.postalCode}`,
-  //       contact_phone: data?.contact_phone,
-  //       payment_method: selectedMethod,
-  //       payment_details,
-  //     };
+    const orderInfos: IOrderInfo = {
+      fullName: data.fullName,
+      phone_number: data.phone_number,
+      addressData,
+    };
 
-  //     try {
-  //       const response = await createOrder(orderDatas);
+    try {
+      const response = await createOrder(orderInfos);
+      console.log(response)
 
-  //       if (response?.data?.status) {
-  //         toast.success(response?.data?.message);
-  //         dispatch(clearCart());
-  //         route.push(`/invoice/${response?.data?.data?._id}`);
-  //       }
-  //       if (response?.error?.data) {
-  //         toast.error(response?.error?.data?.message);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+      // if (response?.status) {
+      //   toast.success("Order created successfully");
+      // }
+      // if (response?.error) {
+      //   toast.error("Something went wrong");
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const inputStyle =
     "w-full h-full focus:outline-primary focus:ring-2 focus:ring-primary transition-all duration-150 px-3 pt-5 rounded-md";
@@ -109,12 +110,12 @@ export default function Checkout() {
         <div className="flex flex-col lg:flex-row min-h-screen">
           {/* Order Form */}
           <form
-            // onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
             className="lg:w-1/2 overflow-auto py-5 lg:py-8 md:pl-1 md:pr-6"
           >
             {/* Contact */}
             <div>
-              <h2 className="text-lg font-medium">Contact</h2>
+              <h2 className="text-lg font-medium">Primary Contact</h2>
 
               <div className={inputCotainer}>
                 <label className={labelStyle}>Email or phone number</label>
@@ -122,6 +123,7 @@ export default function Checkout() {
                   type="text"
                   placeholder="Email or mobile phone number"
                   className={inputStyle}
+                  defaultValue={currentUser?.data?.email}
                   {...register("contact", { required: true })}
                 />
                 {errors.contact && (
@@ -131,11 +133,6 @@ export default function Checkout() {
                 )}
               </div>
             </div>
-
-            <p className="text-[11px] mt-4 d:mt-2 text-gray-400">
-              You may receive text messages related to order confirmation and
-              shipping updates.
-            </p>
 
             {/* Name, Address, City, PostalCode, Phone */}
             <div className="mt-5">
@@ -148,69 +145,13 @@ export default function Checkout() {
                   type="text"
                   placeholder="Full name"
                   className={inputStyle}
-                  {...register("fullName", { required: true })}
+                  {...register("fullName")}
                 />
                 {errors.fullName && (
                   <p className={`text-red-500 text-xs`}>
                     Full name is required
                   </p>
                 )}
-              </div>
-
-              {/* Address */}
-              <div className={`mt-5 ${inputCotainer}`}>
-                <p className={labelStyle}>Address</p>
-                <input
-                  type="text"
-                  placeholder="Address in details"
-                  //   defaultValue={userDetails?.data?.address}
-                  className={inputStyle}
-                  {...register("delivery_address", { required: true })}
-                />
-                {errors.delivery_address && (
-                  <span className="text-red-500 text-xs">
-                    Address is required
-                  </span>
-                )}
-              </div>
-
-              {/* City and Postal Code */}
-              <div className="mt-4 w-full flex flex-col md:flex-row items-center gap-6 md:gap-3">
-                <div className={inputCotainer}>
-                  <p className={labelStyle}>City</p>
-                  <select
-                    {...register("city", { required: true })}
-                    className={inputStyle}
-                  >
-                    {/* {districts.map((item) => (
-                      <option key={item.id} value={item.name}>
-                        {item.name}
-                      </option>
-                    ))} */}
-                    <option value="">Dhaka</option>
-                  </select>
-
-                  {errors.city && (
-                    <span className="text-red-500 text-xs">
-                      City name is required
-                    </span>
-                  )}
-                </div>
-
-                <div className={inputCotainer}>
-                  <p className={labelStyle}>Postal code</p>
-                  <input
-                    type="number"
-                    placeholder="Postal code"
-                    className={inputStyle}
-                    {...register("postalCode", { required: true })}
-                  />
-                  {errors.postalCode && (
-                    <span className="text-red-500 text-xs">
-                      Postal code is required
-                    </span>
-                  )}
-                </div>
               </div>
 
               {/* Phone */}
@@ -220,7 +161,8 @@ export default function Checkout() {
                   type="text"
                   placeholder="Phone"
                   className={inputStyle}
-                  {...register("contact_phone", { required: true })}
+                  defaultValue={"01911209322"}
+                  {...register("contact_phone")}
                 />
                 {errors.contact_phone && (
                   <span className="text-red-500 text-xs">
@@ -228,14 +170,110 @@ export default function Checkout() {
                   </span>
                 )}
               </div>
+
+              {/* Switch Address */}
+              <div className="mt-5 flex items-center gap-2">
+                <div
+                  onClick={() => setExistsAddress(!existsAddress)}
+                  className="flex items-center gap-2"
+                >
+                  <input
+                    type="checkbox"
+                    checked={existsAddress ? true : false}
+                    readOnly
+                  />
+                  <p>Existing address</p>
+                </div>
+                <span className="text-gray-300">|</span>
+                <div
+                  onClick={() => setExistsAddress(!existsAddress)}
+                  className="flex items-center gap-2"
+                >
+                  <input
+                    type="checkbox"
+                    checked={!existsAddress ? true : false}
+                    readOnly
+                  />
+                  <p>New address</p>
+                </div>
+              </div>
+
+              {/* Existing address */}
+              {existsAddress && (
+                <div className={`mt-5 ${inputCotainer}`}>
+                  <p className={labelStyle}>Address</p>
+                  <select
+                    {...register("existing_address", { required: true })}
+                    className={inputStyle}
+                  >
+                    <option value="">Select Address</option>
+                    {[...Array(2)].map((item) => (
+                      <option key={item?.id} value="">
+                        Farmgate, Dhaka
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {!existsAddress && (
+                <>
+                  {/* Street */}
+                  <div className={`mt-5 ${inputCotainer}`}>
+                    <p className={labelStyle}>Street</p>
+                    <input
+                      type="text"
+                      placeholder="Street name, number"
+                      className={inputStyle}
+                      {...register("street", { required: true })}
+                    />
+                    {errors.street && (
+                      <span className="text-red-500 text-xs">
+                        Street is required
+                      </span>
+                    )}
+                  </div>
+
+                  {/* upazila */}
+                  <div className={`mt-5 ${inputCotainer}`}>
+                    <p className={labelStyle}>Upazila</p>
+                    <input
+                      type="text"
+                      placeholder="Upazila name"
+                      className={inputStyle}
+                      {...register("upazila", { required: true })}
+                    />
+                    {errors.upazila && (
+                      <span className="text-red-500 text-xs">
+                        Upazila name is required
+                      </span>
+                    )}
+                  </div>
+
+                  {/* district */}
+                  <div className={`mt-5 ${inputCotainer}`}>
+                    <p className={labelStyle}>District</p>
+                    <input
+                      type="text"
+                      placeholder="District name"
+                      className={inputStyle}
+                      {...register("district", { required: true })}
+                    />
+                    {errors.district && (
+                      <span className="text-red-500 text-xs">
+                        District name is required
+                      </span>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Shipping Methods */}
-            {/* <ShppingCost isMatch={isMatch} /> */}
-            <ShppingCost />
+            {/* <ShppingCost /> */}
 
             {/* Payment Methods */}
-            <div className="mt-8">
+            {/* <div className="mt-8">
               <h2 className="text-lg font-medium"> Payment </h2>
               <p
                 className={`text-[13px] ${
@@ -251,7 +289,6 @@ export default function Checkout() {
                   setSelectedMethod={setSelectedMethod}
                 />
 
-                {/* Dropdown Bkash Fileds */}
                 <div
                   className={`bg-gray-50 p-4 pb-8 text-sm rounded-b-md ${
                     selectedMethod === "bKash" ? "h-max" : "h-0 hidden"
@@ -303,7 +340,7 @@ export default function Checkout() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Mobile Order Summery */}
             <MobileOrderSummery

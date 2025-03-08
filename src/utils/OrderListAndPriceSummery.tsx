@@ -1,19 +1,21 @@
+import { useCartListQuery } from "../redux/features/cart/cartApis";
+
 const OrderListAndPriceSummery = () => {
-  // const cart = JSON?.parse(localStorage?.getItem("cart"));
-  // const { products, totalQuantity, total } = useSelector((state) => state.cart);
 
-  // console.log(products);
+  const { data: cartList } = useCartListQuery();
 
-  // const products = cart?.products;
-  // const totalQuantity = cart?.totalQuantity;
-  // const total = cart?.total || "00.0";
+  console.log(cartList);
+
+  const totalAmount = cartList?.data?.reduce((acc, item) => acc + parseFloat(item?.total_price), 0);
+  const totalQuantity = cartList?.data?.reduce((acc, item) => acc + parseInt(item?.quantity), 0);
+
 
   return (
     <div className="h-full">
       <div className="flex flex-col gap-3">
-        {[...Array(3)].map((_, idx) => (
+        {cartList?.data?.map((item) => (
           <div
-            key={idx}
+            key={item?.id}
             className="w-full flex items-center justify-between border-b border-gray-300 pb-2"
           >
             <div className="flex items-center gap-2">
@@ -27,22 +29,23 @@ const OrderListAndPriceSummery = () => {
                 </div>
 
                 <div className="absolute -top-2 -right-2 bg-gray-500 text-white w-5 h-5 flex justify-center items-center rounded-full text-sm font-medium">
-                  {/* {order?.quantity} */}1
+                  {item?.quantity}
                 </div>
               </div>
               <div>
                 <p className="text-xs font-medium">
-                  {/* {order?.title} */} Product Title
+                  Product Title
                 </p>
                 <p className="text-[11px] text-gray-500">
-                  {/* {order?.sizes} / {order?.colors} */} 36
+                {item?.quantity} X {item?.discount_price
+                }
                 </p>
               </div>
             </div>
 
             <div>
               <p className="text-[13px] font-medium">
-                ৳<span>{/* {order?.quantity * order?.sale_price} */} 1200</span>
+                ৳<span>{item?.total_price}</span>
               </p>
             </div>
           </div>
@@ -50,20 +53,19 @@ const OrderListAndPriceSummery = () => {
 
         <div className="flex flex-col gap-2 mt-4">
           <div className="flex items-center justify-between text-sm">
-            <p>Subtotal •{/* {totalQuantity} */} 3 items</p>
-            <p>৳{/* {total} */} 3600</p>
+            <p>Subtotal •{/* {totalQuantity} */} {totalQuantity} items</p>
+            <p>৳{totalAmount}</p>
           </div>
 
           <div className="flex items-center justify-between text-sm">
             <p>Shipping</p>
-            <p>৳{/* {total > 0 ? (isMatch ? 70 : 140) : 0} */} 70</p>
+            <p>৳ 150</p>
           </div>
 
           <div className="flex items-center justify-between font-medium text-lg">
             <p className="text-">Total</p>
             <p>
-              <span className="text-xs font-normal"> BDT </span> ৳
-              {/* {total + (total > 0 ? (isMatch ? 70 : 140) : 0)} */} 70
+              <span className="text-xs font-normal"> BDT </span> ৳ {Number(totalAmount) + 150}
             </p>
           </div>
         </div>
@@ -73,3 +75,24 @@ const OrderListAndPriceSummery = () => {
 };
 
 export default OrderListAndPriceSummery;
+
+// cartList = [
+//   {
+//     id: 11,
+//     customer: 2,
+//     discount_price: "2970.00",
+//     price: "3000.00",
+//     product: 1,
+//     quantity: 1,
+//     total_price: "2970.00",
+//   },
+//   {
+//     id: 12,
+//     customer: 2,
+//     discount_price: "2970.00",
+//     price: "3000.00",
+//     product: 9,
+//     quantity: 1,
+//     total_price: "2970.00",
+//   },
+// ];
