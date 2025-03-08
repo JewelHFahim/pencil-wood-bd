@@ -3,17 +3,19 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import ProductCard from "../products/ProductCard";
-import { useProductsQuery } from "../../redux/features/products/productsApi";
 import { ProductResponse } from "../../types/products_type";
-import Loader from "../../utils/loader/Loader";
+import RelatedProductCard from "../products/RelatedProductCard";
+import { FC } from 'react';
 
-const SimilarProducts = () => {
-  const { data: allProducts, error, isLoading } = useProductsQuery();
-  const products = allProducts?.results ?? [];
+interface RelatedProductsProps {
+  related_products?: ProductResponse[];
+}
 
-  if (isLoading) return <Loader />;
-  if (error) return <p>Error loading products</p>;
+const RelatedProducts:FC<RelatedProductsProps> = ({ related_products = [] }) => {
+
+  // if (isLoading) return <Loader />;
+  // if (error) return <p>Error loading products</p>;
+
   return (
     <div className="my-4 overflow-hidden mt-10">
       <h1 className="text-xl font-bold mb-4 py-2 text-orange-600 uppercase text-center bg-orange-100">
@@ -45,11 +47,10 @@ const SimilarProducts = () => {
         }}
         navigation={false}
         modules={[Autoplay, Navigation, Pagination]}
-        className=""
       >
-        {products.map((product: ProductResponse) => (
+        {related_products?.map((product: ProductResponse) => (
           <SwiperSlide key={product?.id}>
-            <ProductCard product={product} />
+            <RelatedProductCard product={product} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -57,4 +58,4 @@ const SimilarProducts = () => {
   );
 };
 
-export default SimilarProducts;
+export default RelatedProducts;

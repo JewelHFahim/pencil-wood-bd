@@ -8,16 +8,18 @@ import { useLocation, useParams } from "react-router";
 import { HiMinus, HiPlus } from "react-icons/hi";
 import DescriptionAndReview from "../components/products/DescriptionAndReview";
 import CommonBtn from "../utils/buttons/CommonBtn";
-import SimilarProducts from "../components/slider/SimilarProducts";
+import { useProductDetailsQuery } from "../redux/features/products/productsApi";
+import RelatedProducts from "./../components/slider/RelatedProducts";
 import BestSalePeroducts from "../components/slider/BestSaleProducts";
 
 const ProductDetails = () => {
-  const {id} = useParams();
-  const numericId = Number(id); 
+  const { id } = useParams();
+  const numericId = Number(id);
   const location = useLocation();
   const [current, setCurrent] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
-  const images = ["/product_1.png", "/product_2.jpg", "/product_3.jpg"];
+  const { data: productDetails } = useProductDetailsQuery({ numericId });
+  console.log(productDetails)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -38,28 +40,27 @@ const ProductDetails = () => {
   //     toast.success("Added to cart");
   //   };
 
-
-
   return (
     <div className="min-h-screen mt-4">
       <div className="w-full flex flex-col md:flex-row gap-6 md:gap-8">
         {/* Image Section */}
         <div className="md:w-[50%]flex flex-col gap-4 overflow-hidden">
-          <ImageZoom src={images[current]} zoomScale={2} />
-
-          {/* <img src={images[current]} alt="" /> */}
+          <ImageZoom
+            src={productDetails?.product?.product_image[current]?.image}
+            zoomScale={2}
+          />
 
           <div className="flex items-center justify-between overflow-auto">
             <IoIosArrowBack className="md:hidden text-xl" />
 
             <div className="mt-2 flex items-center self-center md:self-start justify-center lg:justify-start gap-3">
-              {images.map((item, idx) => (
+              {productDetails?.product?.product_image?.map((item, idx) => (
                 <div
                   key={idx}
                   className={`w-20  h-20 lg:w-[120px] lg:h-[120px] border relative cursor-pointer`}
                   onClick={() => setCurrent(idx)}
                 >
-                  <img src={item} alt="" />
+                  <img src={item?.image} alt="" />
                 </div>
               ))}
             </div>
@@ -71,11 +72,17 @@ const ProductDetails = () => {
         {/* Title and Price */}
         <div className="md:w-[50%]">
           <div className="">
-            <h2 className="text-2xl font-medium">Product Title </h2>
+            <h2 className="text-2xl font-medium">
+              {productDetails?.product?.name}
+            </h2>
 
             <div className="mt-2 md:text-lg font-medium flex items-center gap-5">
-              <p className="text-primary">Tk1050</p>
-              <p className="line-through text-sm text-gray-500">Tk950</p>
+              <p className="text-primary">
+                Tk{productDetails?.product?.discount_price}
+              </p>
+              <p className="line-through text-sm text-gray-500">
+                Tk{productDetails?.product?.current_price}
+              </p>
             </div>
 
             <p className="mt-2 text-sm text-gray-500">
@@ -98,10 +105,8 @@ const ProductDetails = () => {
               <div className="w-14 h-8 flex justify-center items-center font-medium text-sm  border-x-0 border border-gray-400 md:border-gray-300 px-3 text-primary focus:outline-primary">
                 {quantity}
               </div>
+
               <button
-                // onClick={(e: React.ChangeEvent<HTMLInputElement>) => {
-                //   setQuantity(Number(e.target.value));
-                // }}
                 onClick={() => {
                   handleQuantity("inc");
                 }}
@@ -114,39 +119,36 @@ const ProductDetails = () => {
 
           {/* Buttons */}
           <div className="mt-7 flex flex-col gap-3">
-            {/* <button
-              className="w-full uppercase font-semibold border border-primary h-[40px] text-primary hover:bg-primary hover:text-white transition-all duration-200 hover:border-primary"
-            >
+            <CommonBtn product={numericId} quantity={quantity}>
               Add To Cart
-            </button> */}
-            <CommonBtn numericId={numericId}>Add To Cart</CommonBtn>
+            </CommonBtn>
 
             <BuyNow />
           </div>
 
           {/* Description */}
           <div className="mt-14 text-gray-500">
-            <p className="text-sm italic">Code: W-0356 </p>
-            <p className="mt-3">
-              সূরা ইখলাস হলো পবিত্র কুরআনের একটি সংক্ষিপ্ত কিন্তু গভীর অর্থবহ
-              সূরা, যা আল্লাহর একত্ব এবং পরিপূর্ণতার ঘোষণা করে। আরবি
-              ক্যালিগ্রাফিতে সজ্জিত এই ফ্রেমটি শুধুমাত্র আপনার ঘরের সৌন্দর্য
-              বাড়ায় না, বরং প্রতিদিনের জীবনে আল্লাহর স্মরণ এবং আমলের কথা মনে
-              করিয়ে দেয়।
+            <p className="text-sm italic">
+              Code: {productDetails?.product?.slug}{" "}
             </p>
+            <p className="mt-3">{productDetails?.product?.short_description}</p>
           </div>
 
           {/* Share Social */}
           <SocialIcons />
         </div>
       </div>
-      {/* Description and Review Sectioon */}
-      <DescriptionAndReview />
 
+      {/* Description and Review Sectioon */}
+      <DescriptionAndReview details={productDetails?.product?.details} />
       {/* Product Suggestions */}
       {/* <ProductSuggestion /> */}
-      <SimilarProducts />
-      <BestSalePeroducts />
+
+      <RelatedProducts related_products={productDetails?.related_products} />
+
+      <BestSalePeroducts
+        related_products={productDetails?.best_selling_products}
+      />
 
       {/* Back Home Button */}
       <BackToHome />

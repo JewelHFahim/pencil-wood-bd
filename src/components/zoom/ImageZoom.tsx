@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import "./ImageZoom.css";
 
 interface ImageZoomProps {
-  src: string;
+  src: string | undefined;
   zoomScale: number 
 }
 const ImageZoom: React.FC<ImageZoomProps> = ({ src, zoomScale }) => {

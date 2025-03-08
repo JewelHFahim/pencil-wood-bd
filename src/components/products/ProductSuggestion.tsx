@@ -4,7 +4,6 @@ import ProductCard from "./ProductCard";
 
 const ProductSuggestion = () => {
   const { data: allProducts, error, isLoading } = useProductsQuery();
-  const products = allProducts?.results ?? [];
 
   if (isLoading) return <p>Loading... ProductSuggestion</p>;
   if (error) return <p>Error loading products</p>;
@@ -16,7 +15,7 @@ const ProductSuggestion = () => {
       </div>
 
       <div className="mt-10 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-between items-center gap-x-2 md:gap-x-5 gap-y-8">
-        {products?.map((product: ProductResponse) => (
+        {allProducts?.data?.map((product: ProductResponse) => (
           <ProductCard product={product} key={product?.id} />
         ))}
       </div>

@@ -3,16 +3,19 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import ProductCard from "../products/ProductCard";
-import { useProductsQuery } from "../../redux/features/products/productsApi";
 import { ProductResponse } from "../../types/products_type";
+import RelatedProductCard from "../products/RelatedProductCard";
+import { FC } from "react";
 
-const BestSalePeroducts = () => {
-  const { data: allProducts, error, isLoading } = useProductsQuery();
-  const products = allProducts?.results ?? [];
+interface RelatedProductsProps {
+  related_products?: ProductResponse[];
+}
 
-  if (isLoading) return <p>Loading...BestSalePeroducts</p>;
-  if (error) return <p>Error loading products</p>;
+
+const BestSalePeroducts:FC<RelatedProductsProps> = ({ related_products }) => {
+  
+  // if (isLoading) return <p>Loading...BestSalePeroducts</p>;
+  // if (error) return <p>Error loading products</p>;
 
   return (
     <div className="my-4 overflow-hidden mt-10">
@@ -47,9 +50,9 @@ const BestSalePeroducts = () => {
         modules={[Autoplay, Navigation, Pagination]}
         className=""
       >
-        {products.map((product: ProductResponse) => (
+        {related_products?.map((product: ProductResponse) => (
           <SwiperSlide key={product?.id}>
-            <ProductCard product={product} />
+            <RelatedProductCard product={product} />
           </SwiperSlide>
         ))}
       </Swiper>

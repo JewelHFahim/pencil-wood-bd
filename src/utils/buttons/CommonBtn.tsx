@@ -1,31 +1,18 @@
 import React from "react";
-import { useAddToCartMutation } from "../../redux/features/cart/cartApis";
-import toast from "react-hot-toast";
+import useAddToCart from "../../hooks/useAddToCart";
 
 interface CommonBtnProps {
   children: string;
-  numericId: number;
+  product: number;
+  quantity: number;
 }
 
-const CommonBtn: React.FC<CommonBtnProps> = ({ children, numericId }) => {
-  const [addToCart] = useAddToCartMutation();
-
-  const handleCart = async () => {
-    try {
-      const data = {
-        product: numericId,
-      };
-      const res = await addToCart(data);
-      console.log(res);
-      toast.success("Added to cart");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+const CommonBtn: React.FC<CommonBtnProps> = ({ children, product, quantity }) => {
+  const { handleAddToCart } = useAddToCart();
 
   return (
     <button
-      onClick={() => handleCart()}
+      onClick={() => handleAddToCart({product, quantity})}
       className="w-full uppercase font-semibold border border-primary h-[40px] text-primary hover:bg-primary hover:text-white transition-all duration-200 hover:border-primary cursor-pointer"
     >
       {children}

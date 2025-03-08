@@ -66,7 +66,7 @@ const FilterSlider: FC<FilterMenuProps> = ({
 
                 {isOpenType && (
                   <div className="w-full h-[250px] overflow-y-auto flex flex-col gap-1.5 mt-2">
-                    {categories?.results?.map((category: CategoryResponse) => (
+                    {categories?.data?.map((category: CategoryResponse) => (
                       <div
                         key={category?.id}
                         className="flex items-center gap-1.5 text-gray-800 hover:text-gray-900"

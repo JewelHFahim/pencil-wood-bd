@@ -2,12 +2,13 @@ import { Link } from "react-router";
 import "./ProductCard.css";
 import { FC } from "react";
 import { ProductResponse } from "../../types/products_type";
+import { IMG_URL } from "../config/config";
 
 interface ProductCardProps {
   product: ProductResponse;
 }
 
-const ProductCard: FC<ProductCardProps> = ({ product }) => {
+const RelatedProductCard: FC<ProductCardProps> = ({ product }) => {
 
   // const [addToCart] = useAddToCartMutation();
 
@@ -27,12 +28,13 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
       <Link to={`/products/${product?.id}`} className="">
         <div className="w-full relative img-container overflow-hidden max-h-[350px] rounded-t-sm">
           <img
-            src={ product?.product_image[0]?.image ? product?.product_image[0]?.image : `/product_2.jpg`}
+            src={ product?.product_image[0]?.image ? `${IMG_URL}${product?.product_image[0]?.image}` : `/product_2.jpg}`}
             alt="Product Img"
             className="w-full h-full max-h-[200px] object-cover main-img transition-opacity duration-500 object-center"
           />
           <img
-            src={ product?.product_image[1]?.image ? product?.product_image[1]?.image : "/product_3.jpg"}
+            src={product?.product_image[1]?.image ? `${IMG_URL}${product?.product_image[1]?.image}` : `/product_3.jpg}`}
+
 
             alt="Product Img"
             className="w-[250px] h-[150px]  md:h-[250px] object-cover second-img transition-opacity duration-500 object-center"
@@ -72,4 +74,4 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default RelatedProductCard;

@@ -1,5 +1,6 @@
 import {
   CategoryApiResponse,
+  DetailsProductApiResponse,
   ProductsApiResponse,
 } from "../../../types/products_type";
 import { apiSlice } from "../api/apiSlice";
@@ -12,6 +13,11 @@ export const productsApis = apiSlice.injectEndpoints({
       providesTags: ["products"],
     }),
 
+    productDetails: builder.query<DetailsProductApiResponse, { numericId: number; }>({
+      query: ({numericId}) => `/product/product/${numericId}/`,
+      providesTags: ["products"],
+    }),
+
     category: builder.query<CategoryApiResponse, void>({
       query: () => "/product/category/",
       providesTags: ["products"],
@@ -21,5 +27,5 @@ export const productsApis = apiSlice.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useProductsQuery, useCategoryQuery } = productsApis;
+export const { useProductsQuery, useCategoryQuery, useProductDetailsQuery } = productsApis;
 export default productsApis;

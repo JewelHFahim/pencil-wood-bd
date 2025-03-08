@@ -1,34 +1,48 @@
-import { ProductsApiResponse, SingleCartApiResponse } from "../../../types/products_type";
+import { CartApiResponse, CartListApiResponse, DetailsProductApiResponse } from "../../../types/products_type";
 import { apiSlice } from "../api/apiSlice";
 
 export const cartApis = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
 
-    addToCart: builder.mutation<ProductsApiResponse, { product: number }>({
+    addToCart: builder.mutation<CartApiResponse, { product: number, quantity: number }>({
       query: (data) => ({
-        method: "POST",
         url: `/product/cart/`,
+        method: "POST",
         body: data,
       }),
       invalidatesTags: ["products"],
     }),
 
-    removeFromCart: builder.mutation<ProductsApiResponse, { id: number, action: string }>({
-      query: ({id, action}) => ({
+
+    removeFromCart: builder.mutation<DetailsProductApiResponse, { id: number, data:{action: string} }>({
+      query: ({id, data}) => ({
         method: "PATCH",
         url: `/product/cart/${id}/`,
-        body: action,
+        body: data,
       }),
       invalidatesTags: ["products"],
     }),
 
-    cartList: builder.query<SingleCartApiResponse[], void>({
+
+    
+    deleteFromCart: builder.mutation<DetailsProductApiResponse, { id: number}>({
+      query: ({id}) => ({
+        method: "DELETE",
+        url: `/product/cart/${id}/`,
+      }),
+      invalidatesTags: ["products"],
+    }),
+
+
+    cartList: builder.query<CartListApiResponse, void>({
       query: () => "/product/cart/",
       providesTags: ["products"],
     }),
+
+
   }),
   overrideExisting: false,
 });
 
-export const { useAddToCartMutation, useCartListQuery, useRemoveFromCartMutation } = cartApis;
+export const { useAddToCartMutation, useCartListQuery, useRemoveFromCartMutation, useDeleteFromCartMutation } = cartApis;
 export default cartApis;

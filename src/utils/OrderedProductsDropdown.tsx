@@ -1,14 +1,16 @@
 import { FC } from "react";
+import { useCartListQuery } from "../redux/features/cart/cartApis";
 
 interface OrderedProductsDropdownProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const OrderedProductsDropdown: FC<OrderedProductsDropdownProps> = ({
-  isOpen,
-  setIsOpen,
-}) => {
+const OrderedProductsDropdown: FC<OrderedProductsDropdownProps> = ({ isOpen, setIsOpen }) => {
+    const { data: cartList } = useCartListQuery();
+    console.log(cartList)
+  
+
   return (
     <div className="w-full">
       {isOpen && (
@@ -17,7 +19,7 @@ const OrderedProductsDropdown: FC<OrderedProductsDropdownProps> = ({
           onMouseLeave={() => setIsOpen(false)}
         >
           <div className="flex flex-col gap-3">
-            {[...Array(3)].map((_, idx) => (
+            {cartList?.data?.map((_, idx) => (
               <div
                 key={idx}
                 className="w-full flex items-center justify-between border-b border-gray-200 pb-2"

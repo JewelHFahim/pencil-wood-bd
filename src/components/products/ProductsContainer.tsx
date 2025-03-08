@@ -18,7 +18,6 @@ const ProductsContainer = () => {
   const [isOpenPrice, setIsOpenPrice] = useState(true);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const { data: allProducts, isLoading } = useProductsQuery();
-  const products = allProducts?.results ?? [];
   const { data: categories } = useCategoryQuery();
 
   if (isLoading)
@@ -47,7 +46,7 @@ const ProductsContainer = () => {
 
             {isOpenType && (
               <div className="w-full max-h-[250px] overflow-y-auto flex flex-col gap-1.5 mt-2">
-                {categories?.results?.map((category: CategoryResponse) => (
+                {categories?.data?.map((category: CategoryResponse) => (
                   <div
                     key={category?.id}
                     className="flex items-center gap-1.5 text-gray-800 hover:text-gray-900"
@@ -102,8 +101,8 @@ const ProductsContainer = () => {
           <ProductSorting />
         </div>
 
-        <div className="mt-5 w-full grid grid-cols-3 md:grid-cols-4 justify-between items-center gap-2 md:gap-x-5 gap-y-8">
-          {products?.map((product: ProductResponse) => (
+        <div className="mt-5 w-full grid grid-cols-3 md:grid-cols-4 justify-between  gap-2 md:gap-x-5 gap-y-8">
+          {allProducts?.data?.map((product: ProductResponse) => (
             <ProductCard product={product} key={product?.id} />
           ))}
         </div>

@@ -7,9 +7,12 @@ import MobileOrderSummery from "../utils/MobileOrderSummery";
 import SubmitButton from "../utils/buttons/SubmitButton";
 import CheckoutFooter from "../utils/CheckoutFooter";
 import OrderListAndPriceSummery from "../utils/OrderListAndPriceSummery";
+import { useCartListQuery } from "../redux/features/cart/cartApis";
 
 export default function Checkout() {
-  const isLoading = false;
+  const { data: cartList, isLoading } = useCartListQuery();
+  console.log(cartList);
+
   const isMatch = true;
   // const products = [];
 
@@ -90,14 +93,16 @@ export default function Checkout() {
   //     }
   //   };
 
-  const inputStyle = "w-full h-full focus:outline-primary focus:ring-2 focus:ring-primary transition-all duration-150 px-3 pt-5 rounded-md";
-  const inputCotainer = "relative h-[55px] border border-gray-400 w-full mt-1 text-sm rounded-md";
+  const inputStyle =
+    "w-full h-full focus:outline-primary focus:ring-2 focus:ring-primary transition-all duration-150 px-3 pt-5 rounded-md";
+  const inputCotainer =
+    "relative h-[55px] border border-gray-400 w-full mt-1 text-sm rounded-md";
   const labelStyle = "absolute top-1 left-3 text-[11px] text-gray-400";
 
   return (
     <div>
       {isLoading ? (
-        <div className="flex justify-center items-center h-[60vh]">
+        <div className="flex justify-center items-center h-[70vh]">
           <p>Loading.</p>
         </div>
       ) : (
@@ -227,7 +232,7 @@ export default function Checkout() {
 
             {/* Shipping Methods */}
             {/* <ShppingCost isMatch={isMatch} /> */}
-            <ShppingCost/>
+            <ShppingCost />
 
             {/* Payment Methods */}
             <div className="mt-8">
@@ -316,7 +321,7 @@ export default function Checkout() {
 
           {/* Order List and Price Summery */}
           <div className="hidden lg:block lg:w-1/2 sticky top-0 z-50 bg-[#e8f3f6] md:p-8">
-            <OrderListAndPriceSummery/>
+            <OrderListAndPriceSummery />
           </div>
         </div>
       )}

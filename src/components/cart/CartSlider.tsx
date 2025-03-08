@@ -5,23 +5,19 @@ import { IoMdClose } from "react-icons/io";
 import "react-modern-drawer/dist/index.css";
 import { RiShoppingBagLine } from "react-icons/ri";
 import { LiaLongArrowAltRightSolid } from "react-icons/lia";
-import { SingleCartApiResponse } from "../../types/products_type";
+import useDeleteFromCart from "../../hooks/useDeleteFromCart";
+import { useCartListQuery } from "../../redux/features/cart/cartApis";
 
 interface CartMenuProps {
   isOpenCart: boolean;
   toggleDrawerCart: () => void;
-  cartList: SingleCartApiResponse[] | undefined;
 }
 
-const CartSlider: FC<CartMenuProps> = ({
-  cartList,
-  isOpenCart,
-  toggleDrawerCart,
-}) => {
+const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
   const { pathname } = useLocation();
-  const cartLength = cartList?.length || 0;
-
-  console.log(cartList)
+  const { data: cartList } = useCartListQuery();
+  const cartLength = cartList?.data?.length || 0;
+  const { handleDeleteFromCart } = useDeleteFromCart();
 
   useEffect(() => {
     if (isOpenCart) {
@@ -29,8 +25,11 @@ const CartSlider: FC<CartMenuProps> = ({
     }
   }, [pathname]);
 
-  const totalSum = cartList?.reduce((acc, item) => acc + parseFloat(item.total_price), 0);
-  
+  const totalSum = cartList?.data?.reduce(
+    (acc, item) => acc + parseFloat(item.total_price),
+    0
+  );
+
   return (
     <>
       {/*Cart Button */}
@@ -76,13 +75,14 @@ const CartSlider: FC<CartMenuProps> = ({
             </div>
 
             <div className="flex flex-col overflow-y-auto max-h-[55vh] md:max-h-[60vh]">
-              {cartList?.map((item) => (
+              {cartList?.data?.map((item) => (
                 <div
                   key={item?.id}
                   className="mx-4 py-4 grid grid-cols-12 gap-3 text-black border-b border-gray-300"
                 >
                   <button
                     type="button"
+                    onClick={() => handleDeleteFromCart(item?.id)}
                     className="hover:text-red-600 col-span-1"
                   >
                     <IoMdClose className="" />
