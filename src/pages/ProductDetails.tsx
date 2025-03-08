@@ -4,22 +4,26 @@ import SocialIcons from "../utils/SocialIcons";
 import BackToHome from "../utils/buttons/BackButton";
 import { useEffect, useState } from "react";
 import ImageZoom from "../components/zoom/ImageZoom";
-import { useLocation, useParams } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import { HiMinus, HiPlus } from "react-icons/hi";
 import DescriptionAndReview from "../components/products/DescriptionAndReview";
 import CommonBtn from "../utils/buttons/CommonBtn";
 import { useProductDetailsQuery } from "../redux/features/products/productsApi";
 import RelatedProducts from "./../components/slider/RelatedProducts";
 import BestSalePeroducts from "../components/slider/BestSaleProducts";
+import Cookies from "js-cookie";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const token = Cookies.get("pencil");
   const numericId = Number(id);
   const location = useLocation();
   const [current, setCurrent] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
-  const { data: productDetails } = useProductDetailsQuery({ numericId });
-  console.log(productDetails)
+  const { data: productDetails, isLoading } = useProductDetailsQuery({
+    numericId,
+  });
+  console.log(productDetails);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -44,30 +48,36 @@ const ProductDetails = () => {
     <div className="min-h-screen mt-4">
       <div className="w-full flex flex-col md:flex-row gap-6 md:gap-8">
         {/* Image Section */}
-        <div className="md:w-[50%]flex flex-col gap-4 overflow-hidden">
-          <ImageZoom
-            src={productDetails?.product?.product_image[current]?.image}
-            zoomScale={2}
-          />
-
-          <div className="flex items-center justify-between overflow-auto">
-            <IoIosArrowBack className="md:hidden text-xl" />
-
-            <div className="mt-2 flex items-center self-center md:self-start justify-center lg:justify-start gap-3">
-              {productDetails?.product?.product_image?.map((item, idx) => (
-                <div
-                  key={idx}
-                  className={`w-20  h-20 lg:w-[120px] lg:h-[120px] border relative cursor-pointer`}
-                  onClick={() => setCurrent(idx)}
-                >
-                  <img src={item?.image} alt="" />
-                </div>
-              ))}
-            </div>
-
-            <IoIosArrowForward className="md:hidden text-xl" />
+        {isLoading ? (
+          <div>
+            <div className="imgContainer relative overflow-hidden w-[30vw] h-[55vh] sm:h-[30vw] bg-gray-300 animate-pulse" />
           </div>
-        </div>
+        ) : (
+          <div className="md:w-[50%]flex flex-col gap-4 overflow-hidden">
+            <ImageZoom
+              src={productDetails?.product?.product_image[current]?.image}
+              zoomScale={2}
+            />
+
+            <div className="flex items-center justify-between overflow-auto">
+              <IoIosArrowBack className="md:hidden text-xl" />
+
+              <div className="mt-2 flex items-center self-center md:self-start justify-center lg:justify-start gap-3">
+                {productDetails?.product?.product_image?.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className={`w-20  h-20 lg:w-[120px] lg:h-[120px] border relative cursor-pointer`}
+                    onClick={() => setCurrent(idx)}
+                  >
+                    <img src={item?.image} alt="" />
+                  </div>
+                ))}
+              </div>
+
+              <IoIosArrowForward className="md:hidden text-xl" />
+            </div>
+          </div>
+        )}
 
         {/* Title and Price */}
         <div className="md:w-[50%]">
@@ -119,9 +129,17 @@ const ProductDetails = () => {
 
           {/* Buttons */}
           <div className="mt-7 flex flex-col gap-3">
-            <CommonBtn product={numericId} quantity={quantity}>
-              Add To Cart
-            </CommonBtn>
+            {!token ? (
+              <Link to="/account/login">
+                <button className="w-full uppercase font-semibold border border-primary h-[40px] text-primary hover:bg-primary hover:text-white transition-all duration-200 hover:border-primary cursor-pointer">
+                  Add To Cart
+                </button>
+              </Link>
+            ) : (
+              <CommonBtn product={numericId} quantity={quantity}>
+                Add To Cart
+              </CommonBtn>
+            )}
 
             <BuyNow />
           </div>
