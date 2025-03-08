@@ -10,7 +10,7 @@ import Contact from "../pages/Contact";
 import Checkout from "../pages/Checkout";
 import Cart from "../pages/Cart";
 import Products from "../pages/Products";
-import PrivateRoute from "./PrivateRoute";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const Router = () => {
   return (
@@ -21,7 +21,7 @@ const Router = () => {
         <Route path="/products/:id" element={<ProductDetails />} />
 
         {/* Protected Routes */}
-        <Route element={<PrivateRoute/>}>
+        <Route element={<ProtectedRoutes/>}>
           <Route path="/account" element={<UserDashboard />} />
           <Route path="/checkout" element={<Checkout />} />
         </Route>
