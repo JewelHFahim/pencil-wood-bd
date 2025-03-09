@@ -1,14 +1,15 @@
 // import { CreateOrder } from "../../../types/authTypes";
+import { IOrderInfo, OrderApiResponse } from "../../../types/authTypes";
 import { apiSlice } from "../api/apiSlice";
 
 export const orderApis = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
 
-    createOrder: builder.mutation({
-      query: (data) => ({
+    createOrder: builder.mutation<OrderApiResponse, IOrderInfo>({
+      query: (datas) => ({
         url: `/order/order-create/`,
         method: "POST",
-        body: data,
+        body: datas,
       }),
       invalidatesTags: ["products"],
     }),

@@ -4,32 +4,13 @@ import MobileOrderSummery from "../utils/MobileOrderSummery";
 import SubmitButton from "../utils/buttons/SubmitButton";
 import CheckoutFooter from "../utils/CheckoutFooter";
 import OrderListAndPriceSummery from "../utils/OrderListAndPriceSummery";
-import { useCartListQuery } from "../redux/features/cart/cartApis";
 import { useCurrentUserQuery } from "../redux/features/auth/authApis";
 import { useCreateOrderMutation } from "../redux/features/orders/orderApis";
-import toast from "react-hot-toast";
-
-interface IAddress {
-  fullName: string;
-  phone_number: string;
-  addressData: string;
-  street?: string;
-  upazila?: string;
-  district?: string;
-  existing_address?: string;
-}
-
-interface IOrderInfo {
-  fullName: string;
-  phone_number: string;
-  addressData: string | IAddressDetails;
-}
-
-interface IAddressDetails {
-  street?: string;
-  upazila?: string;
-  district?: string;
-}
+import {
+  IAddress,
+  IAddressWithNewDetails,
+  IOrderInfo,
+} from "../types/authTypes";
 
 export default function Checkout() {
   const isMatch = true;
@@ -39,60 +20,42 @@ export default function Checkout() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm();
-  const { data: cartList, isLoading } = useCartListQuery();
+  } = useForm<IAddress>();
   const { data: currentUser } = useCurrentUserQuery();
-  const [createOrder] = useCreateOrderMutation();
-  console.log(currentUser);
-
-  console.log(cartList);
-
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    if (currentUser?.data) {
-      setValue("fullName", currentUser?.data?.username);
-      // setValue("contact", currentUser?.data?.phone);
-      //       setValue("delivery_address", userDetails?.data?.address);
-      //       setValue("contact_phone", userDetails?.data?.phone);
+    if (currentUser) {
+      setValue("full_name", currentUser?.profile?.name);
+      setValue("phone_number", currentUser?.profile?.phone);
     }
   }, [currentUser, setValue]);
 
   const onSubmit = async (data: IAddress) => {
-    console.log(data);
-
-    const address: IAddressDetails = {
-      street: data.street,
-      upazila: data.upazila,
-      district: data.district,
-    };
-
-    const existing_address = data.existing_address;
-
-    const addressData: string | IAddressDetails = existing_address
-      ? existing_address
-      : address;
-
-    const orderInfos: IOrderInfo = {
-      fullName: data.fullName,
+    const existsAddress = "existing_address" in data && typeof data.existing_address === "number";
+  
+    const datas = {
+      full_name: data.full_name,
       phone_number: data.phone_number,
-      addressData,
+      ...(existsAddress ? { existing_address: data.existing_address }
+        : {
+            street: data.street,
+            upazila: data.upazila,
+            district: data.district,
+          }),
     };
-
+  
+    console.log(datas);
+  
     try {
-      const response = await createOrder(orderInfos);
-      console.log(response)
-
-      // if (response?.status) {
-      //   toast.success("Order created successfully");
-      // }
-      // if (response?.error) {
-      //   toast.error("Something went wrong");
-      // }
+      const response = await createOrder(datas);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   const inputStyle =
     "w-full h-full focus:outline-primary focus:ring-2 focus:ring-primary transition-all duration-150 px-3 pt-5 rounded-md";
@@ -123,14 +86,10 @@ export default function Checkout() {
                   type="text"
                   placeholder="Email or mobile phone number"
                   className={inputStyle}
-                  defaultValue={currentUser?.data?.email}
-                  {...register("contact", { required: true })}
+                  defaultValue={currentUser?.profile?.email}
+                  readOnly
+                  // {...register("contact", { required: true })}
                 />
-                {errors.contact && (
-                  <span className="text-red-500 text-xs">
-                    Contact is required
-                  </span>
-                )}
               </div>
             </div>
 
@@ -139,37 +98,38 @@ export default function Checkout() {
               <h2 className="text-lg font-medium">Delivery</h2>
 
               {/* Name */}
-              <div className={inputCotainer}>
+              {/* <div className={inputCotainer}>
                 <p className={labelStyle}> Full name </p>
                 <input
                   type="text"
                   placeholder="Full name"
                   className={inputStyle}
-                  {...register("fullName")}
+                  defaultValue={currentUser?.profile?.name}
+                  {...register("full_name")}
                 />
-                {errors.fullName && (
+                {errors.full_name && (
                   <p className={`text-red-500 text-xs`}>
                     Full name is required
                   </p>
                 )}
-              </div>
+              </div> */}
 
               {/* Phone */}
-              <div className={`mt-5 ${inputCotainer}`}>
+              {/* <div className={`mt-5 ${inputCotainer}`}>
                 <p className={labelStyle}>Phone</p>
                 <input
                   type="text"
                   placeholder="Phone"
                   className={inputStyle}
-                  defaultValue={"01911209322"}
-                  {...register("contact_phone")}
+                  defaultValue={currentUser?.profile?.phone}
+                  {...register("phone_number")}
                 />
-                {errors.contact_phone && (
+                {errors.phone_number && (
                   <span className="text-red-500 text-xs">
                     Phonr number is required
                   </span>
                 )}
-              </div>
+              </div> */}
 
               {/* Switch Address */}
               <div className="mt-5 flex items-center gap-2">
@@ -206,10 +166,11 @@ export default function Checkout() {
                     {...register("existing_address", { required: true })}
                     className={inputStyle}
                   >
-                    <option value="">Select Address</option>
-                    {[...Array(2)].map((item) => (
-                      <option key={item?.id} value="">
-                        Farmgate, Dhaka
+                    <option hidden>Select Address</option>
+                    {currentUser?.user_address?.map((ads) => (
+                      <option key={ads?.id} value={ads?.id}>
+                        {ads?.street_01}, {ads?.upazila}, {ads?.district},
+                        {ads?.country},
                       </option>
                     ))}
                   </select>

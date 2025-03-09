@@ -1,14 +1,16 @@
 import { useCartListQuery } from "../redux/features/cart/cartApis";
 
 const OrderListAndPriceSummery = () => {
-
   const { data: cartList } = useCartListQuery();
 
-  console.log(cartList);
-
-  const totalAmount = cartList?.data?.reduce((acc, item) => acc + parseFloat(item?.total_price), 0);
-  const totalQuantity = cartList?.data?.reduce((acc, item) => acc + parseInt(item?.quantity), 0);
-
+  const totalAmount = cartList?.data?.reduce(
+    (acc, item) => acc + parseFloat(item?.total_price),
+    0
+  );
+  const totalQuantity = cartList?.data?.reduce(
+    (acc, item) => acc + item?.quantity,
+    0
+  );
 
   return (
     <div className="h-full">
@@ -33,12 +35,9 @@ const OrderListAndPriceSummery = () => {
                 </div>
               </div>
               <div>
-                <p className="text-xs font-medium">
-                  Product Title
-                </p>
+                <p className="text-xs font-medium">Product Title</p>
                 <p className="text-[11px] text-gray-500">
-                {item?.quantity} X {item?.discount_price
-                }
+                  {item?.quantity} X {item?.discount_price}
                 </p>
               </div>
             </div>
@@ -53,7 +52,7 @@ const OrderListAndPriceSummery = () => {
 
         <div className="flex flex-col gap-2 mt-4">
           <div className="flex items-center justify-between text-sm">
-            <p>Subtotal •{/* {totalQuantity} */} {totalQuantity} items</p>
+            <p>Subtotal • {totalQuantity} items</p>
             <p>৳{totalAmount}</p>
           </div>
 
@@ -65,7 +64,8 @@ const OrderListAndPriceSummery = () => {
           <div className="flex items-center justify-between font-medium text-lg">
             <p className="text-">Total</p>
             <p>
-              <span className="text-xs font-normal"> BDT </span> ৳ {Number(totalAmount) + 150}
+              <span className="text-xs font-normal"> BDT </span> ৳{" "}
+              {Number(totalAmount) + 150}
             </p>
           </div>
         </div>
@@ -75,24 +75,3 @@ const OrderListAndPriceSummery = () => {
 };
 
 export default OrderListAndPriceSummery;
-
-// cartList = [
-//   {
-//     id: 11,
-//     customer: 2,
-//     discount_price: "2970.00",
-//     price: "3000.00",
-//     product: 1,
-//     quantity: 1,
-//     total_price: "2970.00",
-//   },
-//   {
-//     id: 12,
-//     customer: 2,
-//     discount_price: "2970.00",
-//     price: "3000.00",
-//     product: 9,
-//     quantity: 1,
-//     total_price: "2970.00",
-//   },
-// ];
