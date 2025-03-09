@@ -8,9 +8,22 @@ import { useCurrentUserQuery } from "../redux/features/auth/authApis";
 import { useCreateOrderMutation } from "../redux/features/orders/orderApis";
 import {
   IAddress,
-  IAddressWithNewDetails,
-  IOrderInfo,
+
 } from "../types/authTypes";
+
+
+type Address =
+  | { existing_address: number } // Case 1: Existing Address
+  | { street: string; upazila: string; district: string }; // Case 2: New Address
+
+interface OrderData {
+  full_name: string;
+  phone_number: string;
+  existing_address?: number; // Optional for new address case
+  street?: string;
+  upazila?: string;
+  district?: string;
+}
 
 export default function Checkout() {
   const isMatch = true;
@@ -32,30 +45,58 @@ export default function Checkout() {
     }
   }, [currentUser, setValue]);
 
-  const onSubmit = async (data: IAddress) => {
-    const existsAddress = "existing_address" in data && typeof data.existing_address === "number";
-  
-    const datas = {
-      full_name: data.full_name,
-      phone_number: data.phone_number,
-      ...(existsAddress ? { existing_address: data.existing_address }
-        : {
-            street: data.street,
-            upazila: data.upazila,
-            district: data.district,
-          }),
-    };
-  
-    console.log(datas);
-  
-    try {
-      const response = await createOrder(datas);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+  // const onSubmit = async (data) => {
+  //   const address = existsAddress
+  //     ? { existing_address: data.existing_address }
+  //     : {
+  //         street: data.street,
+  //         upazila: data.upazila,
+  //         district: data.district,
+  //       };
+
+  //   const payload = {
+  //     full_name: data.full_name,
+  //     phone_number: data.phone_number,
+  //     ...address,
+  //   };
+
+  //   console.log("Sending Data:", payload);
+
+  //   try {
+  //     const response = await createOrder(payload);
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+
+const onSubmit = async (data: OrderData, existsAddress: boolean) => {
+  // Determine the address structure
+  const address: Address = existsAddress
+    ? { existing_address: data.existing_address as number } // Ensure it's a number
+    : {
+        street: data.street as string,
+        upazila: data.upazila as string,
+        district: data.district as string,
+      };
+
+  // Construct the payload
+  const payload: OrderData = {
+    full_name: data.full_name,
+    phone_number: data.phone_number,
+    ...address, // Spread the correct address type
   };
-  
+
+  console.log("Sending Data:", payload);
+
+  try {
+    const response = await createOrder(payload);
+    console.log(response);
+  } catch (error) {
+    console.error("Error submitting order:", error);
+  }
+};
 
   const inputStyle =
     "w-full h-full focus:outline-primary focus:ring-2 focus:ring-primary transition-all duration-150 px-3 pt-5 rounded-md";
