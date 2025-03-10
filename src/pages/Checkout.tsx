@@ -6,97 +6,61 @@ import CheckoutFooter from "../utils/CheckoutFooter";
 import OrderListAndPriceSummery from "../utils/OrderListAndPriceSummery";
 import { useCurrentUserQuery } from "../redux/features/auth/authApis";
 import { useCreateOrderMutation } from "../redux/features/orders/orderApis";
-import {
-  IAddress,
-
-} from "../types/authTypes";
-
+import { IOrderPayload } from "../types/authTypes";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 type Address =
   | { existing_address: number } // Case 1: Existing Address
   | { street: string; upazila: string; district: string }; // Case 2: New Address
 
-interface OrderData {
-  full_name: string;
-  phone_number: string;
-  existing_address?: number; // Optional for new address case
-  street?: string;
-  upazila?: string;
-  district?: string;
-}
-
 export default function Checkout() {
   const isMatch = true;
+  const navigate = useNavigate();
   const [existsAddress, setExistsAddress] = useState<boolean>(false);
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<IAddress>();
+  } = useForm<IOrderPayload>();
   const { data: currentUser } = useCurrentUserQuery();
-  const [createOrder, { isLoading }] = useCreateOrderMutation();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (currentUser) {
-      setValue("full_name", currentUser?.profile?.name);
+      setValue("name", currentUser?.profile?.name);
       setValue("phone_number", currentUser?.profile?.phone);
     }
   }, [currentUser, setValue]);
 
-  // const onSubmit = async (data) => {
-  //   const address = existsAddress
-  //     ? { existing_address: data.existing_address }
-  //     : {
-  //         street: data.street,
-  //         upazila: data.upazila,
-  //         district: data.district,
-  //       };
+  const onSubmit = async (data: IOrderPayload) => {
+    const address: Address = existsAddress
+      ? { existing_address: data.existing_address as number }
+      : {
+          street: data.street as string,
+          upazila: data.upazila as string,
+          district: data.district as string,
+        };
 
-  //   const payload = {
-  //     full_name: data.full_name,
-  //     phone_number: data.phone_number,
-  //     ...address,
-  //   };
+    const payload: IOrderPayload = {
+      name: data.name,
+      phone_number: data.phone_number,
+      ...address,
+    };
 
-  //   console.log("Sending Data:", payload);
-
-  //   try {
-  //     const response = await createOrder(payload);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-
-const onSubmit = async (data: OrderData, existsAddress: boolean) => {
-  // Determine the address structure
-  const address: Address = existsAddress
-    ? { existing_address: data.existing_address as number } // Ensure it's a number
-    : {
-        street: data.street as string,
-        upazila: data.upazila as string,
-        district: data.district as string,
-      };
-
-  // Construct the payload
-  const payload: OrderData = {
-    full_name: data.full_name,
-    phone_number: data.phone_number,
-    ...address, // Spread the correct address type
+    try {
+      const response = await createOrder(payload).unwrap();
+      console.log(response);
+      if (response?.status) {
+        toast.success(response?.message);
+        navigate("/account");
+      }
+    } catch (error) {
+      console.error("Error submitting order:", error);
+    }
   };
-
-  console.log("Sending Data:", payload);
-
-  try {
-    const response = await createOrder(payload);
-    console.log(response);
-  } catch (error) {
-    console.error("Error submitting order:", error);
-  }
-};
 
   const inputStyle =
     "w-full h-full focus:outline-primary focus:ring-2 focus:ring-primary transition-all duration-150 px-3 pt-5 rounded-md";
@@ -139,24 +103,24 @@ const onSubmit = async (data: OrderData, existsAddress: boolean) => {
               <h2 className="text-lg font-medium">Delivery</h2>
 
               {/* Name */}
-              {/* <div className={inputCotainer}>
+              <div className={inputCotainer}>
                 <p className={labelStyle}> Full name </p>
                 <input
                   type="text"
                   placeholder="Full name"
                   className={inputStyle}
                   defaultValue={currentUser?.profile?.name}
-                  {...register("full_name")}
+                  {...register("name")}
                 />
-                {errors.full_name && (
+                {errors.name && (
                   <p className={`text-red-500 text-xs`}>
                     Full name is required
                   </p>
                 )}
-              </div> */}
+              </div>
 
               {/* Phone */}
-              {/* <div className={`mt-5 ${inputCotainer}`}>
+              <div className={`mt-5 ${inputCotainer}`}>
                 <p className={labelStyle}>Phone</p>
                 <input
                   type="text"
@@ -170,7 +134,7 @@ const onSubmit = async (data: OrderData, existsAddress: boolean) => {
                     Phonr number is required
                   </span>
                 )}
-              </div> */}
+              </div>
 
               {/* Switch Address */}
               <div className="mt-5 flex items-center gap-2">
@@ -271,79 +235,6 @@ const onSubmit = async (data: OrderData, existsAddress: boolean) => {
               )}
             </div>
 
-            {/* Shipping Methods */}
-            {/* <ShppingCost /> */}
-
-            {/* Payment Methods */}
-            {/* <div className="mt-8">
-              <h2 className="text-lg font-medium"> Payment </h2>
-              <p
-                className={`text-[13px] ${
-                  !isMatch ? "text-red-500" : "text-gray-400"
-                }`}
-              >
-                Outside Dhaka delivery charge 140tk have to by bKash/Nagad.
-              </p>
-
-              <div className="border border-gray-400 rounded-md mt-3">
-                <PaymentMethodAccrodian
-                  selectedMethod={selectedMethod}
-                  setSelectedMethod={setSelectedMethod}
-                />
-
-                <div
-                  className={`bg-gray-50 p-4 pb-8 text-sm rounded-b-md ${
-                    selectedMethod === "bKash" ? "h-max" : "h-0 hidden"
-                  }`}
-                >
-                  <DeliveryChargePaymentProcess />
-
-                  <div className="mt-3 w-full flex flex-col md:flex-row items-center gap-3">
-                    <div className="w-full md:w-1/2 relative h-[55px] border mt-1 text-sm rounded-md">
-                      <p className={labelStyle}>
-                        Send money number{" "}
-                        <span className="text-red-500">*</span>
-                      </p>
-                      <input
-                        type="text"
-                        placeholder="Send money number"
-                        className={inputStyle}
-                        {...register("payment_number", {
-                          required:
-                            selectedMethod === "bKash" || (!isMatch && true),
-                        })}
-                      />
-                      {errors.payment_number && (
-                        <span className="text-red-500 text-sm mt-1">
-                          Send money number is required
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="w-full md:w-1/2 relative h-[55px] border mt-4 md:mt-0 text-sm rounded-md">
-                      <p className={labelStyle}>
-                        TrxID <span className="text-red-500">*</span>
-                      </p>
-                      <input
-                        type="text"
-                        placeholder="TrxID"
-                        className={inputStyle}
-                        {...register("transaction_id", {
-                          required:
-                            selectedMethod === "bKash" || (!isMatch && true),
-                        })}
-                      />
-                      {errors.transaction_id && (
-                        <span className="text-red-500 text-sm mt-1">
-                          TrxID is required
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
             {/* Mobile Order Summery */}
             <MobileOrderSummery
               isOpen={isOpen}
@@ -358,7 +249,7 @@ const onSubmit = async (data: OrderData, existsAddress: boolean) => {
             <CheckoutFooter />
           </form>
 
-          {/* Order List and Price Summery */}
+          {/* Large Device Order Summery */}
           <div className="hidden lg:block lg:w-1/2 sticky top-0 z-50 bg-[#e8f3f6] md:p-8">
             <OrderListAndPriceSummery />
           </div>

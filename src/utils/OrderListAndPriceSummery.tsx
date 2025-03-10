@@ -53,19 +53,18 @@ const OrderListAndPriceSummery = () => {
         <div className="flex flex-col gap-2 mt-4">
           <div className="flex items-center justify-between text-sm">
             <p>Subtotal • {totalQuantity} items</p>
-            <p>৳{totalAmount}</p>
+            <p>৳ {totalAmount} </p>
           </div>
 
           <div className="flex items-center justify-between text-sm">
             <p>Shipping</p>
-            <p>৳ 150</p>
+            <p>৳ { Number(totalAmount) > 0 ? 150 : 0.00 }</p>
           </div>
 
           <div className="flex items-center justify-between font-medium text-lg">
             <p className="text-">Total</p>
             <p>
-              <span className="text-xs font-normal"> BDT </span> ৳{" "}
-              {Number(totalAmount) + 150}
+              <span className="text-xs font-normal"> BDT </span> ৳ { Number(totalAmount) > 0 ? Number(totalAmount)  + 150 : 0.00 }
             </p>
           </div>
         </div>

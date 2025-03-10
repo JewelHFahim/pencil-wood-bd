@@ -16,7 +16,7 @@ type Inputs = {
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/account"; // Redirect to intended page
+  const from = location.state?.from?.pathname || "/account";
 
   const [viewPass, setViewPass] = useState(false);
   const {
@@ -29,16 +29,16 @@ const Login = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
     try {
-      const response = await login(data);
+      const response = await login(data).unwrap();
       console.log(response);
-      if (response?.data?.access) {
-        const token = response?.data?.access;
+
+      if (response?.status) {
+        const token = response.token.access;
         toast.success("Login successful");
         Cookies.set("pencil", token, { secure: true, sameSite: "strict" });
         navigate(from, { replace: true });
-      }
-      if (response.error) {
-        toast.error("Invalid credentials");
+      } else {
+        toast.error("Login failed");
       }
     } catch (error) {
       console.log(error);

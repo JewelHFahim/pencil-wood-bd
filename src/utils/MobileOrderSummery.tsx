@@ -1,20 +1,25 @@
 import { IoIosArrowDown } from "react-icons/io";
 import OrderedProductsDropdown from "./OrderedProductsDropdown";
 import { FC } from "react";
+import { useCartListQuery } from "../redux/features/cart/cartApis";
 
 interface MobileOrderSummery {
   isOpen: boolean;
-  isMatch: boolean,
+  isMatch: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const MobileOrderSummery: FC<MobileOrderSummery> = ({ isOpen, setIsOpen }) => {
+  const { data: cartList } = useCartListQuery();
 
-const MobileOrderSummery: FC<MobileOrderSummery> = ({isOpen, setIsOpen, isMatch }) => {
-  
-  // const cart = JSON?.parse(localStorage?.getItem("cart"));
-  // const products = cart?.products ? cart?.products : [];
-  // const totalQuantity = cart?.totalQuantity > 0 ? cart?.totalQuantity : 0;
-  // const total = cart?.total > 0 ? cart?.total : 0;
+  const totalAmount = cartList?.data?.reduce(
+    (acc, item) => acc + parseFloat(item?.total_price),
+    0
+  );
+  const totalQuantity = cartList?.data?.reduce(
+    (acc, item) => acc + item?.quantity,
+    0
+  );
 
   return (
     <div className="mt-8 lg:hidden">
@@ -33,34 +38,26 @@ const MobileOrderSummery: FC<MobileOrderSummery> = ({isOpen, setIsOpen, isMatch 
         </div>
 
         <div className="mt-6 h-max w-full transition transform ease-out duration-100">
-          <OrderedProductsDropdown
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-          />
+          <OrderedProductsDropdown isOpen={isOpen} setIsOpen={setIsOpen} />
         </div>
 
         <div className="flex flex-col gap-3 mt-4">
           <div className="flex items-center justify-between text-sm">
-            <p>Subtotal • 
-              {/* {totalQuantity} */} 2
-               items</p>
-            <p>৳ 
-              {/* {(total > 0 ? total : "00.0")} */} 0.00
-              </p>
+            <p> Subtotal • {totalQuantity} items </p>
+            <p>৳ {totalAmount}</p>
           </div>
 
           <div className="flex items-center justify-between text-sm">
             <p>Shipping</p>
-            <p>৳
-              {/* {isMatch && total > 0 ? 70 : 140}.00  */}  {isMatch ? 70 : 140}.00
-              </p>
+            <p>
+              ৳ { Number(totalAmount) > 0 ? 150 : 0.00 }
+            </p>
           </div>
 
           <div className="flex items-center justify-between font-medium text-lg">
             <p className="text-">Total</p>
             <p>
-              <span className="text-xs font-normal"> BDT </span> ৳
-              {/* {total + (total > 0 ? 140 : 0)} */} 0.00
+              <span className="text-xs font-normal"> BDT </span> ৳ { Number(totalAmount) > 0 ? Number(totalAmount)  + 150 : 0.00 }
             </p>
           </div>
         </div>

@@ -7,7 +7,7 @@ import OrderDetails from "./OrderDetails";
 
 const UserDashboard = () => {
   const [active, setActive] = useState<string>("orders");
-  const [orderId, setOrderId] = useState<string>("");
+  const [orderId, setOrderId] = useState<number>(0);
 
   const renderComponent = () => {
     switch (active) {
@@ -21,7 +21,7 @@ const UserDashboard = () => {
         return <ResetPassword />;
 
       case "invoice":
-        return <OrderDetails orderId={orderId} />;
+        return <OrderDetails id={orderId} />;
 
       default:
         return "<Orders />";

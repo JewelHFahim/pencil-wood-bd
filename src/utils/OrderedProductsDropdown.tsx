@@ -8,8 +8,13 @@ interface OrderedProductsDropdownProps {
 
 const OrderedProductsDropdown: FC<OrderedProductsDropdownProps> = ({ isOpen, setIsOpen }) => {
     const { data: cartList } = useCartListQuery();
+
     console.log(cartList)
-  
+  if(!cartList?.data){
+    return <div>
+      <p className="text-black/50 text-center ">No items available</p>
+    </div>
+  }
 
   return (
     <div className="w-full">
@@ -19,7 +24,7 @@ const OrderedProductsDropdown: FC<OrderedProductsDropdownProps> = ({ isOpen, set
           onMouseLeave={() => setIsOpen(false)}
         >
           <div className="flex flex-col gap-3">
-            {cartList?.data?.map((_, idx) => (
+            {cartList?.data?.map((item, idx) => (
               <div
                 key={idx}
                 className="w-full flex items-center justify-between border-b border-gray-200 pb-2"
@@ -35,25 +40,22 @@ const OrderedProductsDropdown: FC<OrderedProductsDropdownProps> = ({ isOpen, set
                     </div>
 
                     <div className="absolute -top-2 -right-2 bg-gray-500 text-white w-5 h-5 flex justify-center items-center rounded-full text-sm font-medium">
-                      {/* {order?.quantity} */}1
+                      {item?.quantity}
                     </div>
                   </div>
                   <div>
                     <p className="text-xs font-medium">
-                      {/* {order?.title} */} Product Title
+                       Product Title
                     </p>
                     <p className="text-[11px] text-gray-500">
-                      {/* {order?.sizes} / {order?.colors} */} 36
+                       {item?.quantity} X {item?.discount_price}
                     </p>
                   </div>
                 </div>
 
                 <div>
                   <p className="text-[13px] font-medium">
-                    ৳
-                    <span>
-                      {/* {order?.quantity * order?.sale_price} */} 1200
-                    </span>
+                    ৳ <span> {item?.total_price} </span>
                   </p>
                 </div>
               </div>

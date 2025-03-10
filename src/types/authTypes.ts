@@ -1,6 +1,19 @@
-export interface AuthApiResponse {
-  access: string;
-  refresh: string;
+export interface LoginApiResponse {
+  status: boolean;
+  message: string;
+  token: {
+    access: string;
+    refresh: string;
+  };
+}
+
+export interface LoginApiErrorResponse {
+  status: number;
+  data: {
+    error: string;
+    message: string;
+    status: boolean;
+  };
 }
 
 export interface AuthApiRegResponse {
@@ -95,38 +108,17 @@ export interface Order {
 }
 
 export interface OrderApiResponse {
+  status: boolean;
   message: string;
   order: Order;
 }
 
-
 // Orders Parameters
-export interface IAddressBase {
-  full_name: string;
+export interface IOrderPayload {
+  name: string;
   phone_number: string;
-}
-
-export interface IAddressWithNewDetails extends IAddressBase {
-  existing_address?: never; // Ensures new addresses don't have existing_address
-  street: string,
-  upazila: string;
-  district: string;
-}
-
-export interface IAddressWithExisting extends IAddressBase {
-  existing_address: number; // Change to number (since it's an ID)
-  street?: never;
-  upazila?: never;
-  district?: never;
-}
-
-// A union type that enforces one of the two scenarios
-export type IAddress = IAddressWithNewDetails | IAddressWithExisting;
-
-export interface IOrderInfo {
-  full_name: string;
-  phone_number: string;
-  addressData:
-    | number // existing_address (as an ID)
-    | Omit<IAddressWithNewDetails, "full_name" | "phone_number">;
+  existing_address?: number;
+  street?: string;
+  upazila?: string;
+  district?: string;
 }

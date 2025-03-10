@@ -1,11 +1,31 @@
 import React from "react";
+import { useOrderDetailsQuery } from "../../redux/features/orders/orderApis";
+import { useProductsQuery } from "../../redux/features/products/productsApi";
+import Loader from "../../utils/loader/Loader";
 
-interface OrderDetailsProps{
-  orderId: string
+interface OrderDetailsProps {
+  id: number;
 }
 
-const OrderDetails: React.FC<OrderDetailsProps> = ({orderId}) => {
+const OrderDetails: React.FC<OrderDetailsProps> = ({ id }) => {
+  const { data: orderDetails, isLoading } = useOrderDetailsQuery({ id });
+  const { data: allProducts } = useProductsQuery();
+  console.log(allProducts);
 
+  if (isLoading) {
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <Loader />
+      </div>
+    );
+  }
+
+  console.log(orderDetails);
+
+  const productInfo = (pid: number): string | undefined => {
+    const product = allProducts?.data?.find((item) => item?.id === pid);
+    return product?.name;
+  };
 
   return (
     <div className="py-2 mt-5">
@@ -14,23 +34,18 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({orderId}) => {
         <div className="w-full flex flex-col-reverse lg:flex-row justify-between items-start text-center gap-y-5 lg:text-end">
           <div className="col-span-4 text-start text-sm text-gray-600">
             <h3 className="font-medium text-black">Bill to:</h3>
-            {/* <p>{details?.user_id?.fullName}</p> */} Jewel H Fahim
-            {/* <p>{details?.user_id?.phone}</p> */} 01911209322
+            <p>{orderDetails?.name ? orderDetails?.name : "Customer"}</p>
+            {orderDetails?.phone_number && <p>{orderDetails?.phone_number}</p>}
             <p className="w-[90%]">
-              {/* {details?.user_id?.address} */} Dhaka, Farmgate, Khamar Bari
+              {orderDetails?.address?.street_01},
+              {orderDetails?.address?.upazila},{orderDetails?.address?.district}
             </p>
           </div>
 
           <div className="col-span-2 text-start text-sm text-gray-600">
             <h3 className="font-medium text-black">Invoice No:</h3>
-            <p>
-              Invoice:
-              #{orderId?.slice(-5)} 
-            </p>
-            <p>
-              Date:
-              {/* {details?.createdAt?.split("T")[0]} */} 21/02/2025
-            </p>
+            <p>Tracking id: {orderDetails?.tracking_id}</p>
+            <p>Date: {orderDetails?.created_at?.split("T")[0]}</p>
           </div>
         </div>
       </div>
@@ -45,45 +60,35 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({orderId}) => {
 
       {/* product row */}
       <div className="flex flex-col px-2 md:px-10">
-        {[...Array(2)].map((product) => (
+        {orderDetails?.order_items?.map((product) => (
           <div
-            key={product?.product_id?._id}
+            key={product?.id}
             className="w-full border-b-2 border-gray-300 py-4"
           >
             <div className="w-full grid grid-cols-5 md:grid-cols-6 items-center text-end">
               <div className="col-span-2 md:col-span-3 text-start">
                 <div className="">
                   <h2 className="text-sm md:text-base">
-                    {/* {product?.product_id?.title} */} Old Navy Denim
+                    {productInfo(product?.product)}
                   </h2>
-                  <div className="flex gap-2 text-xs text-gray-500">
+                  {/* <div className="flex gap-2 text-xs text-gray-500">
                     <p>Color: Blue </p>
-                    <p>
-                      Size:
-                      {/* {product?.size}  */} 34
-                    </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
               <div className="col-span-1 text-start">
-                <p className="text-sm md:text-base">
-                  Tk
-                  {/* {product?.product_id?.sale_price} */} 1200
-                </p>
+                <p className="text-sm md:text-base">Tk {product?.price}</p>
               </div>
 
               <div className="col-span-1 text-center">
-                <p className="text-sm md:text-base">
-                  {/* {product?.quantity}  */}2
-                </p>
+                <p className="text-sm md:text-base">{product?.quantity}</p>
               </div>
 
               <div className="col-span-1">
                 <p className="text-sm md:text-base">
                   Tk
-                  {/* {product?.quantity * product?.product_id?.sale_price} */}{" "}
-                  1500
+                  {product?.total_price}
                 </p>
               </div>
             </div>
@@ -99,8 +104,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({orderId}) => {
           </div>
           <div className="col-span-3 md:col-span-2 text-end">Subtotal</div>
           <div className="col-span-3 md:col-span-2 text-end">
-            Tk
-            {/* {details?.total_price - details?.delivery_charge} */} 1200
+            Tk {orderDetails?.total_cost}
           </div>
         </div>
       </div>
@@ -113,8 +117,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({orderId}) => {
             Delivery Charge
           </div>
           <div className="col-span-3 md:col-span-2 border-b-2 border-gray-300 pb-2">
-            Tk
-            {/* {details?.delivery_charge}.00 */} 120
+            Tk 150
           </div>
         </div>
       </div>
@@ -125,8 +128,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({orderId}) => {
           <div className="col-span-6 md:col-span-8"></div>
           <div className="col-span-3 md:col-span-2 font-medium">Total</div>
           <div className="col-span-3 md:col-span-2 font-medium">
-            Tk
-            {/* {details?.total_price} */} 1500
+            Tk {Number(orderDetails?.total_cost) + 150}
           </div>
         </div>
       </div>

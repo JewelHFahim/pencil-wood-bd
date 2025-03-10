@@ -1,6 +1,6 @@
 import {
   AuthApiRegResponse,
-  AuthApiResponse,
+  LoginApiResponse,
   RegistrationProps,
   UserApiResponse,
 } from "../../../types/authTypes";
@@ -8,7 +8,17 @@ import { apiSlice } from "../api/apiSlice";
 
 const authApis = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<AuthApiResponse, { email: string; password: string }>({
+
+    // login: builder.mutation<AuthApiResponse, { email: string; password: string }>({
+    //   query: (data) => ({
+    //     method: "POST",
+    //     url: "/auth/login/",
+    //     body: data,
+    //   }),
+    //   invalidatesTags: ["users"],
+    // }),
+
+    login: builder.mutation<LoginApiResponse, { email: string; password: string }>({
       query: (data) => ({
         method: "POST",
         url: "/auth/login/",
@@ -16,6 +26,7 @@ const authApis = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["users"],
     }),
+    
 
     registration: builder.mutation<AuthApiRegResponse, RegistrationProps>({
       query: (data) => ({
