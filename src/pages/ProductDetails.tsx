@@ -1,6 +1,5 @@
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import BuyNow from "../utils/buttons/BuyNow";
-import SocialIcons from "../utils/SocialIcons";
 import BackToHome from "../utils/buttons/BackButton";
 import { useEffect, useState } from "react";
 import ImageZoom from "../components/zoom/ImageZoom";
@@ -12,6 +11,7 @@ import { useProductDetailsQuery } from "../redux/features/products/productsApi";
 import RelatedProducts from "./../components/slider/RelatedProducts";
 import BestSalePeroducts from "../components/slider/BestSaleProducts";
 import Cookies from "js-cookie";
+import SocialLinks from "../utils/SocialLink";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -37,7 +37,6 @@ const ProductDetails = () => {
       setQuantity(quantity + 1);
     }
   };
-
 
   return (
     <div className="min-h-screen mt-4">
@@ -148,7 +147,8 @@ const ProductDetails = () => {
           </div>
 
           {/* Share Social */}
-          <SocialIcons />
+          {/* <SocialIcons /> */}
+          <SocialLinks />
         </div>
       </div>
 

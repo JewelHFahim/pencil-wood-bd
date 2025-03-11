@@ -29,7 +29,7 @@ export default function MainSlider() {
         }}
         navigation={true}
         modules={[Autoplay, Navigation, Pagination]}
-        className="relative my-auto h-[150px] md:h-[250px]"
+        className="relative my-auto h-[150px] md:h-[300px]"
       >
         {sliderList?.data?.map((slide) => (
           <SwiperSlide>

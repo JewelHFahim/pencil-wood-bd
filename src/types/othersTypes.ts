@@ -27,5 +27,5 @@ export interface Social {
 export interface SocialApiResponse {
   status: boolean;
   count: number;
-  data: Slider[];
+  data: Social[];
 }
