@@ -21,6 +21,8 @@ const MobileOrderSummery: FC<MobileOrderSummery> = ({ isOpen, setIsOpen }) => {
     0
   );
 
+
+
   return (
     <div className="mt-8 lg:hidden">
       <div className="">
@@ -49,15 +51,14 @@ const MobileOrderSummery: FC<MobileOrderSummery> = ({ isOpen, setIsOpen }) => {
 
           <div className="flex items-center justify-between text-sm">
             <p>Shipping</p>
-            <p>
-              ৳ { Number(totalAmount) > 0 ? 150 : 0.00 }
-            </p>
+            <p>৳ {Number(totalAmount) > 0 ? 150 : 0.0}</p>
           </div>
 
           <div className="flex items-center justify-between font-medium text-lg">
             <p className="text-">Total</p>
             <p>
-              <span className="text-xs font-normal"> BDT </span> ৳ { Number(totalAmount) > 0 ? Number(totalAmount)  + 150 : 0.00 }
+              <span className="text-xs font-normal"> BDT </span> ৳{" "}
+              {Number(totalAmount) > 0 ? Number(totalAmount) + 150 : 0.0}
             </p>
           </div>
         </div>

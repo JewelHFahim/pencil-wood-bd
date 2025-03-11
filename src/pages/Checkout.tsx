@@ -9,6 +9,7 @@ import { useCreateOrderMutation } from "../redux/features/orders/orderApis";
 import { IOrderPayload } from "../types/authTypes";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import Loader from "../utils/loader/Loader";
 
 type Address =
   | { existing_address: number } // Case 1: Existing Address
@@ -71,8 +72,8 @@ export default function Checkout() {
   return (
     <div>
       {isLoading ? (
-        <div className="flex justify-center items-center h-[70vh]">
-          <p>Loading.</p>
+        <div className="flex justify-center items-center min-h-[70vh]">
+          <Loader />
         </div>
       ) : (
         <div className="flex flex-col lg:flex-row min-h-screen">

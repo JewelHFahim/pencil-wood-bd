@@ -38,11 +38,6 @@ const ProductDetails = () => {
     }
   };
 
-  //   const handleAddTocart = (item) => {
-  //     const data = { ...item, sizes: size, colors: color, quantity: 1};
-  //     dispatch(addToCart(data));
-  //     toast.success("Added to cart");
-  //   };
 
   return (
     <div className="min-h-screen mt-4">
@@ -53,7 +48,7 @@ const ProductDetails = () => {
             <div className="imgContainer relative overflow-hidden sm:w-[30vw] h-[55vh] sm:h-[30vw] bg-gray-300 animate-pulse" />
           </div>
         ) : (
-          <div className="md:w-[50%]flex flex-col gap-4 overflow-hidden">
+          <div className=" md:w-[50%]flex flex-col gap-4 overflow-hidden">
             <ImageZoom
               src={productDetails?.product?.product_image[current]?.image}
               zoomScale={2}

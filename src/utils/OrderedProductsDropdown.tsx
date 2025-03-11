@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useCartListQuery } from "../redux/features/cart/cartApis";
+import { useProductsQuery } from "../redux/features/products/productsApi";
 
 interface OrderedProductsDropdownProps {
   isOpen: boolean;
@@ -8,13 +9,25 @@ interface OrderedProductsDropdownProps {
 
 const OrderedProductsDropdown: FC<OrderedProductsDropdownProps> = ({ isOpen, setIsOpen }) => {
     const { data: cartList } = useCartListQuery();
+    const { data: allProducts } = useProductsQuery();
 
-    console.log(cartList)
+
   if(!cartList?.data){
     return <div>
       <p className="text-black/50 text-center ">No items available</p>
     </div>
   }
+
+  const getProductInfo = (
+    pid: number,
+    type: "name" | "image"
+  ): string | undefined => {
+    const product = allProducts?.data?.find((item) => item?.id === pid);
+
+    if (!product) return undefined;
+
+    return type === "name" ? product.name : product.product_image?.[0]?.image;
+  };
 
   return (
     <div className="w-full">
@@ -33,7 +46,7 @@ const OrderedProductsDropdown: FC<OrderedProductsDropdownProps> = ({ isOpen, set
                   <div className="relative w-[50px] h-[50px]">
                     <div className="w-full h-full relative rounded-md border-2 border-gray-400 overflow-hidden">
                       <img
-                        src="/product_2.jpg"
+                        src={ getProductInfo(item?.product, "image") || "/product_2.jpg"}
                         alt=""
                         className="object-cover w-full h-full "
                       />
@@ -45,7 +58,7 @@ const OrderedProductsDropdown: FC<OrderedProductsDropdownProps> = ({ isOpen, set
                   </div>
                   <div>
                     <p className="text-xs font-medium">
-                       Product Title
+                    {getProductInfo(item?.product, "name") || "Unknown Product"}
                     </p>
                     <p className="text-[11px] text-gray-500">
                        {item?.quantity} X {item?.discount_price}

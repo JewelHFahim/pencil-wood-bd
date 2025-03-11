@@ -23,7 +23,6 @@ export const cartApis = apiSlice.injectEndpoints({
       invalidatesTags: ["products"],
     }),
 
-
     
     deleteFromCart: builder.mutation<DetailsProductApiResponse, { id: number}>({
       query: ({id}) => ({

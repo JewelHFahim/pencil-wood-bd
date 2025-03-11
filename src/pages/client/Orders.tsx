@@ -19,7 +19,7 @@ const Orders: FC<OrdersProps> = ({ setOrderId, setActive }) => {
   return (
     <div className="mx-auto h-full">
       {isLoading ? (
-        <div className="w-full h-full flex justify-center items-center">
+        <div className="flex justify-center items-center min-h-[70vh]">
           <Loader />
         </div>
       ) : (

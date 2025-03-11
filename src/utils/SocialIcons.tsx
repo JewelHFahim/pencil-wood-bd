@@ -1,8 +1,11 @@
-import { FaPinterest, FaTwitter } from "react-icons/fa";
+import { FaPinterest, FaTiktok } from "react-icons/fa";
 import { RiFacebookBoxFill } from "react-icons/ri";
 import { Link } from "react-router";
+// import { useSocialLinksQuery } from "../redux/features/site/siteApis";
 
 const SocialIcons = () => {
+  // const { data: socialLinks } = useSocialLinksQuery();
+
   return (
     <div className="mt-8 flex items-center gap-6">
       <Link to="" className="flex items-center gap-1">
@@ -11,7 +14,7 @@ const SocialIcons = () => {
       </Link>
 
       <Link to="" className="flex items-center gap-1">
-        <FaTwitter className="text-xl text-cyan-500" />
+        <FaTiktok className="text-xl text-cyan-500" />
         <span className="text-sm uppercase font-medium">Share</span>
       </Link>
 

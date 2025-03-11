@@ -3,9 +3,17 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { useSliderListQuery } from "../../redux/features/site/siteApis";
 
 export default function MainSlider() {
-  
+  const { data: sliderList, isLoading } = useSliderListQuery();
+
+  if (isLoading) {
+    return (
+      <div className="my-4 h-[150px] md:h-[250px] bg-gray-300 animate-pulse"></div>
+    );
+  }
+
   return (
     <div className="my-4  overflow-hidden">
       <Swiper
@@ -23,30 +31,14 @@ export default function MainSlider() {
         modules={[Autoplay, Navigation, Pagination]}
         className="relative my-auto h-[150px] md:h-[250px]"
       >
-        <SwiperSlide>
-          <img
-            src="/slider_img_1.jpg"
-            className="w-full h-full object-cover object-center"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="/slider_img_2.jpg"
-            className="w-full h-full object-cover object-center"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="/slider_img_3.jpg"
-            className="w-full h-full object-cover object-center"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="/slider_img_4.jpg"
-            className="w-full h-full object-cover object-center"
-          />
-        </SwiperSlide>
+        {sliderList?.data?.map((slide) => (
+          <SwiperSlide>
+            <img
+              src={slide?.image}
+              className="w-full h-full object-cover object-center"
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

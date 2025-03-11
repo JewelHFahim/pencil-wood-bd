@@ -14,13 +14,11 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ id }) => {
 
   if (isLoading) {
     return (
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="flex justify-center items-center min-h-[70vh]">
         <Loader />
       </div>
     );
   }
-
-  console.log(orderDetails);
 
   const productInfo = (pid: number): string | undefined => {
     const product = allProducts?.data?.find((item) => item?.id === pid);
@@ -71,14 +69,11 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ id }) => {
                   <h2 className="text-sm md:text-base">
                     {productInfo(product?.product)}
                   </h2>
-                  {/* <div className="flex gap-2 text-xs text-gray-500">
-                    <p>Color: Blue </p>
-                  </div> */}
                 </div>
               </div>
 
               <div className="col-span-1 text-start">
-                <p className="text-sm md:text-base">Tk {product?.price}</p>
+                <p className="text-sm md:text-base">Tk{product?.price}</p>
               </div>
 
               <div className="col-span-1 text-center">

@@ -6,17 +6,31 @@ import Loader from "../utils/loader/Loader";
 import useAddToCart from "../hooks/useAddToCart";
 import useRemoveFromCart from "../hooks/useRemoveFromCart";
 import useDeleteFromCart from "../hooks/useDeleteFromCart";
+import { useProductsQuery } from "../redux/features/products/productsApi";
 
 const Cart = () => {
   const { data: cartList, isLoading } = useCartListQuery();
   const { handleAddToCart } = useAddToCart();
   const { handleRemoveFromCart } = useRemoveFromCart();
-
+  const { data: allProducts } = useProductsQuery();
   const cartLength = cartList?.data?.length || 0;
-  
   const { handleDeleteFromCart } = useDeleteFromCart();
 
-  const totalSum = cartList?.data?.reduce((acc, item) => acc + parseFloat(item?.total_price), 0);
+  const totalSum = cartList?.data?.reduce(
+    (acc, item) => acc + parseFloat(item?.total_price),
+    0
+  );
+
+  const getProductInfo = (
+    pid: number,
+    type: "name" | "image"
+  ): string | undefined => {
+    const product = allProducts?.data?.find((item) => item?.id === pid);
+
+    if (!product) return undefined;
+
+    return type === "name" ? product.name : product.product_image?.[0]?.image;
+  };
 
   return (
     <div className="w-full min-h-[calc(100vh-220px)] flex flex-col items-center">
@@ -59,20 +73,50 @@ const Cart = () => {
                         <div className="col-span-2 lg:col-span-3 text-start">
                           <div className="flex lg:items-center gap-2 lg:gap-5">
                             <div className="w-[56px] h-[65px] lg:w-[80px] lg:h-[80px] relative">
-                              <img src="/product_1.png" alt="product img" />
+                              <img src={ getProductInfo(item?.product, "image") || "/default-image.jpg" } alt="product img"/>
                             </div>
 
                             <div className="flex flex-col justify-start items-start gap-1">
                               <h2 className="text-sm lg:text-base font-medium text-[#6d6d6d]">
-                                {/* {item?.title} */} Product Name
+                                {getProductInfo(item?.product, "name") || "Unknown Product"}
                               </h2>
 
-                              <button
-                                onClick={() => handleDeleteFromCart(item?.id)}
-                                className="text-primary text-sm underline font-medium w-max cursor-pointer"
-                              >
-                                Remove
-                              </button>
+                              <div className="flex items-center gap-5">
+                                <button
+                                  onClick={() => handleDeleteFromCart(item?.id)}
+                                  className="text-primary text-sm underline font-medium w-max cursor-pointer"
+                                >
+                                  Remove
+                                </button>
+
+                                <div className="lg:hidden col-span-1 w-full flex justify-end items-center gap-2">
+                                  <button
+                                    className="cursor-pointer"
+                                    onClick={() =>
+                                      handleRemoveFromCart(item?.id)
+                                    }
+                                    type="button"
+                                  >
+                                    <FiMinus />
+                                  </button>
+
+                                  <p className=" text-primary  border px-2 border-gray-400 text-center">
+                                    {item?.quantity}
+                                  </p>
+
+                                  <button
+                                    onClick={() =>
+                                      handleAddToCart({
+                                        product: item?.product,
+                                      })
+                                    }
+                                    type="button"
+                                    className="cursor-pointer"
+                                  >
+                                    <FiPlus />
+                                  </button>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -80,7 +124,7 @@ const Cart = () => {
                         <div className="col-span-1">
                           <p>
                             Tk
-                            {item?.price}
+                            {item?.discount_price}
                           </p>
                         </div>
 
@@ -98,7 +142,9 @@ const Cart = () => {
                           </p>
 
                           <button
-                            onClick={() => handleAddToCart({product: item?.product})}
+                            onClick={() =>
+                              handleAddToCart({ product: item?.product })
+                            }
                             type="button"
                             className="cursor-pointer"
                           >
@@ -107,7 +153,7 @@ const Cart = () => {
                         </div>
 
                         <div className="hidden lg:block col-span-1">
-                          Tk{item?.quantity * parseFloat(item?.price)}
+                          Tk{item?.total_price}
                         </div>
                       </div>
                     </div>
@@ -153,7 +199,7 @@ const Cart = () => {
                       <Link to="/checkout">
                         <button
                           type="button"
-                          className="uppercase bg-primary py-2.5 px-12 text-sm hover:bg-orange-600 transition-all duration-300 text-white font-medium w-max"
+                          className="uppercase bg-primary py-2.5 px-12 text-sm hover:bg-orange-600 transition-all duration-300 text-white font-medium w-max cursor-pointer"
                         >
                           Check Out
                         </button>
@@ -170,7 +216,7 @@ const Cart = () => {
 
               <Link to="/">
                 <button className="flex items-center gap-1 uppercase font-medium text-white bg-primary hover:bg-orange-600 transition-all duration-300 ease-in-out w-max px-2.5 py-2 rounded-sm">
-                  Continue Shopping{" "}
+                  Continue Shopping
                   <HiMiniArrowLongRight className="text-2xl" />
                 </button>
               </Link>
