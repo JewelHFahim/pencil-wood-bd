@@ -15,10 +15,18 @@ export const siteApis = apiSlice.injectEndpoints({
       query: () => "/site/social-link/",
       providesTags: ["products"],
     }),
-    
+
+    searchProducts: builder.query({
+      query: (search) => `/product/product/?search=${search}`,
+      providesTags: ["products"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useSliderListQuery, useSocialLinksQuery } = siteApis;
+export const {
+  useSliderListQuery,
+  useSocialLinksQuery,
+  useSearchProductsQuery,
+} = siteApis;
 export default siteApis;

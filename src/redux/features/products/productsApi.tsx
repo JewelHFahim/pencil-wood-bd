@@ -9,7 +9,21 @@ export const productsApis = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
 
     products: builder.query<ProductsApiResponse, void>({
-      query: () => "/product/product/",
+      query: () => `/product/product/`,
+      providesTags: ["products"],
+    }),
+
+    // allProducts: builder.query<ProductsApiResponse, {query:string}>({
+    //   query: ({query}) => `/product/product/?search=${query}`,
+    //   providesTags: ["products"],
+    // }),
+
+    allProducts: builder.query<ProductsApiResponse, {query:string, page:number}>({
+      query: ({ page, query }) =>{ 
+        console.log(`/product/product/?page=${page}&search=${query}`)
+       return  `/product/product/?page=${page}&search=${query}`
+      
+      },
       providesTags: ["products"],
     }),
 
@@ -27,5 +41,5 @@ export const productsApis = apiSlice.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useProductsQuery, useCategoryQuery, useProductDetailsQuery } = productsApis;
+export const {useProductsQuery, useLazyAllProductsQuery, useCategoryQuery, useProductDetailsQuery } = productsApis;
 export default productsApis;

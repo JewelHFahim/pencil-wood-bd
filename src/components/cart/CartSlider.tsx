@@ -18,7 +18,6 @@ interface CartMenuProps {
 const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
   const { pathname } = useLocation();
   const { data: cartList } = useCartListQuery();
-  console.log(cartList);
   const cartLength = cartList?.data?.length || 0;
   const { handleDeleteFromCart } = useDeleteFromCart();
   const { data: allProducts } = useProductsQuery();
