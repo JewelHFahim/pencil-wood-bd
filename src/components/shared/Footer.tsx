@@ -1,8 +1,11 @@
 import { FaInstagram } from "react-icons/fa";
 import { IoLogoFacebook, IoLogoWhatsapp } from "react-icons/io5";
 import { Link } from "react-router";
+import { useSiteContentQuery } from "../../redux/features/site/siteApis";
 
 const Footer = () => {
+  const { data: siteContent } = useSiteContentQuery();
+
   const footerMenus = [
     {
       name: "About",
@@ -78,7 +81,7 @@ const Footer = () => {
             </Link>
           ))}
         </div>
-        <p className="text-xs text-white">All rights reserved © PencilwoodBD</p>
+        <p className="text-xs text-white">All rights reserved {siteContent?.data?.copyright_year} © {siteContent?.data?.copyright}</p>
       </div>
     </div>
   );

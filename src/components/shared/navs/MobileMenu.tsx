@@ -89,13 +89,15 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
           <div className="w-full">
             <div className="h-[72px] flex gap-2 items-center px-4 shadow">
               <div className="w-full flex items-center gap-x-2">
-                <div className="w-10 h-10 rounded-full bg-gray-400 border border-primary" />
+                <div className="w-10 h-10 rounded-full bg-gray-400 border border-primary">
+                  <img src="/fav.png" alt="logo" />
+                </div>
                 <div>
                   <span className="block text-primary text-sm font-semibold">
                     Pencilwood
                   </span>
                   <span className="block mt-px text-black/50 text-xs">
-                    your groth partner
+                  Enjoy shopping with us!
                   </span>
                 </div>
               </div>

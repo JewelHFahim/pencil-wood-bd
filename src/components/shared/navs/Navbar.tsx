@@ -5,13 +5,10 @@ import { Link } from "react-router";
 import MobileMenu from "./MobileMenu";
 import CartSlider from "../../cart/CartSlider";
 import SearchBar from "./SearchBar";
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isOpenCart, setIsOpenCart] = useState<boolean>(false);
-  // const { data: cartList } = useCartListQuery();
-  // console.log(cartList)
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -31,12 +28,15 @@ const Navbar = () => {
   return (
     <div className="shadow py-2">
       <div className="sm:w-full md:w-[85vw] lg:w-[80vw] xl:w-[70vw] mx-auto flex items-center justify-between px-4 md:px-0">
-        <div className="w-max flex flex-col justify-center md:items-center">
-          <Link to="/" className="text-xl font-bold text-primary w-max">
-            Pencilwood
+        <div className="w-max h-[60px] md:h-[70px] flex flex-col">
+          <Link
+            to="/"
+            className="text-xl font-bold text-primary w-[120px] md:w-[150px]"
+          >
+            <img src="/logo dark.png" alt="Pencilwood" />
           </Link>
-          <p className="text-sm font-light text-gray-400 md:tracking-[3px] w-max">
-            Trend of Fashion
+          <p className="text-xs font-light text-gray-400 md:tracking-[3px] w-max">
+            Enjoy shopping with us!
           </p>
         </div>
 
