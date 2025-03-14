@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import Box from "@mui/joy/Box";
 import Slider from "@mui/joy/Slider";
 import Input from "@mui/joy/Input";
-
 import { GlobalStyles } from "@mui/system";
 
-export default function PriceRangeSlider() {
+interface PriceRangeSliderProps {
+  setMinPrice: Dispatch<SetStateAction<number>>;
+  setMaxPrice: Dispatch<SetStateAction<number>>;
+}
+
+const PriceRangeSlider: FC<PriceRangeSliderProps> = ({setMinPrice, setMaxPrice}) => {
   const [priceRange, setPriceRange] = useState<[number, number]>([1000, 5000]);
 
   const handleSliderChange = (_: Event, newValue: number | number[]) => {
     if (Array.isArray(newValue)) {
       setPriceRange(newValue as [number, number]);
+      setMinPrice(priceRange[0]);
+      setMaxPrice(priceRange[1]);
     }
   };
 
@@ -55,13 +61,12 @@ export default function PriceRangeSlider() {
             color: "#fd7e14",
             borderColor: "#fd7e14",
             "&:focus": {
-              outline: "2px solid red", 
+              outline: "2px solid red",
             },
             "&:focus-visible": {
               outline: "2px solid red",
             },
           }}
-          
         />
         <Input
           type="number"
@@ -97,4 +102,6 @@ export default function PriceRangeSlider() {
       />
     </Box>
   );
-}
+};
+
+export default PriceRangeSlider;

@@ -13,19 +13,41 @@ export const productsApis = apiSlice.injectEndpoints({
       providesTags: ["products"],
     }),
 
-    // allProducts: builder.query<ProductsApiResponse, {query:string}>({
-    //   query: ({query}) => `/product/product/?search=${query}`,
-    //   providesTags: ["products"],
-    // }),
+  
+  allProducts: builder.query<
+  ProductsApiResponse,
+  { query?: string; page: number; category?: string; minPrice?: number | null; maxPrice?: number | null; sort: string | null }
+>({
+  query: ({ page, query, category, minPrice, maxPrice, sort }) => {
+    const hasFilters = query || category;
 
-    allProducts: builder.query<ProductsApiResponse, {query:string, page:number}>({
-      query: ({ page, query }) =>{ 
-        console.log(`/product/product/?page=${page}&search=${query}`)
-       return  `/product/product/?page=${page}&search=${query}`
-      
-      },
-      providesTags: ["products"],
-    }),
+    let url = `/product/product/?`;
+
+    if (!hasFilters) {
+      url += `page=${page}`;
+    }
+    if (query) {
+      url += `&search=${encodeURIComponent(query)}`;
+    }
+    if (category) {
+      url += `&category=${category}`;
+    }
+    if (minPrice !== null && minPrice !== undefined) {
+      url += `&min_price=${minPrice}`;
+    }
+    if (maxPrice !== null && maxPrice !== undefined) {
+      url += `&max_price=${maxPrice}`;
+    }
+    if (sort !== null && sort !== "") {
+      url += `&ordering=${sort}`;
+    }
+
+    console.log(url);
+    return url;
+  },
+  providesTags: ["products"],
+}),
+
 
     productDetails: builder.query<DetailsProductApiResponse, { numericId: number; }>({
       query: ({numericId}) => `/product/product/${numericId}/`,

@@ -32,7 +32,7 @@ export default function MainSlider() {
         className="relative my-auto h-[150px] md:h-[300px]"
       >
         {sliderList?.data?.map((slide) => (
-          <SwiperSlide>
+          <SwiperSlide key={slide?.id}>
             <img
               src={slide?.image}
               className="w-full h-full object-cover object-center"
