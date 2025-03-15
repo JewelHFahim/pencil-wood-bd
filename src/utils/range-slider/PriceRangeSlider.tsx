@@ -10,7 +10,7 @@ interface PriceRangeSliderProps {
 }
 
 const PriceRangeSlider: FC<PriceRangeSliderProps> = ({setMinPrice, setMaxPrice}) => {
-  const [priceRange, setPriceRange] = useState<[number, number]>([1000, 5000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([100, 5000]);
 
   const handleSliderChange = (_: Event, newValue: number | number[]) => {
     if (Array.isArray(newValue)) {
@@ -24,7 +24,7 @@ const PriceRangeSlider: FC<PriceRangeSliderProps> = ({setMinPrice, setMaxPrice})
     const newValue = Number(value);
     if (!isNaN(newValue)) {
       const updatedRange: [number, number] = [...priceRange];
-      updatedRange[index] = Math.min(Math.max(newValue, 1000), 5000); // Ensure within range
+      updatedRange[index] = Math.min(Math.max(newValue, 100), 5000); // Ensure within range
       setPriceRange(updatedRange);
     }
   };
@@ -85,7 +85,7 @@ const PriceRangeSlider: FC<PriceRangeSliderProps> = ({setMinPrice, setMaxPrice})
 
       {/* Price Range Slider */}
       <Slider
-        min={1000}
+        min={100}
         max={5000}
         value={priceRange}
         onChange={handleSliderChange}

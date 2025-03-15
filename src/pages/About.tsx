@@ -1,8 +1,29 @@
-import { FaRegCreditCard } from "react-icons/fa";
-import { GoRocket } from "react-icons/go";
+import { FaWhatsapp } from "react-icons/fa";
+import { GrLocation } from "react-icons/gr";
+import { MdOutlineAlternateEmail } from "react-icons/md";
 import { RiCustomerService2Fill } from "react-icons/ri";
+import SocialIcons from "../utils/SocialIcons";
+import { useLocation } from "react-router";
+import { useContactInformationQuery } from "../redux/features/site/siteApis";
+import { useEffect } from "react";
+import Loader from "../utils/loader/Loader";
 
 const About = () => {
+  const location = useLocation();
+
+  const { data: conatctInfos, isLoading } = useContactInformationQuery();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[70vh]">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <div className="min-h-[calc(100vh-200px)] my-5">
       {/* <div className="w-full flex flex-col md:flex-row gap-8 md:py-10">
@@ -59,18 +80,26 @@ const About = () => {
         </h1>
 
         <p className=" md:text-xl font-medium text-white uppercase z-50 md:text-center md:leading-8">
-          <span className="text-primary">Pencilwood</span> seamlessly combines fashion with elegance,
-          prioritizing community engagement and exceptional customer care. Our
-          mission is to nurture a loyal customer base while upholding the
-          sophistication of a global brand. We are dedicated to quality,
-          innovation, and sustainability, harmonizing local values with
-          international ambitions to deliver an outstanding experience for all.
+          <span className="text-primary">Pencilwood</span> Lorem ipsum, dolor
+          sit amet consectetur adipisicing elit. Eos amet neque maxime sit saepe
+          tenetur, nobis, illo aliquid adipisci accusamus officiis nisi
+          temporibus et, velit odio qui expedita dolorum maiores at sed optio
+          hic! Ipsam, fugit eos corrupti qui, iure magni in tempora voluptatibus
+          consequuntur unde enim voluptatem omnis ratione placeat corporis?
+          Impedit eos repellat veniam repudiandae quam? Sit rem perferendis illo
+          ab, expedita, commodi aut tempore voluptates deserunt recusandae
+          assumenda cupiditate quis soluta maxime qui? Odio minima adipisci
+          animi rem dolores eaque vel, laudantium ipsa consequatur fuga amet
+          dolorum laboriosam recusandae omnis nemo corrupti delectus, doloribus
+          quia odit sunt, reprehenderit exercitationem ea! Sapiente similique
+          consectetur quo optio repellat voluptatem, alias dignissimos minima
+          voluptatum quia doloribus maxime consequatur. Voluptatem, adipisci.
         </p>
 
         <div className="absolute top-0 left-0 w-full z-0 h-full bg-black/80"></div>
       </div>
 
-      <div className="my-8 py-20 bg-gray-50 md:px-5">
+      {/* <div className="my-8 py-20 bg-gray-50 md:px-5">
         <h1 className="text-primary text-2xl font-bold">Why Choose Us</h1>
 
         <div className="my-8 text-sm grid gap-5 grid-cols-1 md:grid-cols-3">
@@ -112,6 +141,66 @@ const About = () => {
             </p>
           </div>
         </div>
+      </div> */}
+
+      <div className="h-12 mt-5 bg-primary w-full flex justify-center items-center">
+        <h1 className="text-3xl text-white text-center font-medium ">
+          Contact
+        </h1>
+      </div>
+
+      <div className="my-8 grid gap-5 grid-cols-1 md:grid-cols-3 text-gray-500">
+        <div className="bg-white px-8 py-12 shadow-sm hover:shadow-md">
+          <div className="flex gap-3">
+            <RiCustomerService2Fill className="text-[40px] text-primary" />
+            <h2 className="text-xl font-bold text-gray-600 hover:text-primary">
+              Hotline
+            </h2>
+          </div>
+          <p className="mt-4 font-medium  text-center">
+            {conatctInfos?.data?.phone}
+          </p>
+        </div>
+
+        <div className="bg-white px-8 py-12 shadow-sm hover:shadow-md">
+          <div className="flex gap-3">
+            <FaWhatsapp className="text-[40px] text-primary" />
+            <h2 className="text-xl font-bold text-gray-600 hover:text-primary">
+              WhatsApp
+            </h2>
+          </div>
+          <p className="mt-4 font-medium text-center">
+            {conatctInfos?.data?.whatspp_number}
+          </p>
+        </div>
+
+        <div className="bg-white px-8 py-12 shadow-sm hover:shadow-md">
+          <div className="flex gap-3">
+            <MdOutlineAlternateEmail className="text-[40px] text-primary" />
+            <h2 className="text-xl font-bold text-gray-600 hover:text-primary">
+              Email
+            </h2>
+          </div>
+          <p className="mt-4 font-medium text-center">
+            {conatctInfos?.data?.email}
+          </p>
+        </div>
+      </div>
+
+      <div className="bg-white px-8 md:px-16 py-12 shadow-sm text-gray-500 hover:shadow-md">
+        <div className="flex gap-3">
+          <GrLocation className="text-[40px] text-primary" />
+          <h2 className="text-xl font-bold text-gray-600 hover:text-primary">
+            Location
+          </h2>
+        </div>
+        <p className="mt-4 font-medium md:pl-4">
+          {conatctInfos?.data?.location}
+        </p>
+      </div>
+
+      <div className="w-max mx-auto my-5">
+        <SocialIcons />
       </div>
     </div>
   );

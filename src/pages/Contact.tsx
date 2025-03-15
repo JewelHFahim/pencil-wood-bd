@@ -4,11 +4,31 @@ import { GrLocation } from "react-icons/gr";
 
 import { RiCustomerService2Fill } from "react-icons/ri";
 import SocialIcons from "../utils/SocialIcons";
+import { useContactInformationQuery } from "../redux/features/site/siteApis";
+import Loader from "../utils/loader/Loader";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
 
 const Contact = () => {
+  const location = useLocation();
+
+  const { data: conatctInfos, isLoading } = useContactInformationQuery();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[70vh]">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-[calc(100vh-200px)] my-5 px-5 md:px-0">
-      <div className="h-16 bg-primary w-full flex justify-center items-center">
+    <div className="min-h-[calc(100vh-200px)] my-5 px-2 md:px-0">
+      <div className="h-12 bg-primary w-full flex justify-center items-center">
         <h1 className="text-3xl text-white text-center font-medium ">
           Contact
         </h1>
@@ -22,7 +42,9 @@ const Contact = () => {
               Hotline
             </h2>
           </div>
-          <p className="mt-4 font-medium  text-center">+88 01911 223344</p>
+          <p className="mt-4 font-medium  text-center">
+            {conatctInfos?.data?.phone}
+          </p>
         </div>
 
         <div className="bg-white px-8 py-12 shadow-sm hover:shadow-md">
@@ -32,7 +54,9 @@ const Contact = () => {
               WhatsApp
             </h2>
           </div>
-          <p className="mt-4 font-medium text-center">+88 01911 223344</p>
+          <p className="mt-4 font-medium text-center">
+            {conatctInfos?.data?.whatspp_number}
+          </p>
         </div>
 
         <div className="bg-white px-8 py-12 shadow-sm hover:shadow-md">
@@ -42,7 +66,9 @@ const Contact = () => {
               Email
             </h2>
           </div>
-          <p className="mt-4 font-medium text-center">support@pencilwood.com</p>
+          <p className="mt-4 font-medium text-center">
+            {conatctInfos?.data?.email}
+          </p>
         </div>
       </div>
 
@@ -54,7 +80,7 @@ const Contact = () => {
           </h2>
         </div>
         <p className="mt-4 font-medium md:pl-4">
-          27 Shaptak Square, Level-7, Holding-02, Road-27, Dhanmondi , Dhaka
+          {conatctInfos?.data?.location}
         </p>
       </div>
 

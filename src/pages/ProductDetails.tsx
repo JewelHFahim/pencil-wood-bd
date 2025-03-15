@@ -23,7 +23,6 @@ const ProductDetails = () => {
   const { data: productDetails, isLoading } = useProductDetailsQuery({
     numericId,
   });
-  console.log(productDetails);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });

@@ -16,7 +16,7 @@ const ProductsContainer = () => {
   const [isOpenPrice, setIsOpenPrice] = useState<boolean>(true);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [selectedValues, setSelectedValues] = useState<number[]>([]);
-  const [minPrice, setMinPrice] = useState<number>(1000);
+  const [minPrice, setMinPrice] = useState<number>(100);
   const [maxPrice, setMaxPrice] = useState<number>(5000);
   const [sort, setSort] = useState("");
   console.log(sort)
@@ -132,7 +132,7 @@ const ProductsContainer = () => {
 
         {/* Products List Display Center */}
         {isLoading ? (
-          <div className="mt-5 w-full min-w-[50vw] grid grid-cols-3 md:grid-cols-4 justify-between gap-2 md:gap-x-5 gap-y-8">
+          <div className="mt-5 w-full min-w-[50vw] grid grid-cols-3 md:grid-cols-4 justify-between gap-2 md:gap-x-4 gap-y-8">
             {/* <Loader /> */}
             {[...Array(8)].map((_, idx) => (
               <div
@@ -142,7 +142,7 @@ const ProductsContainer = () => {
             ))}
           </div>
         ) : (
-          <div className="mt-5 w-full grid grid-cols-3 md:grid-cols-4 justify-between gap-2 md:gap-x-5 gap-y-8">
+          <div className="mt-5 w-full grid grid-cols-3 md:grid-cols-4 justify-between gap-2 md:gap-x-4 gap-y-8">
             {allProducts?.data?.map((product: ProductResponse) => (
               <ProductCard product={product} key={product?.id} />
             ))}

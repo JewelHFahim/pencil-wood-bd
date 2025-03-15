@@ -3,12 +3,12 @@ import { Link, useLocation } from "react-router";
 import Drawer from "react-modern-drawer";
 import { IoMdClose } from "react-icons/io";
 import "react-modern-drawer/dist/index.css";
-import { RiShoppingBagLine } from "react-icons/ri";
 import { LiaLongArrowAltRightSolid } from "react-icons/lia";
 import useDeleteFromCart from "../../hooks/useDeleteFromCart";
 import { useCartListQuery } from "../../redux/features/cart/cartApis";
 import { useProductsQuery } from "../../redux/features/products/productsApi";
 import { HiMiniArrowLongRight } from "react-icons/hi2";
+import { MdOutlineShoppingCart } from "react-icons/md";
 
 interface CartMenuProps {
   isOpenCart: boolean;
@@ -52,7 +52,7 @@ const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
         className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out relative cursor-pointer pb-[env(safe-area-inset-bottom, 50px)] "
       >
         <span className="text-2xl p-1">
-          <RiShoppingBagLine />
+          <MdOutlineShoppingCart />
         </span>
 
         {cartLength > 0 && (

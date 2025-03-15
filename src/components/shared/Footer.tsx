@@ -1,37 +1,14 @@
 import { FaInstagram } from "react-icons/fa";
 import { IoLogoFacebook, IoLogoWhatsapp } from "react-icons/io5";
 import { Link } from "react-router";
-import { useSiteContentQuery } from "../../redux/features/site/siteApis";
+import {
+  useFooterLinksQuery,
+  useSiteContentQuery,
+} from "../../redux/features/site/siteApis";
 
 const Footer = () => {
   const { data: siteContent } = useSiteContentQuery();
-
-  const footerMenus = [
-    {
-      name: "About",
-      path: "/about",
-    },
-    {
-      name: "Contact",
-      path: "/contact",
-    },
-    {
-      name: "Return Policy",
-      path: "",
-    },
-    {
-      name: "Terms & Condition",
-      path: "",
-    },
-    {
-      name: "Privacy Policy",
-      path: "",
-    },
-    {
-      name: "FAQ",
-      path: "",
-    },
-  ];
+  const { data: footerLinks } = useFooterLinksQuery();
 
   const social = [
     {
@@ -50,17 +27,16 @@ const Footer = () => {
 
   return (
     <div className="py-4 bg-primary mt-10 flex flex-col justify-center items-center">
-
       <div className="w-[90vw] lg:w-[71vw] mx-auto md:h-1/2">
         <ul className="flex justify-center items-center h-full">
           <li className="w-full flex flex-wrap gap-5 justify-center text-white text-sm md:text-base">
-            {footerMenus.map((menu, idx) => (
+            {footerLinks?.data?.map((menu) => (
               <Link
-                to={menu.path}
-                key={idx}
+                to={menu?.url}
+                key={menu?.id}
                 className="text-white hover:text-gray-300 transition-all duration-300 ease-in-out"
               >
-                {menu.name}
+                {menu?.name}
               </Link>
             ))}
           </li>
@@ -81,7 +57,10 @@ const Footer = () => {
             </Link>
           ))}
         </div>
-        <p className="text-xs text-white">All rights reserved {siteContent?.data?.copyright_year} © {siteContent?.data?.copyright}</p>
+        <p className="text-xs text-white">
+          All rights reserved {siteContent?.data?.copyright_year} ©{" "}
+          {siteContent?.data?.copyright}
+        </p>
       </div>
     </div>
   );

@@ -13,19 +13,6 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const token = Cookies.get("pencil");
   const { handleAddToCart } = useAddToCart();
 
-  // const [addToCart] = useAddToCartMutation();
-
-  // const handleCart = async (content: number) => {
-  //   try {
-  //     console.log(content);
-
-  //     const res = await addToCart();
-  //     console.log(res);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   return (
     <div className="ProductCard-Wrapper">
       <Link to={`/products/${product?.id}`} className="">
@@ -48,31 +35,9 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             alt="Product Img"
             className="w-[250px] h-[150px]  md:h-[250px] object-cover second-img transition-opacity duration-500 object-center"
           />
-
-          <div className="absolute left-0 top-0 w-max bg-primary px-4 py-[2px] text-white text-sm md:text-base">
-            Sale
-          </div>
         </div>
       </Link>
 
-      {!token ? (
-        <Link to="/account/login">
-          <button
-            type="button"
-            className="w-full h-8 rounded-b-sm bg-primary font-medium text-xs md:text-sm text-gray-100 uppercase cursor-pointer"
-          >
-            Add To Cart
-          </button>
-        </Link>
-      ) : (
-        <button
-          type="button"
-          onClick={() => handleAddToCart({ product: product?.id, quantity: 1 })}
-          className="w-full h-8 rounded-b-sm bg-primary font-medium text-xs md:text-sm text-gray-100 uppercase cursor-pointer"
-        >
-          Add To Cart
-        </button>
-      )}
       <Link to={`/products/${product?.id}`} className="">
         <div className="mt-1">
           <h2 className="text-sm md:text-base font-medium">
@@ -93,6 +58,48 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           </div>
         </div>
       </Link>
+
+      <div className="mt-2">
+        {!token ? (
+          <div className="flex flex-col gap-1">
+            <Link to="/account/login">
+              <button
+                type="button"
+                className="w-full h-8 bg-primary font-medium text-xs md:text-sm text-gray-100 uppercase cursor-pointer"
+              >
+                Add To Cart
+              </button>
+            </Link>
+            <Link to="/account/login">
+              <button
+                type="button"
+                className="w-full h-8 border border-primary font-medium text-xs md:text-sm text-primary uppercase cursor-pointer"
+              >
+                Buy Now
+              </button>
+            </Link>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-1">
+            <button
+              type="button"
+              onClick={() =>
+                handleAddToCart({ product: product?.id, quantity: 1 })
+              }
+              className="w-full bg-primary font-medium text-xs md:text-sm text-gray-100 uppercase cursor-pointer"
+            >
+              Add To Cart
+            </button>
+
+            <button
+              type="button"
+              className="w-full h-8 bg-primary font-medium text-xs md:text-sm text-gray-100 uppercase cursor-pointer"
+            >
+              Buy Now
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -13,11 +13,9 @@ const Pagination:FC<PaginationProps> = ({page, setPage, count}) => {
   const handlePagination = (value:string) => {
     console.log(value);
     if (value === "dec" && page > 1) {
-      console.log("dec");
       setPage(page - 1);
     }
     if (value === "inc" && page < Math.ceil(count/12)) {
-      console.log("inc");
       setPage(page + 1);
     }
   };

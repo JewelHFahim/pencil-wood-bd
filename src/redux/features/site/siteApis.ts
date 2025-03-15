@@ -2,12 +2,15 @@ import {
   SliderApiResponse,
   SocialApiResponse,
 } from "../../../types/othersTypes";
-import { SiteContentApiResponse } from "../../../types/siteContent";
+import {
+  FooterLinksApis,
+  SiteConactApiRes,
+  SiteContentApiResponse,
+} from "../../../types/siteContent";
 import { apiSlice } from "../api/apiSlice";
 
 export const siteApis = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-
     sliderList: builder.query<SliderApiResponse, void>({
       query: () => "/site/home-slider/",
       providesTags: ["products"],
@@ -33,6 +36,15 @@ export const siteApis = apiSlice.injectEndpoints({
       providesTags: ["products"],
     }),
 
+    contactInformation: builder.query<SiteConactApiRes, void>({
+      query: () => `/site/contact-information/`,
+      providesTags: ["products"],
+    }),
+
+    footerLinks: builder.query<FooterLinksApis, void>({
+      query: () => `/site/footer-tag-link/`,
+      providesTags: ["products"],
+    }),
   }),
   overrideExisting: false,
 });
@@ -42,6 +54,8 @@ export const {
   useSocialLinksQuery,
   useSearchProductsQuery,
   useSiteContentQuery,
-  useAboutUsQuery
+  useAboutUsQuery,
+  useContactInformationQuery,
+  useFooterLinksQuery,
 } = siteApis;
 export default siteApis;
