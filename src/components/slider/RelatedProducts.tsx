@@ -4,17 +4,16 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { ProductResponse } from "../../types/products_type";
-import RelatedProductCard from "../products/RelatedProductCard";
-import { FC } from 'react';
+import { FC } from "react";
+import ProductCard from "../products/ProductCard";
 
 interface RelatedProductsProps {
   related_products?: ProductResponse[];
 }
 
-const RelatedProducts:FC<RelatedProductsProps> = ({ related_products = [] }) => {
-
-  // if (isLoading) return <Loader />;
-  // if (error) return <p>Error loading products</p>;
+const RelatedProducts: FC<RelatedProductsProps> = ({
+  related_products = [],
+}) => {
 
   return (
     <div className="my-4 overflow-hidden mt-10">
@@ -50,7 +49,7 @@ const RelatedProducts:FC<RelatedProductsProps> = ({ related_products = [] }) => 
       >
         {related_products?.map((product: ProductResponse) => (
           <SwiperSlide key={product?.id}>
-            <RelatedProductCard product={product} />
+            <ProductCard product={product} key={product?.id} />
           </SwiperSlide>
         ))}
       </Swiper>

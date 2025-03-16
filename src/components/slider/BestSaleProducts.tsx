@@ -4,16 +4,15 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { ProductResponse } from "../../types/products_type";
-import RelatedProductCard from "../products/RelatedProductCard";
 import { FC } from "react";
+import ProductCard from "../products/ProductCard";
 
 interface RelatedProductsProps {
   related_products?: ProductResponse[];
 }
 
+const BestSalePeroducts: FC<RelatedProductsProps> = ({ related_products }) => {
 
-const BestSalePeroducts:FC<RelatedProductsProps> = ({ related_products }) => {
-  
   // if (isLoading) return <p>Loading...BestSalePeroducts</p>;
   // if (error) return <p>Error loading products</p>;
 
@@ -52,7 +51,7 @@ const BestSalePeroducts:FC<RelatedProductsProps> = ({ related_products }) => {
       >
         {related_products?.map((product: ProductResponse) => (
           <SwiperSlide key={product?.id}>
-            <RelatedProductCard product={product} />
+            <ProductCard product={product} key={product?.id} />
           </SwiperSlide>
         ))}
       </Swiper>

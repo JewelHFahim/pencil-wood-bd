@@ -46,20 +46,22 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
 
           <div className="flex justify-between md:flex-start items-center sm:gap-2 md:gap-x-4">
             <div className="flex flex-col md:flex-row items-center gap-x-4">
-              {product?.discount_price && (
+              {product?.current_price && (
                 <p className="md:font-medium line-through text-gray-500 text-sm">
-                  Tk{product?.discount_price}
+                  Tk{product?.current_price}
                 </p>
               )}
               <p className="md: font-medium text-sm text-primary">
-                Tk{product?.current_price}
+                Tk{product?.discount_price}
               </p>
             </div>
           </div>
         </div>
       </Link>
 
-      <div className="mt-2">
+      <div className="tempBtnHeight h-17.5 mt-2"></div>
+
+      <div className="mt-2 CartAndBuyBtn h-17.5">
         {!token ? (
           <div className="flex flex-col gap-1">
             <Link to="/account/login">

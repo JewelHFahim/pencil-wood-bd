@@ -25,6 +25,22 @@
   opacity: 1;
 }
 
+.ProductCard-Wrapper:hover .CartAndBuyBtn {
+  display: block;
+}
+
+.CartAndBuyBtn {
+  display: none;
+}
+
+.ProductCard-Wrapper:hover .tempBtnHeight {
+  display: none;
+}
+
+.tempBtnHeight {
+  display: block;
+}
+
 @keyframes cartAnimation {
   0% {
     opacity: 0;

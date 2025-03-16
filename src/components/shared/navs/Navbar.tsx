@@ -5,10 +5,12 @@ import { Link } from "react-router";
 import MobileMenu from "./MobileMenu";
 import CartSlider from "../../cart/CartSlider";
 import SearchBar from "./SearchBar";
+import { useSiteContentQuery } from "../../../redux/features/site/siteApis";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isOpenCart, setIsOpenCart] = useState<boolean>(false);
+  const {data: siteContent } = useSiteContentQuery();
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -34,10 +36,10 @@ const Navbar = () => {
             to="/"
             className="text-xl font-bold text-primary w-[120px] md:w-[150px]"
           >
-            <img src="/logo dark.png" alt="Pencilwood" />
+            <img src={ siteContent?.data?.secondary_logo ? siteContent?.data?.secondary_logo : "/logo dark.png"} alt="Pencilwood" />
           </Link>
           <p className="text-xs font-light text-gray-400 md:tracking-[3px] w-max">
-            Enjoy shopping with us!
+            {siteContent?.data?.site_slogan}
           </p>
         </div>
 
