@@ -26,7 +26,8 @@
 }
 
 .ProductCard-Wrapper:hover .CartAndBuyBtn {
-  display: block;
+  display: flex;
+
 }
 
 .CartAndBuyBtn {

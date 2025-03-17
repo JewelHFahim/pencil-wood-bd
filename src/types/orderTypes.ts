@@ -13,6 +13,7 @@ export interface SingleOrderItem {
     street_01: string;
     street_02: string;
     upazila: string;
+    district: string;
   };
   customer: number;
   delivery_by: string;
@@ -27,7 +28,6 @@ export interface SingleOrderItem {
   status: string;
   total_cost: string;
   tracking_id: string;
-
   created_at: string;
 }
 
@@ -42,10 +42,16 @@ export interface OrderListApiResponse {
   };
 }
 
+export interface SingleOrderAPiResponse {
+  status: boolean;
+  data: SingleOrderItem;
+}
+
 // ===================>> Order Details <<==================
 
 export interface OrderDetails {
   id: number;
+
   order_items: [
     {
       id: number;
@@ -56,6 +62,7 @@ export interface OrderDetails {
       total_price: string;
     }
   ];
+
   address: {
     id: number;
     street_01: string;
@@ -66,6 +73,7 @@ export interface OrderDetails {
     district: string;
     country: string;
   };
+
   name: string;
   phone_number: string;
   total_cost: string;

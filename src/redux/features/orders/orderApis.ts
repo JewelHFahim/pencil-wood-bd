@@ -1,5 +1,5 @@
 import { IOrderPayload, OrderApiResponse } from "../../../types/authTypes";
-import { OrderDetails, OrderListApiResponse } from "../../../types/orderTypes";
+import { OrderListApiResponse, SingleOrderAPiResponse } from "../../../types/orderTypes";
 import { apiSlice } from "../api/apiSlice";
 
 export const orderApis = apiSlice.injectEndpoints({
@@ -18,7 +18,7 @@ export const orderApis = apiSlice.injectEndpoints({
       providesTags: ["products"],
     }),
 
-    orderDetails: builder.query<OrderDetails, { id: number }>({
+    orderDetails: builder.query<SingleOrderAPiResponse, { id: number }>({
       query: ({id}) => `/order/order/${id}/`,
       providesTags: ["products"],
     }),

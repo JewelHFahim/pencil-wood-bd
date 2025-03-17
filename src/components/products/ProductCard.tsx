@@ -4,6 +4,8 @@ import Cookies from "js-cookie";
 import { Link } from "react-router";
 import { ProductResponse } from "../../types/products_type";
 import useAddToCart from "../../hooks/useAddToCart";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { FaRegHeart } from "react-icons/fa";
 
 interface ProductCardProps {
   product: ProductResponse;
@@ -14,7 +16,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { handleAddToCart } = useAddToCart();
 
   return (
-    <div className="ProductCard-Wrapper">
+    <div className="ProductCard-Wrapper relative border border-gray-100 shadow text-center rounded-sm p-1 pb-2">
       <Link to={`/products/${product?.id}`} className="">
         <div className="w-full relative img-container overflow-hidden max-h-[350px] rounded-t-sm">
           <img
@@ -36,22 +38,20 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             className="w-[250px] h-[150px]  md:h-[250px] object-cover second-img transition-opacity duration-500 object-center"
           />
         </div>
-      </Link>
 
-      <Link to={`/products/${product?.id}`} className="">
-        <div className="mt-1">
+        <div className="mt-2">
           <h2 className="text-sm md:text-base font-medium">
             {product?.name?.slice(0, 20)}
           </h2>
 
-          <div className="flex justify-between md:flex-start items-center sm:gap-2 md:gap-x-4">
+          <div className="flex justify-between md:flex-start md:justify-center items-center sm:gap-2 md:gap-x-4">
             <div className="flex flex-col md:flex-row items-center gap-x-4">
               {product?.current_price && (
                 <p className="md:font-medium line-through text-gray-500 text-sm">
                   Tk{product?.current_price}
                 </p>
               )}
-              <p className="md: font-medium text-sm text-primary">
+              <p className="md:font-medium text-sm text-primary">
                 Tk{product?.discount_price}
               </p>
             </div>
@@ -59,7 +59,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         </div>
       </Link>
 
-      <div className="tempBtnHeight h-17.5 mt-2"></div>
+      {/* <div className=" h-17.5 mt-2"></div>
 
       <div className="mt-2 CartAndBuyBtn h-17.5">
         {!token ? (
@@ -101,7 +101,46 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             </button>
           </div>
         )}
-      </div>
+      </div> */}
+
+      {!token ? (
+        <div className="CartAndBuyBtn absolute top-1/2 bottom-1/2 -translate-y-10 right-0 flex flex-col gap-2">
+          <Link to="/account/login">
+            <button
+              type="button"
+              className="text-2xl bg-primary text-white p-2 w-max h-max rounded-full cursor-pointer hover:text-primary border border-primary hover:bg-white transition-all duration-150 shadow-md"
+            >
+              <FaRegHeart />
+            </button>
+          </Link>
+
+          <button
+            type="button"
+            className="text-2xl bg-white text-primary p-2 w-max h-max rounded-full cursor-pointer hover:text-white border border-primary hover:bg-primary transition-all duration-150 shadow-md"
+          >
+            <MdOutlineShoppingCart />
+          </button>
+        </div>
+      ) : (
+        <div className="CartAndBuyBtn absolute top-1/2 bottom-1/2 -translate-y-10 right-0 flex flex-col gap-2">
+          <button
+            type="button"
+            onClick={() =>
+              handleAddToCart({ product: product?.id, quantity: 1 })
+            }
+            className="text-2xl bg-primary text-white p-2 w-max h-max rounded-full cursor-pointer hover:text-primary border border-primary hover:bg-white transition-all duration-150 shadow-md"
+          >
+            <FaRegHeart />
+          </button>
+
+          <button
+            type="button"
+            className="text-2xl bg-white text-primary p-2 w-max h-max rounded-full cursor-pointer hover:text-white border border-primary hover:bg-primary transition-all duration-150 shadow-md"
+          >
+            <MdOutlineShoppingCart />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

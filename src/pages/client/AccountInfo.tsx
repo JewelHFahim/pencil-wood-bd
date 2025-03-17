@@ -1,23 +1,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Loader from "../../utils/loader/Loader";
+import { useCurrentUserQuery } from "../../redux/features/auth/authApis";
 
 const AccountInfo = () => {
   const isLoading = false;
-  // const id = "123456";
-  // const { data: user, isLoading: fetchloader } = useUserDetailsQuery(id);
-  // const [updateUser, { isLoading: postLoader }] = useUpdateUserMutation(id);
   const { register } = useForm();
   const [edit, setEdit] = useState(false);
+  const { data: currentUser } = useCurrentUserQuery();
 
-  // useEffect(()=>{
-  //   setValue("fullName", user?.data?.fullName);
-  // },[])
-
-  // const onSubmit = (data) => {
-  //   toast.success("Information updated");
-  //   setEdit(!edit);
-  // };
+  console.log(currentUser);
 
   const inputCont =
     "w-full border-b-2 border-gray-300 flex flex-col md:flex-row md:items-center md:gap-10";
@@ -41,7 +33,7 @@ const AccountInfo = () => {
                 <label className="md:w-[20%] text-gray-400">Full name</label>
                 <input
                   type="text"
-                  // defaultValue={user?.data?.fullName}
+                  defaultValue={currentUser?.profile?.name}
                   readOnly
                   className={inputCss}
                 />
@@ -51,7 +43,7 @@ const AccountInfo = () => {
                 <label className="md:w-[20%] text-gray-400">Phone number</label>
                 <input
                   type="text"
-                  // defaultValue={user?.data?.phone}
+                  defaultValue={currentUser?.profile?.phone}
                   readOnly
                   className={inputCss}
                 />
@@ -61,11 +53,15 @@ const AccountInfo = () => {
                 <label className="md:w-[20%] text-gray-400">
                   Addrss in details
                 </label>
-                <input
-                  type="text"
-                  // defaultValue={user?.data?.address}
-                  className={inputCss}
-                />
+
+                <select className={inputCss}>
+                  {currentUser?.user_address?.map((item) => (
+                    <option key={item?.id} value="">
+                      {item?.street_01}, {item?.street_02}, {item?.upazila},
+                      {item?.district},
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className={inputCont}>
@@ -74,7 +70,7 @@ const AccountInfo = () => {
                 </label>
                 <input
                   type="text"
-                  // defaultValue={user?.data?.email}
+                  defaultValue={currentUser?.profile?.email}
                   readOnly
                   className={inputCss}
                 />
@@ -101,7 +97,7 @@ const AccountInfo = () => {
                 </label>
                 <input
                   type="text"
-                  defaultValue="Jewel Hossain Fahim"
+                  defaultValue={currentUser?.profile?.name}
                   className={inputCss}
                   {...register("fullName")}
                 />
@@ -113,7 +109,7 @@ const AccountInfo = () => {
                 </label>
                 <input
                   type="text"
-                  defaultValue="01911209322"
+                  defaultValue={currentUser?.profile?.phone}
                   className={inputCss}
                   {...register("contact")}
                 />
@@ -137,7 +133,7 @@ const AccountInfo = () => {
                 </label>
                 <input
                   type="text"
-                  value="jewelhfahim@mail.com"
+                  defaultValue={currentUser?.profile?.email}
                   readOnly
                   className="w-[80%] h-14 focus:outline-none bg-transparent text-gray-400"
                 />

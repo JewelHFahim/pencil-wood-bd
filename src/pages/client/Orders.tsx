@@ -9,6 +9,7 @@ interface OrdersProps {
 
 const Orders: FC<OrdersProps> = ({ setOrderId, setActive }) => {
   const { data: orders, isLoading } = useOrderListQuery();
+  
   console.log(orders);
 
   const handleSelectId = (id: number) => {

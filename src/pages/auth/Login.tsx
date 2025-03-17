@@ -1,7 +1,7 @@
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoginMutation } from "../../redux/features/auth/authApis";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
@@ -17,7 +17,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/account";
-
   const [viewPass, setViewPass] = useState(false);
   const {
     register,
@@ -25,6 +24,11 @@ const Login = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const [login, { isLoading }] = useLoginMutation();
+
+  // Scroll Effect
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);

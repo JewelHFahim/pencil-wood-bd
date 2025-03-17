@@ -9,8 +9,10 @@ interface OrderDetailsProps {
 
 const OrderDetails: React.FC<OrderDetailsProps> = ({ id }) => {
   const { data: orderDetails, isLoading } = useOrderDetailsQuery({ id });
+
+  console.log(orderDetails);
+
   const { data: allProducts } = useProductsQuery();
-  console.log(allProducts);
 
   if (isLoading) {
     return (
@@ -27,28 +29,28 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ id }) => {
 
   return (
     <div className="py-2 mt-5">
-      {/* Billing Address */}
+      {/* Billing / Address / Client infos*/}
       <div className="w-full lg:px-10">
         <div className="w-full flex flex-col-reverse lg:flex-row justify-between items-start text-center gap-y-5 lg:text-end">
           <div className="col-span-4 text-start text-sm text-gray-600">
             <h3 className="font-medium text-black">Bill to:</h3>
-            <p>{orderDetails?.name ? orderDetails?.name : "Customer"}</p>
-            {orderDetails?.phone_number && <p>{orderDetails?.phone_number}</p>}
+            <p>{orderDetails?.data?.name ? orderDetails?.data?.name : "Customer Name"}</p>
+            {orderDetails?.data?.phone_number && <p>{orderDetails?.data?.phone_number}</p>}
             <p className="w-[90%]">
-              {orderDetails?.address?.street_01},
-              {orderDetails?.address?.upazila},{orderDetails?.address?.district}
+              {orderDetails?.data?.address?.street_01},
+              {orderDetails?.data?.address?.upazila},{orderDetails?.data?.address?.district}
             </p>
           </div>
 
           <div className="col-span-2 text-start text-sm text-gray-600">
             <h3 className="font-medium text-black">Invoice No:</h3>
-            <p>Tracking id: {orderDetails?.tracking_id}</p>
-            <p>Date: {orderDetails?.created_at?.split("T")[0]}</p>
+            <p>Tracking id: {orderDetails?.data?.tracking_id}</p>
+            <p>Date: {orderDetails?.data?.created_at?.split("T")[0]}</p>
           </div>
         </div>
       </div>
 
-      {/* thead */}
+      {/*table head */}
       <div className="mt-5 w-full bg-primary text-white py-1 md:py-3 px-2 md:px-10 grid grid-cols-5 lg:grid-cols-6 text-end text-gray-70 uppercase text-sm md:text-base">
         <div className="col-span-2 md:col-span-3 text-start">Product</div>
         <div className="col-span-1 text-start">Price</div>
@@ -58,7 +60,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ id }) => {
 
       {/* product row */}
       <div className="flex flex-col px-2 md:px-10">
-        {orderDetails?.order_items?.map((product) => (
+        {orderDetails?.data?.order_items?.map((product) => (
           <div
             key={product?.id}
             className="w-full border-b-2 border-gray-300 py-4"
@@ -99,7 +101,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ id }) => {
           </div>
           <div className="col-span-3 md:col-span-2 text-end">Subtotal</div>
           <div className="col-span-3 md:col-span-2 text-end">
-            Tk {orderDetails?.total_cost}
+            Tk {orderDetails?.data?.total_cost}
           </div>
         </div>
       </div>
@@ -123,7 +125,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ id }) => {
           <div className="col-span-6 md:col-span-8"></div>
           <div className="col-span-3 md:col-span-2 font-medium">Total</div>
           <div className="col-span-3 md:col-span-2 font-medium">
-            Tk {Number(orderDetails?.total_cost) + 150}
+            Tk {Number(orderDetails?.data?.total_cost) + 150}
           </div>
         </div>
       </div>

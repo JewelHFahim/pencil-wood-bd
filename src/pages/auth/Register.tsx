@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useRegistrationMutation } from "../../redux/features/auth/authApis";
 import Loader from "../../utils/loader/Loader";
 import toast from "react-hot-toast";
@@ -16,13 +16,18 @@ type Inputs = {
 
 const Register = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [viewPass, setViewPass] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
   const [registration, {isLoading}] = useRegistrationMutation();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
 
+
+  
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       const response = await registration(data);
       console.log(response);
