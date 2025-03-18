@@ -1,29 +1,32 @@
-import { FaInstagram } from "react-icons/fa";
-import { IoLogoFacebook, IoLogoWhatsapp } from "react-icons/io5";
 import { Link } from "react-router";
+import * as Icons from "react-icons/ri";
+import * as FaIcons from "react-icons/fa";
 import {
   useFooterLinksQuery,
   useSiteContentQuery,
+  useSocialLinksQuery,
 } from "../../redux/features/site/siteApis";
 
 const Footer = () => {
   const { data: siteContent } = useSiteContentQuery();
   const { data: footerLinks } = useFooterLinksQuery();
+  const { data: socialLinks } = useSocialLinksQuery();
+  console.log(socialLinks);
 
-  const social = [
-    {
-      icon: <IoLogoFacebook />,
-      path: "",
-    },
-    {
-      icon: <FaInstagram />,
-      path: "",
-    },
-    {
-      icon: <IoLogoWhatsapp />,
-      path: "",
-    },
-  ];
+  // const social = [
+  //   {
+  //     icon: <IoLogoFacebook />,
+  //     path: "",
+  //   },
+  //   {
+  //     icon: <FaInstagram />,
+  //     path: "",
+  //   },
+  //   {
+  //     icon: <IoLogoWhatsapp />,
+  //     path: "",
+  //   },
+  // ];
 
   return (
     <div className="py-4 bg-primary mt-10 flex flex-col justify-center items-center">
@@ -46,19 +49,28 @@ const Footer = () => {
       <div className="w-full h-[1px] my-4 bg-orange-300" />
 
       <div className="w-[95vw] md:w-[90vw] lg:w-[71vw] mx-auto md:h-1/2 flex flex-col justify-center items-center  md:justify-evenly gap-y-4 ">
-        <div className="flex items-center gap-5 text-3xl ">
-          {social.map((item, idx) => (
-            <Link
-              to={item.path}
-              className="text-white hover:text-gray-300 transition-all duration-300 ease-in-out"
-              key={idx}
-            >
-              {item.icon}
-            </Link>
-          ))}
+        <div className="flex items-center gap-8 text-3xl ">
+          {socialLinks?.data?.map((item, idx) => {
+            const IconComponent =
+              Icons[item.icon as keyof typeof Icons] ||
+              FaIcons[item.icon as keyof typeof FaIcons];
+
+            return (
+              <Link
+                to={item?.url}
+                className="text-white hover:text-gray-300 transition-all duration-300 ease-in-out"
+                key={idx}
+              >
+                {/* <{item.icon}/> */}
+                {IconComponent ? (
+                  <IconComponent className="text-gray-500 text-3xl hover:text-gray-700" />
+                ) : null}
+              </Link>
+            );
+          })}
         </div>
         <p className="text-xs text-white">
-          All rights reserved {siteContent?.data?.copyright_year} ©{" "}
+          All rights reserved {siteContent?.data?.copyright_year} ©
           {siteContent?.data?.copyright}
         </p>
       </div>

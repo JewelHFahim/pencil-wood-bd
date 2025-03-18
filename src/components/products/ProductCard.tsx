@@ -16,7 +16,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { handleAddToCart } = useAddToCart();
 
   return (
-    <div className="ProductCard-Wrapper relative border border-gray-100 shadow text-center rounded-sm p-1 pb-2">
+    <div className="ProductCard-Wrapper relative border border-gray-100 shadow text-center rounded-sm pb-2">
       <Link to={`/products/${product?.id}`} className="">
         <div className="w-full relative img-container overflow-hidden max-h-[350px] rounded-t-sm">
           <img
@@ -114,12 +114,14 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             </button>
           </Link>
 
-          <button
-            type="button"
-            className="text-2xl bg-white text-primary p-2 w-max h-max rounded-full cursor-pointer hover:text-white border border-primary hover:bg-primary transition-all duration-150 shadow-md"
-          >
-            <MdOutlineShoppingCart />
-          </button>
+          <Link to="/account/login">
+            <button
+              type="button"
+              className="text-2xl bg-white text-primary p-2 w-max h-max rounded-full cursor-pointer hover:text-white border border-primary hover:bg-primary transition-all duration-150 shadow-md"
+            >
+              <MdOutlineShoppingCart />
+            </button>
+          </Link>
         </div>
       ) : (
         <div className="CartAndBuyBtn absolute top-1/2 bottom-1/2 -translate-y-10 right-0 flex flex-col gap-2">
@@ -133,12 +135,17 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
             <FaRegHeart />
           </button>
 
-          <button
-            type="button"
-            className="text-2xl bg-white text-primary p-2 w-max h-max rounded-full cursor-pointer hover:text-white border border-primary hover:bg-primary transition-all duration-150 shadow-md"
-          >
-            <MdOutlineShoppingCart />
-          </button>
+          <Link to="/cart">
+            <button
+              type="button"
+              onClick={() =>
+                handleAddToCart({ product: product?.id, quantity: 1 })
+              }
+              className="text-2xl bg-white text-primary p-2 w-max h-max rounded-full cursor-pointer hover:text-white border border-primary hover:bg-primary transition-all duration-150 shadow-md"
+            >
+              <MdOutlineShoppingCart />
+            </button>
+          </Link>
         </div>
       )}
     </div>
