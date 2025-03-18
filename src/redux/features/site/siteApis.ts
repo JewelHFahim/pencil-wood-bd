@@ -1,4 +1,5 @@
 import {
+  NewsFeedApiResponse,
   SliderApiResponse,
   SocialApiResponse,
 } from "../../../types/othersTypes";
@@ -13,6 +14,11 @@ export const siteApis = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     sliderList: builder.query<SliderApiResponse, void>({
       query: () => "/site/home-slider/",
+      providesTags: ["products"],
+    }),
+
+    newFeed: builder.query<NewsFeedApiResponse, void>({
+      query: () => "/site/news-feed/",
       providesTags: ["products"],
     }),
 
@@ -57,5 +63,6 @@ export const {
   useAboutUsQuery,
   useContactInformationQuery,
   useFooterLinksQuery,
+  useNewFeedQuery,
 } = siteApis;
 export default siteApis;

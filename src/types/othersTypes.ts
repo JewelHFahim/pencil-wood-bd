@@ -29,3 +29,19 @@ export interface SocialApiResponse {
   count: number;
   data: Social[];
 }
+
+// News Feed
+
+export interface NewsFeed {
+  icon: string;
+  id: number;
+  is_active: boolean;
+  news: string;
+  url: string;
+}
+
+export interface NewsFeedApiResponse {
+  count: number;
+  data: NewsFeed[];
+  status: boolean;
+}

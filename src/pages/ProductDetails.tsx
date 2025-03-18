@@ -134,7 +134,7 @@ const ProductDetails = () => {
               </CommonBtn>
             )}
 
-            <BuyNow />
+            <BuyNow product={numericId}/>
           </div>
 
           {/* Description */}

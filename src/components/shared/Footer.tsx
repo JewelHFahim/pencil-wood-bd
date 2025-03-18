@@ -11,7 +11,6 @@ const Footer = () => {
   const { data: siteContent } = useSiteContentQuery();
   const { data: footerLinks } = useFooterLinksQuery();
   const { data: socialLinks } = useSocialLinksQuery();
-  console.log(socialLinks);
 
   // const social = [
   //   {
@@ -63,7 +62,7 @@ const Footer = () => {
               >
                 {/* <{item.icon}/> */}
                 {IconComponent ? (
-                  <IconComponent className="text-gray-500 text-3xl hover:text-gray-700" />
+                  <IconComponent className="text-gray-200 text-3xl hover:text-gray-500" />
                 ) : null}
               </Link>
             );
