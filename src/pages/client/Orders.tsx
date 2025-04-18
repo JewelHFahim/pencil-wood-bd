@@ -9,7 +9,7 @@ interface OrdersProps {
 
 const Orders: FC<OrdersProps> = ({ setOrderId, setActive }) => {
   const { data: orders, isLoading } = useOrderListQuery();
-  
+
   console.log(orders);
 
   const handleSelectId = (id: number) => {
@@ -24,7 +24,7 @@ const Orders: FC<OrdersProps> = ({ setOrderId, setActive }) => {
           <Loader />
         </div>
       ) : (
-        <div className="overflow-x-auto flex flex-col justify-between h-full pb-5 md:pb-0">
+        <div className="overflow-x-auto border border-gray-200 flex flex-col justify-between h-full pb-5 md:pb-0">
           <table className="w-full table-auto text-sm text-left border-b-2 border-gray-300">
             <thead className="bg-gray-50 text-gray-600 font-medium">
               <tr>
@@ -51,8 +51,7 @@ const Orders: FC<OrdersProps> = ({ setOrderId, setActive }) => {
                   <td className="px-4 py-4 whitespace-nowrap">
                     {item?.total_cost}
                   </td>
-                  <td className="px-4 py-4 whitespace-nowrap text-orange-500">
-                    {item?.status}
+                  <td className="px-4 py-4 whitespace-nowrap text-orange-500 font-medium">{item?.status}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap">
                     <button
@@ -67,12 +66,6 @@ const Orders: FC<OrdersProps> = ({ setOrderId, setActive }) => {
               ))}
             </tbody>
           </table>
-
-          {/* <PaginationOrders
-            orders={orders}
-            page={page}
-            setPage={setPage}
-          /> */}
         </div>
       )}
     </div>

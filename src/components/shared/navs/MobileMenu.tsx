@@ -16,11 +16,13 @@ interface MobileMenuProps {
 const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
   const navigation = [
     { title: "Home", path: "/" },
-    { title: "About", path: "/about" },
-    { title: "Contact", path: "/contact" },
     { title: "Porducts", path: "/products" },
+    { title: "Offers", path: "" },
+    // { title: "About", path: "/about" },
+    { title: "Contact", path: "/contact" },
   ];
 
   useEffect(() => {
@@ -111,7 +113,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
               </button>
             </div>
 
-            <ul className="mt-6 w-full font-light flex flex-col gap-2 p-4">
+            <ul className="w-full font-normal flex flex-col gap-2 p-4">
               {navigation.map((item, idx: number) => (
                 <li key={idx} className="w-full border-b border-gray-300 py-3">
                   <Link
@@ -127,10 +129,10 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
             </ul>
           </div>
 
-          <div className="w-full flex justify-cente items-center mb-2 px-4">
+          <div className="w-full flex justify-cente items-center mb-5 px-4">
             <button
               onClick={handleLogout}
-              className="text-sm mr-10 font-medium px-5 py-1 flex items-center gap-1 rounded-md border hover:bg-[#98E5DD] hover:text-black"
+              className="text-sm mr-10 font-medium px-5 py-1 flex items-center gap-1 rounded-md border border-gray-600 text-gray-600 hover:text-primary hover:border-primary"
             >
               <BiLogOutCircle className="text-base" /> Logout
             </button>

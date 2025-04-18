@@ -44,17 +44,20 @@ const ProductSorting: FC<ProductSortingProps> = ({ setSort }) => {
       id: 8,
       name: "Date, old to new",
       slug: "created_at",
-    }
+    },
   ];
 
   return (
-    <div className="relative w-full md:w-max justify-end">
-      <select onChange={e=> setSort(e.target.value)} className="w-48 px-1.5 py-2 md:py-1.5 origin-top-right border border-gray-300 focus:outline-primary">
-        <option value="" hidden>
-          Featured
-        </option>
+    <div className="relative w-1/2 md:w-max justify-end">
+      <select
+        onChange={(e) => setSort(e.target.value)}
+        className="w- px-2 h-9 origin-top-right border border-gray-300 focus:outline-primary"
+      >
+        <option className="">☰ Featured</option>
         {features.map((item) => (
-          <option key={item.id} value={item.slug}>{item.name}</option>
+          <option key={item.id} value={item.slug}>
+            {item.name}
+          </option>
         ))}
       </select>
     </div>

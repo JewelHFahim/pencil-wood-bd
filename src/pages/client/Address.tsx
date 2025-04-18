@@ -1,16 +1,22 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Loader from "../../utils/loader/Loader";
 import { useCurrentUserQuery } from "../../redux/features/auth/authApis";
+import Loader from "../../utils/loader/Loader";
+import { GoTrash } from "react-icons/go";
+import { FaRegEdit } from "react-icons/fa";
 
-const AccountInfo = () => {
+const Address = () => {
   const { register } = useForm();
   const [edit, setEdit] = useState(false);
   const { data: currentUser, isLoading } = useCurrentUserQuery();
+  console.log(currentUser?.user_address);
 
   const inputCont =
-    "w-full border-b-2 border-gray-300 flex flex-col md:flex-row md:items-center md:gap-10";
+    "w-full border-b-2 border-gray-300 flex flex-col md:flex-row justify-between md:items-center md:gap -5";
   const inputCss = "md:w-[80%] h-10 md:h-14 focus:outline-none bg-transparent";
+
+
+
 
   return (
     <div className="w-full h-full">
@@ -21,65 +27,58 @@ const AccountInfo = () => {
       ) : (
         <div className="w-full h-full text-sm">
           <h3 className="uppercase text-base font-medium bg-gray-100 px-2 py-3">
-            Account Information
+            Address
           </h3>
 
           {!edit && (
             <div className="mt-10 flex md:block flex-col gap-y-5">
-              <div className={inputCont}>
-                <label className="md:w-[20%] text-gray-400">Full name</label>
-                <input
-                  type="text"
-                  defaultValue={currentUser?.profile?.name}
-                  readOnly
-                  className={inputCss}
-                />
-              </div>
+              {currentUser?.user_address?.map((address, index) => {
+                const addressParts = [
+                  address?.street_01,
+                  address?.street_02,
+                  address?.post_office,
+                  address?.upazila,
+                  address?.district,
+                  address?.country,
+                ].filter(Boolean); // removes null, undefined, empty strings
 
-              <div className={inputCont}>
-                <label className="md:w-[20%] text-gray-400">Phone number</label>
-                <input
-                  type="text"
-                  defaultValue={currentUser?.profile?.phone}
-                  readOnly
-                  className={inputCss}
-                />
-              </div>
+                return (
+                  <div key={address?.id} className={inputCont}>
+                    <div className="md:w-[10%] flex items-center justify-between">
+                      <label className=" text-gray-400">
+                        Address {index + 1}
+                      </label>
 
-              <div className={inputCont}>
-                <label className="md:w-[20%] text-gray-400">
-                  Addrss in details
-                </label>
+                      <div className="md:w-[10%] md:hidden text-gray-400 flex justify-center items-center gap-3 text-lg">
+                        <button className="hover:text-orange-400 cursor-pointer">
+                          <FaRegEdit />
+                        </button>
 
-                <select className={inputCss}>
-                  {currentUser?.user_address?.map((item) => (
-                    <option key={item?.id} value="">
-                      {item?.street_01}, {item?.street_02}, {item?.upazila},
-                      {item?.district},
-                    </option>
-                  ))}
-                </select>
-              </div>
+                        <button className="hover:text-red-500 cursor-pointer">
+                          <GoTrash />
+                        </button>
+                      </div>
+                    </div>
 
-              <div className={inputCont}>
-                <label className="md:w-[20%] text-gray-400">
-                  Email address
-                </label>
-                <input
-                  type="text"
-                  defaultValue={currentUser?.profile?.email}
-                  readOnly
-                  className={inputCss}
-                />
-              </div>
+                    <input
+                      type="text"
+                      defaultValue={addressParts.join(", ")}
+                      readOnly
+                      className={inputCss}
+                    />
 
-              <button
-                onClick={() => setEdit(!edit)}
-                type="button"
-                className="mt-10 h-9 m-w-max px-12 bg-primary hover:bg-orange-600 text-white transition-all duration-150"
-              >
-                Edit
-              </button>
+                    <div className="hidden md:w-[10%] text-gray-400 md:flex justify-center items-center gap-3 text-lg">
+                      <button onClick={()=> setEdit(false)} className="hover:text-orange-400 cursor-pointer">
+                        <FaRegEdit />
+                      </button>
+
+                      <button className="hover:text-red-500 cursor-pointer">
+                        <GoTrash />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
 
@@ -150,4 +149,4 @@ const AccountInfo = () => {
   );
 };
 
-export default AccountInfo;
+export default Address;

@@ -30,9 +30,11 @@ const ResetPassword = () => {
   const inputCss = "md:w-[75%] h-10 md:h-14 focus:outline-none bg-transparent";
 
   return (
-    <div className="w-full h-full p-5">
+    <div className="w-full h-full">
       <div className="w-full h-full text-sm">
-        <h3 className="uppercase font-medium underline">Reset your password</h3>
+        <h3 className="uppercase text-base font-medium bg-gray-100 px-2 py-3">
+          Reset your password
+        </h3>
 
         <form
           onSubmit={handleSubmit(onSubmit)}

@@ -16,7 +16,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { handleAddToCart } = useAddToCart();
 
   return (
-    <div className="ProductCard-Wrapper relative border border-gray-100 shadow text-center rounded-sm pb-2">
+    <div className="ProductCard-Wrapper relative border border-gray-200 shadow-md hover:shadow-lg text-center rounded-sm pb-2 transition-all duration-300 ease-in-out">
       <Link to={`/products/${product?.id}`} className="">
         <div className="w-full relative img-container overflow-hidden max-h-[350px] rounded-t-sm">
           <img
@@ -58,50 +58,6 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           </div>
         </div>
       </Link>
-
-      {/* <div className=" h-17.5 mt-2"></div>
-
-      <div className="mt-2 CartAndBuyBtn h-17.5">
-        {!token ? (
-          <div className="flex flex-col gap-1">
-            <Link to="/account/login">
-              <button
-                type="button"
-                className="w-full h-8 bg-primary font-medium text-xs md:text-sm text-gray-100 uppercase cursor-pointer"
-              >
-                Add To Cart
-              </button>
-            </Link>
-            <Link to="/account/login">
-              <button
-                type="button"
-                className="w-full h-8 border border-primary font-medium text-xs md:text-sm text-primary uppercase cursor-pointer"
-              >
-                Buy Now
-              </button>
-            </Link>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-1">
-            <button
-              type="button"
-              onClick={() =>
-                handleAddToCart({ product: product?.id, quantity: 1 })
-              }
-              className="w-full bg-primary font-medium text-xs md:text-sm text-gray-100 uppercase cursor-pointer"
-            >
-              Add To Cart
-            </button>
-
-            <button
-              type="button"
-              className="w-full h-8 bg-primary font-medium text-xs md:text-sm text-gray-100 uppercase cursor-pointer"
-            >
-              Buy Now
-            </button>
-          </div>
-        )}
-      </div> */}
 
       {!token ? (
         <div className="CartAndBuyBtn absolute top-1/2 bottom-1/2 -translate-y-10 right-0 flex flex-col gap-2">

@@ -21,12 +21,12 @@ const FilterSlider: FC<FilterMenuProps> = ({ isOpenFilter, toggleDrawerFilter, s
   // const { data: categories } = useCategoryQuery();
 
   return (
-    <div className="block md:hidden w-full ">
+    <div className="block md:hidden w-1/2">
       {/*Cart Button */}
 
       <button
         onClick={toggleDrawerFilter}
-        className="w-full p-2 flex justify-cente items-center gap-2 text-sm border border-r-0 border-gray-300"
+        className="w-full px-2 h-9 flex justify-cente items-center gap-2 text-sm border border-r-0 border-gray-300"
       >
         <IoFilter /> <span>Filter By</span>
       </button>

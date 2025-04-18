@@ -4,11 +4,11 @@ import { IoIosArrowDown, IoMdRefresh } from "react-icons/io";
 import { useEffect, useState } from "react";
 import PriceRangeSlider from "../../utils/range-slider/PriceRangeSlider";
 import Pagination from "../../utils/paginations/Pagination";
-import ProductSorting from "./ProductSorting";
 import FilterSlider from "./FilterSlider";
 import { useLazyAllProductsQuery } from "../../redux/features/products/productsApi";
 import { ProductResponse } from "../../types/products_type";
 import MultiSelectCheckbox from "../../utils/MultiSelectCategory";
+import ProductSorting from "./ProductSorting";
 
 const ProductsContainer = () => {
   const [query, setQuery] = useState("");
@@ -19,7 +19,7 @@ const ProductsContainer = () => {
   const [minPrice, setMinPrice] = useState<number>(100);
   const [maxPrice, setMaxPrice] = useState<number>(5000);
   const [sort, setSort] = useState("");
-  console.log(sort)
+
   const [triggerSearch, { data: allProducts, isLoading }] =useLazyAllProductsQuery();
   const toggleDrawerFilter = () => setIsOpenFilter(!isOpenFilter);
 

@@ -31,7 +31,6 @@ const Login = () => {
   }, [location.pathname]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
     try {
       const response = await login(data).unwrap();
       console.log(response);

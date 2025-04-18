@@ -48,6 +48,12 @@ const AcccountNav: FC<AccountNavProps> = ({ active, setActive }) => {
     },
     {
       id: 3,
+      name: "Address",
+      path: "address",
+      icon: <LiaUserSolid />,
+    },
+    {
+      id: 4,
       name: "Reset Password",
       path: "reset",
       icon: <TbCurrentLocation />,
