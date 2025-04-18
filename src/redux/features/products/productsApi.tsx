@@ -14,21 +14,19 @@ export const productsApis = apiSlice.injectEndpoints({
     }),
 
   
-  allProducts: builder.query<
-  ProductsApiResponse,
-  { query?: string; page: number; category?: string; minPrice?: number | null; maxPrice?: number | null; sort: string | null }
->({
-  query: ({ page, query, category, minPrice, maxPrice, sort }) => {
-    const hasFilters = query || category;
+  allProducts: builder.query<ProductsApiResponse, { query?: string; searchQuery?: string, page: number; category?: string; minPrice?: number | null; maxPrice?: number | null; sort: string | null }>({
+  query: ({ page, query, searchQuery, category, minPrice, maxPrice, sort }) => {
+    const hasFilters = query || searchQuery || category;
 
     let url = `/product/product/?`;
 
     if (!hasFilters) {
       url += `page=${page}`;
     }
-    if (query) {
-      url += `&search=${encodeURIComponent(query)}`;
+    if (query || searchQuery) {
+      url += `&search=${encodeURIComponent(query || searchQuery || "")}`;
     }
+  
     if (category) {
       url += `&category=${category}`;
     }

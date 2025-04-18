@@ -7,6 +7,7 @@ import { FaArrowDownShortWide, FaArrowUpWideShort } from "react-icons/fa6";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import { MdOutlineLocationOn } from "react-icons/md";
 
 interface AccountNavProps {
   active: string;
@@ -50,7 +51,8 @@ const AcccountNav: FC<AccountNavProps> = ({ active, setActive }) => {
       id: 3,
       name: "Address",
       path: "address",
-      icon: <LiaUserSolid />,
+      icon: <MdOutlineLocationOn />
+      ,
     },
     {
       id: 4,

@@ -9,8 +9,10 @@ import { useLazyAllProductsQuery } from "../../redux/features/products/productsA
 import { ProductResponse } from "../../types/products_type";
 import MultiSelectCheckbox from "../../utils/MultiSelectCategory";
 import ProductSorting from "./ProductSorting";
+import { useLocation } from "react-router";
 
 const ProductsContainer = () => {
+  const {pathname} = useLocation();
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isOpenPrice, setIsOpenPrice] = useState<boolean>(true);
@@ -20,7 +22,7 @@ const ProductsContainer = () => {
   const [maxPrice, setMaxPrice] = useState<number>(5000);
   const [sort, setSort] = useState("");
 
-  const [triggerSearch, { data: allProducts, isLoading }] =useLazyAllProductsQuery();
+  const [triggerSearch, { data: allProducts, isLoading }] = useLazyAllProductsQuery();
   const toggleDrawerFilter = () => setIsOpenFilter(!isOpenFilter);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -30,24 +32,27 @@ const ProductsContainer = () => {
   };
 
   // Convert selected categories into a comma-separated string
-  const filterCategory =
-    selectedValues.length > 0 ? selectedValues.join(",") : undefined;
+  const filterCategory = selectedValues.length > 0 ? selectedValues.join(",") : undefined;
+  const searchQuery = pathname?.split("/")[2]?.trim()?.replace(/\s+g/, "-");
+  console.log(searchQuery)
 
   useEffect(() => {
     triggerSearch({
       query,
+      searchQuery,
       page,
       category: filterCategory,
       minPrice,
       maxPrice,
       sort
     });
-  }, [query, page, filterCategory, minPrice, maxPrice, sort, triggerSearch]);
+  }, [query, searchQuery, page, filterCategory, minPrice, maxPrice, sort, triggerSearch]);
 
   // Search Products
   const handleSearch = () => {
     triggerSearch({
       query,
+      searchQuery,
       page,
       category: filterCategory,
       minPrice,

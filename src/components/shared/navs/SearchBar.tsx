@@ -1,13 +1,20 @@
-import React, { SetStateAction, useEffect } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { IoCloseOutline } from "react-icons/io5";
+import { useNavigate } from "react-router";
 
 interface SearchBarProps {
-    isOpenSearch: boolean;
-    setIsOpenSearch: React.Dispatch<SetStateAction<boolean>>;
+  isOpenSearch: boolean;
+  setIsOpenSearch: React.Dispatch<SetStateAction<boolean>>;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ isOpenSearch, setIsOpenSearch }) => {
+const SearchBar: React.FC<SearchBarProps> = ({
+  isOpenSearch,
+  setIsOpenSearch,
+}) => {
+  const [search, setSearrch] = useState<string>("");
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (isOpenSearch) {
       document.body.style.overflow = "hidden"; // Disable scrolling
@@ -21,6 +28,24 @@ const SearchBar: React.FC<SearchBarProps> = ({ isOpenSearch, setIsOpenSearch }) 
     };
   }, [isOpenSearch]);
 
+  const handleSearch = () => {
+    const rawQuery = search?.trim().replace(/\s+/g, "-");
+    console.log(rawQuery);
+
+    if (search?.length > 0) {
+      navigate(`/products/${rawQuery}`);
+      setIsOpenSearch(!isOpenSearch);
+    }if(search?.length <= 0){
+      window.alert("write product name for search")
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-[999]">
       <div className="w-full h-[120px] sm:h-[190px] bg-white">
@@ -28,12 +53,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ isOpenSearch, setIsOpenSearch }) 
           <div className="w-[95%] sm:w-[50%] border border-gray-400 relative h-[42px] rounded-sm">
             <input
               type="text"
+              value={search}
+              onChange={(e) => setSearrch(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder="Search"
               className="h-full w-full px-4 placeholder:text-primary text-primary focus:outline-primary"
             />
 
             <button
               type="button"
+              onClick={handleSearch}
               className="absolute top-1/2 -translate-y-1/2 right-4 text-primary text-xl h-full w-max px-2 cursor-pointer"
             >
               <BsSearch />
