@@ -103,11 +103,7 @@ const CartSlider: FC<CartMenuProps> = ({ isOpenCart, toggleDrawerCart }) => {
                   </button>
 
                   <div className="col-span-3 h- ">
-                    <img
-                      src={
-                        getProductInfo(item?.product, "image") ||
-                        "/default-image.jpg"
-                      }
+                    <img src={ getProductInfo(item?.product, "image") || "/default-image.jpg" }
                       alt=""
                       className="w-14 h-14 rounded-md"
                     />

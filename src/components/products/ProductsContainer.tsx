@@ -33,8 +33,9 @@ const ProductsContainer = () => {
 
   // Convert selected categories into a comma-separated string
   const filterCategory = selectedValues.length > 0 ? selectedValues.join(",") : undefined;
-  const searchQuery = pathname?.split("/")[2]?.trim()?.replace(/\s+g/, "-");
-  console.log(searchQuery)
+  const searchQuery = pathname?.split("/")[2]?.trim()?.replace(/\s+g/, "-") || "";
+
+  // console.log(searchQuery)
 
   useEffect(() => {
     triggerSearch({

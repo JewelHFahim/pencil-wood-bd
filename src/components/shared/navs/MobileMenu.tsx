@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { FC, useEffect } from "react";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
+import { navigation } from "../../../utils/menus";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -16,14 +17,6 @@ interface MobileMenuProps {
 const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  const navigation = [
-    { title: "Home", path: "/" },
-    { title: "Porducts", path: "/products" },
-    { title: "Offers", path: "" },
-    // { title: "About", path: "/about" },
-    { title: "Contact", path: "/contact" },
-  ];
 
   useEffect(() => {
     if (isOpen) {
@@ -99,7 +92,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
                     Pencilwood
                   </span>
                   <span className="block mt-px text-black/50 text-xs">
-                  Enjoy shopping with us!
+                    Enjoy shopping with us!
                   </span>
                 </div>
               </div>

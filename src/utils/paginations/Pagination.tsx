@@ -11,7 +11,6 @@ interface PaginationProps{
 const Pagination:FC<PaginationProps> = ({page, setPage, count}) => {
 
   const handlePagination = (value:string) => {
-    console.log(value);
     if (value === "dec" && page > 1) {
       setPage(page - 1);
     }

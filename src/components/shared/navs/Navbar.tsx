@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import MobileMenu from "./MobileMenu";
 import CartSlider from "../../cart/CartSlider";
 import SearchBar from "./SearchBar";
 import { useSiteContentQuery } from "../../../redux/features/site/siteApis";
+import { navigation } from "../../../utils/menus";
+
 const Navbar = () => {
+  const { pathname } = useLocation();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isOpenCart, setIsOpenCart] = useState<boolean>(false);
-  const {data: siteContent } = useSiteContentQuery();
+  const { data: siteContent } = useSiteContentQuery();
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -20,13 +23,9 @@ const Navbar = () => {
     setIsOpenCart(!isOpenCart);
   };
 
-  const navigation = [
-    { title: "Home", path: "/" },
-    { title: "Porducts", path: "/products" },
-    { title: "Offers", path: "" },
-    // { title: "About", path: "/about" },
-    { title: "Contact", path: "/contact" },
-  ];
+  useEffect(() => {
+    setIsOpenSearch(false);
+  }, [pathname]);
 
   return (
     <div className="shadow py-2">
@@ -36,7 +35,14 @@ const Navbar = () => {
             to="/"
             className="text-xl font-bold text-primary w-[120px] md:w-[150px]"
           >
-            <img src={ siteContent?.data?.secondary_logo ? siteContent?.data?.secondary_logo : "/logo dark.png"} alt="Pencilwood" />
+            <img
+              src={
+                siteContent?.data?.secondary_logo
+                  ? siteContent?.data?.secondary_logo
+                  : "/logo dark.png"
+              }
+              alt="Pencilwood"
+            />
           </Link>
           <p className="text-xs font-light text-gray-400 md:tracking-[3px] w-max">
             {siteContent?.data?.site_slogan}
@@ -73,7 +79,6 @@ const Navbar = () => {
               </Link>
             </div>
 
-
             <CartSlider
               isOpenCart={isOpenCart}
               toggleDrawerCart={toggleDrawerCart}
@@ -86,12 +91,14 @@ const Navbar = () => {
         </div>
       </div>
 
-      {isOpenSearch && (
-        <SearchBar
-          isOpenSearch={isOpenSearch}
-          setIsOpenSearch={setIsOpenSearch}
-        />
-      )}
+      {isOpenSearch &&
+        !pathname.startsWith("/products/") &&
+        pathname !== "/products" && (
+          <SearchBar
+            isOpenSearch={isOpenSearch}
+            setIsOpenSearch={setIsOpenSearch}
+          />
+        )}
     </div>
   );
 };

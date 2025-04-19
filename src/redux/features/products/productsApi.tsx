@@ -40,7 +40,7 @@ export const productsApis = apiSlice.injectEndpoints({
       url += `&ordering=${sort}`;
     }
 
-    console.log(url);
+    // console.log(url);
     return url;
   },
   providesTags: ["products"],
