@@ -1,15 +1,17 @@
+import { useSiteContentQuery } from "../../../redux/features/site/siteApis";
+import { navigation } from "../../../utils/menus";
+import { Link, useLocation } from "react-router";
+import CartSlider from "../../cart/CartSlider";
 import { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
-import { Link, useLocation } from "react-router";
 import MobileMenu from "./MobileMenu";
-import CartSlider from "../../cart/CartSlider";
 import SearchBar from "./SearchBar";
-import { useSiteContentQuery } from "../../../redux/features/site/siteApis";
-import { navigation } from "../../../utils/menus";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const { pathname } = useLocation();
+  const token = Cookies.get("pencil");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isOpenCart, setIsOpenCart] = useState<boolean>(false);
@@ -74,9 +76,15 @@ const Navbar = () => {
             </div>
 
             <div className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out">
-              <Link to="/account" className="text-[22px] md:text-xl">
-                <FaRegUser />
-              </Link>
+              { token ?
+                <Link to="/account" className="text-[22px] md:text-xl">
+                  <FaRegUser />
+                </Link>
+                :
+                <Link to="/account/login" className="text-[22px] md:text-xl">
+                  <FaRegUser />
+                </Link>
+              }
             </div>
 
             <CartSlider

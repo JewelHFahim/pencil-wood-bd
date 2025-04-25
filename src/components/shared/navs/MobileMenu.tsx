@@ -8,6 +8,7 @@ import { FC, useEffect } from "react";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import { navigation } from "../../../utils/menus";
+import { useSiteContentQuery } from "../../../redux/features/site/siteApis";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -15,47 +16,15 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
-  const navigate = useNavigate();
+  const { data: siteContent } = useSiteContentQuery();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isOpen) {
       toggleDrawer();
     }
   }, [pathname]);
-
-  //   const filteredNavigation =
-  //   user?.user_info?.type === 1 ? navigation : navigation.filter((item) => item.type !== 1);
-  //   const handleLogout = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `${import.meta.env.VITE_BASE_URL}/admin/logout`,
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             Accept: "application/json",
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-
-  //       const data = await response.json();
-  //       console.log("Logout response data:", data);
-
-  //       if (data.status) {
-  //         toast.success(data.message);
-  //         Cookies.remove("uddokta_token");
-  //         Cookies.remove("user_info");
-  //       } else {
-  //         console.error("Logout failed:", data.message);
-  //         toast.error(data.message);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error during logout:", error);
-  //       toast.error("An error occurred during logout. Please try again.");
-  //     }
-  //   };
 
   const handleLogout = async () => {
     try {
@@ -82,19 +51,17 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, toggleDrawer }) => {
       >
         <div className="w-full bg-white flex flex-col justify-between min-h-screen shadow">
           <div className="w-full">
-            <div className="h-[72px] flex gap-2 items-center px-4 shadow">
-              <div className="w-full flex items-center gap-x-2">
-                <div className="w-10 h-10 rounded-full bg-gray-400 border border-primary">
-                  <img src="/fav.png" alt="logo" />
-                </div>
-                <div>
-                  <span className="block text-primary text-sm font-semibold">
-                    Pencilwood
-                  </span>
-                  <span className="block mt-px text-black/50 text-xs">
-                    Enjoy shopping with us!
-                  </span>
-                </div>
+            <div className="h-[72px] flex justify-between gap-2 items-center px-4 shadow">
+              <div className="h-10">
+                <img
+                  src={
+                    siteContent?.data?.secondary_logo
+                      ? siteContent?.data?.secondary_logo
+                      : "/logo dark.png"
+                  }
+                  alt="Pencilwood"
+                  className="w-full h-full"
+                />
               </div>
 
               <button

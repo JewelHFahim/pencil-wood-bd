@@ -46,7 +46,7 @@ const AccountInfo = () => {
                 />
               </div>
 
-              <div className={inputCont}>
+              {/* <div className={inputCont}>
                 <label className="md:w-[20%] text-gray-400">
                   Addrss in details
                 </label>
@@ -59,7 +59,7 @@ const AccountInfo = () => {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
 
               <div className={inputCont}>
                 <label className="md:w-[20%] text-gray-400">
