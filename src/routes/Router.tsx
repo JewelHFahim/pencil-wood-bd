@@ -18,7 +18,7 @@ const Router = () => {
         <Route index element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:string" element={<Products />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/product-details/:id" element={<ProductDetails />} />
 
         {/* Protected Routes */}
         <Route element={<ProtectedRoutes/>}>

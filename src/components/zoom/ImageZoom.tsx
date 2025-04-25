@@ -27,7 +27,7 @@ const ImageZoom: React.FC<ImageZoomProps> = ({ src, zoomScale }) => {
       onMouseMove={handleMoveMouse}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="imgContainer relative overflow-hidden w-w-[30vw h-[55vh] sm:h-[30vw]"
+      className="imgContainer relative overflow-hidden h-[55vh] sm:h-[30vw]"
     >
       <div className={`mainImg  ${isZoomed ? "zoomed" : ""}`}>
         <img src={src} alt="img" className="w-full h-full object-cover object-center" />

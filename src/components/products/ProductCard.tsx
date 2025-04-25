@@ -17,7 +17,8 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div className="ProductCard-Wrapper relative border border-gray-200 shadow-md hover:shadow-lg text-center rounded-sm pb-2 transition-all duration-300 ease-in-out">
-      <Link to={`/products/${product?.id}`} className="">
+      <Link to={`/product-details/${product?.id}`} className="">
+        {/* Image Section */}
         <div className="w-full relative img-container overflow-hidden max-h-[350px] rounded-t-sm">
           <img
             src={
@@ -39,22 +40,21 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           />
         </div>
 
+        {/* Text Section */}
         <div className="mt-2">
           <h2 className="text-sm md:text-base font-medium">
             {product?.name?.slice(0, 20)}
           </h2>
 
-          <div className="flex justify-between md:flex-start md:justify-center items-center sm:gap-2 md:gap-x-4">
-            <div className="flex flex-col md:flex-row items-center gap-x-4">
-              {product?.current_price && (
-                <p className="md:font-medium line-through text-gray-500 text-sm">
-                  Tk{product?.current_price}
-                </p>
-              )}
-              <p className="md:font-medium text-sm text-primary">
-                Tk{product?.discount_price}
+          <div className="flex flex-col md:flex-row justify-center items-center gap-x-4">
+            {product?.current_price && (
+              <p className="md:font-medium line-through text-gray-500 text-sm">
+                Tk{product?.current_price}
               </p>
-            </div>
+            )}
+            <p className="font-medium text-sm text-primary">
+              Tk{product?.discount_price}
+            </p>
           </div>
         </div>
       </Link>

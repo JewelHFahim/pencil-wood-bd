@@ -1,17 +1,17 @@
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import BuyNow from "../utils/buttons/BuyNow";
-import BackToHome from "../utils/buttons/BackButton";
-import { useEffect, useState } from "react";
-import ImageZoom from "../components/zoom/ImageZoom";
-import { Link, useLocation, useParams } from "react-router";
-import { HiMinus, HiPlus } from "react-icons/hi";
 import DescriptionAndReview from "../components/products/DescriptionAndReview";
-import CommonBtn from "../utils/buttons/CommonBtn";
 import { useProductDetailsQuery } from "../redux/features/products/productsApi";
-import RelatedProducts from "./../components/slider/RelatedProducts";
 import BestSalePeroducts from "../components/slider/BestSaleProducts";
-import Cookies from "js-cookie";
+import RelatedProducts from "./../components/slider/RelatedProducts";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { Link, useLocation, useParams } from "react-router";
+import BackToHome from "../utils/buttons/BackButton";
+import ImageZoom from "../components/zoom/ImageZoom";
+import CommonBtn from "../utils/buttons/CommonBtn";
+import { HiMinus, HiPlus } from "react-icons/hi";
 import SocialLinks from "../utils/SocialLink";
+import BuyNow from "../utils/buttons/BuyNow";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -20,9 +20,7 @@ const ProductDetails = () => {
   const location = useLocation();
   const [current, setCurrent] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
-  const { data: productDetails, isLoading } = useProductDetailsQuery({
-    numericId,
-  });
+  const { data: productDetails, isLoading } = useProductDetailsQuery({ numericId });
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -42,15 +40,10 @@ const ProductDetails = () => {
       <div className="w-full flex flex-col md:flex-row gap-6 md:gap-8">
         {/* Image Section */}
         {isLoading ? (
-          <div>
-            <div className="imgContainer relative overflow-hidden sm:w-[30vw] h-[55vh] sm:h-[30vw] bg-gray-300 animate-pulse" />
-          </div>
+          <div className="w-full md:w-[50%] h-[55vh] bg-gray-300 animate-pulse" />
         ) : (
-          <div className=" md:w-[50%]flex flex-col gap-4 overflow-hidden">
-            <ImageZoom
-              src={productDetails?.product?.product_image[current]?.image}
-              zoomScale={2}
-            />
+          <div className="md:w-[50%] flex flex-col gap-4 overflow-hidden">
+            <ImageZoom src={productDetails?.product?.product_image[current]?.image} zoomScale={2}/>
 
             <div className="flex items-center justify-between overflow-auto">
               <IoIosArrowBack className="md:hidden text-xl" />
@@ -134,7 +127,7 @@ const ProductDetails = () => {
               </CommonBtn>
             )}
 
-            <BuyNow product={numericId}/>
+            <BuyNow product={numericId} />
           </div>
 
           {/* Description */}
@@ -153,14 +146,10 @@ const ProductDetails = () => {
 
       {/* Description and Review Sectioon */}
       <DescriptionAndReview details={productDetails?.product?.details} />
-      {/* Product Suggestions */}
-      {/* <ProductSuggestion /> */}
 
       <RelatedProducts related_products={productDetails?.related_products} />
 
-      <BestSalePeroducts
-        related_products={productDetails?.best_selling_products}
-      />
+      <BestSalePeroducts related_products={productDetails?.best_selling_products} />
 
       {/* Back Home Button */}
       <BackToHome />

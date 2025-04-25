@@ -10,7 +10,7 @@ export default function MainSlider() {
 
   if (isLoading) {
     return (
-      <div className="my-4 h-[150px] md:h-[250px] bg-gray-300 animate-pulse"></div>
+      <div className="my-4 h-[150px] md:h-[300px] bg-gray-300 animate-pulse"></div>
     );
   }
 

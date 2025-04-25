@@ -1,15 +1,10 @@
-import React, { Suspense } from "react";
-const ProductsContainer = React.lazy(() => import("../components/products/ProductsContainer"));
-const MainSlider = React.lazy(() => import("../components/slider/MainSlider"));
-const Loader = React.lazy(() => import("./../utils/loader/Loader"));
+import ProductsContainer from "../components/products/ProductsContainer";
+import MainSlider from "../components/slider/MainSlider";
 
 const Home = () => {
   return (
     <div className="min-h-[70vh]">
-      <Suspense fallback={<div className="w-full"><Loader /></div>}>
-        <MainSlider />
-      </Suspense>
-
+      <MainSlider />
       <ProductsContainer />
     </div>
   );

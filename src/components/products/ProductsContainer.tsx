@@ -148,7 +148,7 @@ const ProductsContainer = () => {
             ))}
           </div>
         ) : (
-          <div className="mt-5 w-full grid grid-cols-3 md:grid-cols-4 justify-between gap-2 md:gap-x-4 gap-y-6">
+          <div className="mt-5 w-full grid grid-cols-3 md:grid-cols-4 justify-between gap-2 md:gap-4 gap-y-4">
             {allProducts?.data?.map((product: ProductResponse) => (
               <ProductCard product={product} key={product?.id} />
             ))}
