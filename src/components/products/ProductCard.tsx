@@ -1,11 +1,11 @@
-import { FC } from "react";
-import "./ProductCard.css";
-import Cookies from "js-cookie";
-import { Link } from "react-router";
 import { ProductResponse } from "../../types/products_type";
-import useAddToCart from "../../hooks/useAddToCart";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import useAddToCart from "../../hooks/useAddToCart";
 import { FaRegHeart } from "react-icons/fa";
+import { Link } from "react-router";
+import Cookies from "js-cookie";
+import "./ProductCard.css";
+import { FC } from "react";
 
 interface ProductCardProps {
   product: ProductResponse;
@@ -41,7 +41,7 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
         </div>
 
         {/* Text Section */}
-        <div className="mt-2">
+        <div className="py-2 px-1">
           <h2 className="text-sm md:text-base font-medium">
             {product?.name?.slice(0, 20)}
           </h2>

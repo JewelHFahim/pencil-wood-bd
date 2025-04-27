@@ -51,7 +51,7 @@ const ProductSorting: FC<ProductSortingProps> = ({ setSort }) => {
     <div className="relative w-1/2 md:w-max justify-end">
       <select
         onChange={(e) => setSort(e.target.value)}
-        className="w- px-2 h-9 origin-top-right border border-gray-300 focus:outline-primary"
+        className="w- px-2 h-9 origin-top-right border border-gray-300 focus:outline-primary w-full"
       >
         <option className="">☰ Featured</option>
         {features.map((item) => (

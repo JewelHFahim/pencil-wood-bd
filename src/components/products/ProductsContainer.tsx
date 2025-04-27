@@ -64,7 +64,6 @@ const ProductsContainer = () => {
 
   return (
     <div className="w-full flex justify-center gap-5">
-
       {/* Left Content- Filters, Price Slider */}
       <div className="hidden md:block w-full md:w-[24%] mt-1">
         <div className="text-gray-700 flex flex-col gap-4">
@@ -106,6 +105,7 @@ const ProductsContainer = () => {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
           />
+
           <button
             disabled={isLoading}
             className="h-full w-[40px] p-1 text-gray-500 cursor-pointer"
