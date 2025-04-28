@@ -32,24 +32,19 @@ const Navbar = () => {
   return (
     <div className="shadow py-2">
       <div className="sm:w-full md:w-[85vw] lg:w-[80vw] xl:w-[70vw] mx-auto flex items-center justify-between px-4 md:px-0">
-        <div className="w-max h-[60px] md:h-[70px] flex flex-col">
-          <Link to="/">
-            <div className="text-xl font-bold text-primary w-[120px ] w-max full md: max-w-[150px] max-h-[50px] flex justify-start h-full overflow-hidden">
-              {isLoading && (
-                <div className="w-13 h-13 bg-gray-200 animate-pulse"></div>
-              )}
-              {siteContent?.data?.secondary_logo && (
-                <img
-                  src={siteContent?.data?.secondary_logo}
-                  alt="Pencilwood"
-                  className="w- full h-full object-cover"
-                />
-              )}
-            </div>
-          </Link>
-          <p className="text-xs font-light text-gray-400 md:tracking-[3px] w-max">
-            {siteContent?.data?.site_slogan}
-          </p>
+        <div className="w-full max-w-[120px] md:max-w-[150px] h-[60px] md:h-[60px] flex items-center justify-start overflow-hidden">
+          {isLoading ? (
+            <div className="w-full h-full bg-gray-200 animate-pulse" />
+          ) : (
+            siteContent?.data?.secondary_logo && (
+              <img
+                src={siteContent.data.secondary_logo}
+                // src="logo dark.png"
+                alt="Pencilwood"
+                className="w- full h-full object-contain"
+              />
+            )
+          )}
         </div>
 
         {/* Menus */}
