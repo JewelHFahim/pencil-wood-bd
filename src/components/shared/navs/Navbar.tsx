@@ -15,7 +15,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isOpenCart, setIsOpenCart] = useState<boolean>(false);
-  const { data: siteContent } = useSiteContentQuery();
+  const { data: siteContent, isLoading } = useSiteContentQuery();
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -33,18 +33,19 @@ const Navbar = () => {
     <div className="shadow py-2">
       <div className="sm:w-full md:w-[85vw] lg:w-[80vw] xl:w-[70vw] mx-auto flex items-center justify-between px-4 md:px-0">
         <div className="w-max h-[60px] md:h-[70px] flex flex-col">
-          <Link
-            to="/"
-            className="text-xl font-bold text-primary w-[120px] md:w-[150px]"
-          >
-            <img
-              src={
-                siteContent?.data?.secondary_logo
-                  ? siteContent?.data?.secondary_logo
-                  : "/logo dark.png"
-              }
-              alt="Pencilwood"
-            />
+          <Link to="/">
+            <div className="text-xl font-bold text-primary w-[120px ] w-max full md: max-w-[150px] max-h-[50px] flex justify-start h-full overflow-hidden">
+              {isLoading && (
+                <div className="w-13 h-13 bg-gray-200 animate-pulse"></div>
+              )}
+              {siteContent?.data?.secondary_logo && (
+                <img
+                  src={siteContent?.data?.secondary_logo}
+                  alt="Pencilwood"
+                  className="w- full h-full object-cover"
+                />
+              )}
+            </div>
           </Link>
           <p className="text-xs font-light text-gray-400 md:tracking-[3px] w-max">
             {siteContent?.data?.site_slogan}
@@ -76,15 +77,15 @@ const Navbar = () => {
             </div>
 
             <div className="md:w-8 md:h-8 flex justify-center items-center rounded-full md:bg-gray-100 hover:text-primary transition-all duration-150 ease-in-out">
-              { token ?
+              {token ? (
                 <Link to="/account" className="text-[22px] md:text-xl">
                   <FaRegUser />
                 </Link>
-                :
+              ) : (
                 <Link to="/account/login" className="text-[22px] md:text-xl">
                   <FaRegUser />
                 </Link>
-              }
+              )}
             </div>
 
             <CartSlider
